@@ -10,7 +10,7 @@
       </div>
 
       <div
-        class="flex flex-col md:flex-row justify-center items-center gap-4 mb-14"
+        class="flex px-2 md:px-0 flex-col md:flex-row justify-center items-center gap-4 mb-14"
       >
         <a
           href="https://maps.app.goo.gl/pG7hwb5oKvWVbDtq8"
@@ -54,9 +54,9 @@
       </div>
 
       <!-- Contact Form -->
-      <div class="max-w-4xl mx-auto rounded-2xl px-8">
+      <div class="max-w-4xl mx-auto rounded-2xl px-2 md:px-8">
         <form @submit.prevent="submitForm">
-          <div class=" ">
+          <div>
             <div class="grid md:grid-cols-2 gap-6">
               <!-- Name -->
               <div>
@@ -97,27 +97,11 @@
               </div>
             </div>
 
-            <!-- Phone -->
-            <!-- <div>
-              <label class="block text-gray-700 font-semibold mb-1">Phone</label>
-              <div class="relative">
-                <i
-                  class="fas fa-phone absolute top-3.5 left-4 text-gray-400"
-                ></i>
-                <input
-                  v-model="form.phone"
-                  type="text"
-                  placeholder="+20 123456789"
-                  class="pl-10 w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-primary outline-none"
-                />
-              </div>
-            </div> -->
-
             <!-- Message -->
             <div>
-              <label class="block text-gray-700 font-semibold mb-1">
-                Message
-              </label>
+              <label class="block text-gray-700 font-semibold mb-1"
+                >Message</label
+              >
               <textarea
                 v-model="form.message"
                 rows="5"
@@ -127,12 +111,16 @@
               ></textarea>
             </div>
           </div>
-
           <button
             type="submit"
-            class="mt-6 w-60 mx-auto bg-primary flex items-center justify-center text-white font-bold py-3 rounded-lg hover:bg-primary transition transform hover:scale-105"
+            :disabled="loading"
+            class="mt-6 w-60 mx-auto bg-primary flex items-center justify-center text-white font-bold py-3 rounded-lg hover:bg-primary transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Send Message
+            <span
+              v-if="loading"
+              class="loader border-2 border-t-2 border-white rounded-full w-5 h-5 animate-spin"
+            ></span>
+            <span v-else>Send Message</span>
           </button>
         </form>
       </div>
@@ -142,23 +130,61 @@
 
 <script setup>
 import { ref } from "vue";
+import Swal from "sweetalert2";
 
+const success = ref(false);
+const error = ref("");
+const loading = ref(false);
 const form = ref({
+  date: new Date().toLocaleDateString("ar-EG", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  }),
   name: "",
   email: "",
-  phone: "",
   message: "",
 });
 
-function submitForm() {
-  alert("Form submitted!");
-  form.value = {
-    name: "",
-    email: "",
-    phone: "",
-    message: "",
-  };
-}
+const submitForm = async () => {
+  loading.value = true;
+  success.value = false;
+  error.value = "";
+  console.log("Form data:", form.value);
+
+  try {
+    const response = await fetch(
+      "https://script.google.com/macros/s/AKfycbzkdD3SXP2KdtahmWxT_W8IPXx5gSKfSstt80iniNjqh-8thablhHYTDunO1ph0Snk/exec",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form.value),
+      }
+    );
+
+    if (!response.ok) {
+      throw new Error("حصل خطأ أثناء الإرسال");
+    }
+
+    success.value = true;
+    form.value = {
+      date: new Date().toLocaleDateString("ar-EG", {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+      }),
+      name: "",
+      email: "",
+      message: "",
+    };
+  } catch (err) {
+    error.value = err.message;
+  } finally {
+    loading.value = false;
+  }
+};
 </script>
 
 <style>
