@@ -9,11 +9,11 @@
         </p>
       </div>
 
-      <!-- Contact Info -->
-      <div class="flex flex-col md:flex-row justify-center items-center gap-4 mb-14">
-        <!-- Location Card -->
+      <div
+        class="flex flex-col md:flex-row justify-center items-center gap-4 mb-14"
+      >
         <a
-          href="https://www.google.com/maps?q=Dubai,+Deira,+Port+Said,+Golden+Business+Centre"
+          href="https://maps.app.goo.gl/pG7hwb5oKvWVbDtq8"
           target="_blank"
           class="flex flex-col items-center text-center p-3 rounded-xl bg-white shadow hover:shadow-lg transition cursor-pointer w-full md:w-[200px] h-[120px] justify-center border-2 border-primary"
         >
@@ -21,7 +21,7 @@
             <i class="fas fa-map-marker-alt"></i>
           </div>
           <p class="text-gray-800 hover:text-primary transition text-sm">
-            Dubai, Golden Centre
+            Dubai, Deira, Port Said, Golden Business Centre, Office 206
           </p>
         </a>
 
@@ -33,7 +33,9 @@
           <div class="text-primary text-lg mb-1">
             <i class="fas fa-phone-alt"></i>
           </div>
-          <p class="text-gray-800 hover:text-primary transition text-sm">0567844965</p>
+          <p class="text-gray-800 hover:text-primary transition text-sm">
+            0567844965
+          </p>
         </a>
 
         <!-- Email Card -->
