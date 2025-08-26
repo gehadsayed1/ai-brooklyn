@@ -1,127 +1,92 @@
 <template>
-  <section class="bg-gray-50 py-20">
+  <section class="bg-gray-50 py-20 font-sans">
     <div class="container mx-auto px-6">
       <!-- Title -->
       <div class="text-center mb-12">
-        <h2 class="text-4xl font-extrabold text-primary mb-4">Get in touch!</h2>
+        <h2 class="text-4xl font-extrabold text-blue-600 mb-4">Get in touch!</h2>
         <p class="text-gray-600 text-lg">
           Contact us for a quote, help or to join the team.
         </p>
       </div>
 
-      <div
-        class="flex px-2 md:px-0 flex-col md:flex-row justify-center items-center gap-4 mb-14"
-      >
-        <a
-          href="https://maps.app.goo.gl/pG7hwb5oKvWVbDtq8"
-          target="_blank"
-          class="flex flex-col items-center text-center p-3 rounded-xl bg-white shadow hover:shadow-lg transition cursor-pointer w-full md:w-[200px] h-[120px] justify-center border-2 border-primary"
-        >
-          <div class="text-primary text-lg mb-1">
+      <!-- Contact Info Cards -->
+      <div class="flex px-2 md:px-0 flex-col md:flex-row justify-center items-center gap-4 mb-14">
+        <!-- Location Card -->
+        <a href="https://maps.app.goo.gl/pG7hwb5oKvWVbDtq8" target="_blank"
+          class="flex flex-col items-center text-center p-4 rounded-xl bg-white shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer w-full md:w-[250px] h-[140px] justify-center border-2 border-transparent hover:border-blue-600">
+          <div class="text-blue-600 text-2xl mb-2">
             <i class="fas fa-map-marker-alt"></i>
           </div>
-          <p class="text-gray-800 hover:text-primary transition text-sm">
+          <p class="text-gray-800 text-sm font-medium">
             Dubai, Deira, Port Said, Golden Business Centre, Office 206
           </p>
         </a>
 
         <!-- Phone Card -->
-        <a
-          href="tel:0567844965"
-          class="flex flex-col items-center text-center p-3 rounded-xl bg-white shadow hover:shadow-lg transition cursor-pointer w-full md:w-[200px] h-[120px] justify-center border-2 border-primary"
-        >
-          <div class="text-primary text-lg mb-1">
+        <a href="tel:0567844965"
+          class="flex flex-col items-center text-center p-4 rounded-xl bg-white shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer w-full md:w-[250px] h-[140px] justify-center border-2 border-transparent hover:border-blue-600">
+          <div class="text-blue-600 text-2xl mb-2">
             <i class="fas fa-phone-alt"></i>
           </div>
-          <p class="text-gray-800 hover:text-primary transition text-sm">
+          <p class="text-gray-800 text-sm font-medium">
             0567844965
           </p>
         </a>
 
         <!-- Email Card -->
-        <a
-          :href="`https://mail.google.com/mail/?view=cm&fs=1&to=sherifbrooklyn@gmail.com&su=Contact Request`"
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sherifbrooklyn@gmail.com&su=Contact%20Request"
           target="_blank"
-          class="flex flex-col items-center text-center p-3 rounded-xl bg-white shadow hover:shadow-lg transition cursor-pointer w-full md:w-[200px] h-[120px] justify-center border-2 border-primary"
-        >
-          <div class="text-primary text-lg mb-1">
+          class="flex flex-col items-center text-center p-4 rounded-xl bg-white shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer w-full md:w-[250px] h-[140px] justify-center border-2 border-transparent hover:border-blue-600">
+          <div class="text-blue-600 text-2xl mb-2">
             <i class="fas fa-envelope"></i>
           </div>
-          <p class="text-gray-800 hover:text-primary transition text-sm">
+          <p class="text-gray-800 text-sm font-medium">
             sherifbrooklyn@gmail.com
           </p>
         </a>
       </div>
 
       <!-- Contact Form -->
-      <div class="max-w-4xl mx-auto rounded-2xl px-2 md:px-8">
+      <div class="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-lg">
         <form @submit.prevent="submitForm">
-          <div>
-            <div class="grid md:grid-cols-2 gap-6">
-              <!-- Name -->
-              <div>
-                <label class="block text-gray-700 font-semibold mb-1"
-                  >Your Name</label
-                >
-                <div class="relative">
-                  <i
-                    class="fas fa-user absolute top-4 left-4 text-gray-400"
-                  ></i>
-                  <input
-                    v-model="form.name"
-                    type="text"
-                    required
-                    placeholder="Your Name"
-                    class="pl-10 w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-primary outline-none"
-                  />
-                </div>
-              </div>
-
-              <!-- Email -->
-              <div>
-                <label class="block text-gray-700 font-semibold mb-1"
-                  >Mail</label
-                >
-                <div class="relative">
-                  <i
-                    class="fas fa-envelope absolute top-4.5 left-4 text-gray-400"
-                  ></i>
-                  <input
-                    v-model="form.email"
-                    type="email"
-                    required
-                    placeholder="your@email.com"
-                    class="pl-10 w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-primary outline-none"
-                  />
-                </div>
+          <div class="grid md:grid-cols-2 gap-6 mb-6">
+            <!-- Name -->
+            <div>
+              <label class="block text-gray-700 font-semibold mb-2" for="name">Your Name</label>
+              <div class="relative">
+                <i class="fas fa-user absolute top-3.5 left-4 text-gray-400"></i>
+                <input id="name" v-model="form.name" type="text" required placeholder="John Doe"
+                  class="pl-11 w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-shadow" />
               </div>
             </div>
 
-            <!-- Message -->
+            <!-- Email -->
             <div>
-              <label class="block text-gray-700 font-semibold mb-1"
-                >Message</label
-              >
-              <textarea
-                v-model="form.message"
-                rows="5"
-                required
-                placeholder="Write your message here..."
-                class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-primary outline-none"
-              ></textarea>
+              <label class="block text-gray-700 font-semibold mb-2" for="email">Your Email</label>
+              <div class="relative">
+                <i class="fas fa-envelope absolute top-3.5 left-4 text-gray-400"></i>
+                <input id="email" v-model="form.email" type="email" required placeholder="you@example.com"
+                  class="pl-11 w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-shadow" />
+              </div>
             </div>
           </div>
-          <button
-            type="submit"
-            :disabled="loading"
-            class="mt-6 w-60 mx-auto bg-primary flex items-center justify-center text-white font-bold py-3 rounded-lg hover:bg-primary transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            <span
-              v-if="loading"
-              class="loader border-2 border-t-2 border-white rounded-full w-5 h-5 animate-spin"
-            ></span>
-            <span v-else>Send Message</span>
-          </button>
+
+          <!-- Message -->
+          <div class="mb-6">
+            <label class="block text-gray-700 font-semibold mb-2" for="message">Message</label>
+            <textarea id="message" v-model="form.message" rows="5" required placeholder="Write your message here..."
+              class="w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-shadow"></textarea>
+          </div>
+
+          <!-- Submit Button -->
+          <div class="text-center">
+            <button type="submit" :disabled="loading"
+              class="w-full md:w-60 bg-blue-600 flex items-center justify-center text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100">
+              <span v-if="loading"
+                class="loader border-4 border-t-4 border-white border-t-transparent rounded-full w-6 h-6 animate-spin"></span>
+              <span v-else>Send Message</span>
+            </button>
+          </div>
         </form>
       </div>
     </div>
@@ -132,61 +97,83 @@
 import { ref } from "vue";
 import Swal from "sweetalert2";
 
-const success = ref(false);
-const error = ref("");
+// Reactive state for the form and loading status
 const loading = ref(false);
 const form = ref({
-  date: new Date().toLocaleDateString("ar-EG", {
-    year: "numeric",
-    month: "long",
-    day: "numeric",
-  }),
   name: "",
   email: "",
   message: "",
 });
 
+// Function to clear the form fields
+const resetForm = () => {
+  form.value.name = "";
+  form.value.email = "";
+  form.value.message = "";
+};
+
+// Async function to handle the form submission
 const submitForm = async () => {
   loading.value = true;
-  success.value = false;
-  error.value = "";
-  console.log("Form data:", form.value);
+
+  // The URL of your deployed Google Apps Script web app
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwIsqaV1wnpr78qm9N-B4Ev_fROWiCepqd5j5RPnBDh4cQ2pMajr3D8L0PqX4h7A_-_/exec";
 
   try {
-    const response = await fetch(
-      "https://script.google.com/macros/s/AKfycbzkdD3SXP2KdtahmWxT_W8IPXx5gSKfSstt80iniNjqh-8thablhHYTDunO1ph0Snk/exec",
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(form.value),
-      }
-    );
+    const response = await fetch(scriptURL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      // The script will generate the timestamp, so we only send form data
+      body: JSON.stringify(form.value),
+    });
 
     if (!response.ok) {
-      throw new Error("حصل خطأ أثناء الإرسال");
+      // This will catch HTTP errors like 404 or 500
+      throw new Error(`Network response was not ok: ${response.statusText}`);
     }
 
-    success.value = true;
-    form.value = {
-      date: new Date().toLocaleDateString("ar-EG", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      }),
-      name: "",
-      email: "",
-      message: "",
-    };
+    const result = await response.json();
+
+    if (result.status === "success") {
+      // Show a success pop-up to the user
+      Swal.fire({
+        title: "Success!",
+        text: "Your message has been sent successfully.",
+        icon: "success",
+        confirmButtonColor: "#3085d6",
+        confirmButtonText: "Great!",
+      });
+      // Reset the form after successful submission
+      resetForm();
+    } else {
+      // If the script returns an error status, show it to the user
+      throw new Error(result.message || "An unknown error occurred on the server.");
+    }
   } catch (err) {
-    error.value = err.message;
+    // Show an error pop-up if anything goes wrong
+    console.error("Submission Error:", err);
+    Swal.fire({
+      title: "Error!",
+      text: `Failed to send message. Please try again. (${err.message})`,
+      icon: "error",
+      confirmButtonColor: "#d33",
+      confirmButtonText: "Try Again",
+    });
   } finally {
+    // Stop the loading indicator regardless of the outcome
     loading.value = false;
   }
 };
 </script>
 
 <style>
+/* Make sure you have Font Awesome and a font like Inter/sans-serif included in your project */
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
+
+/* Custom loader style */
+.loader {
+  border-top-color: transparent;
+}
 </style>
