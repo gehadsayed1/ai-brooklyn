@@ -29,7 +29,7 @@
             <i class="fas fa-phone-alt"></i>
           </div>
           <p class="text-gray-800 text-sm font-medium">
-            0567844965
+            +971 567844965
           </p>
         </a>
 
