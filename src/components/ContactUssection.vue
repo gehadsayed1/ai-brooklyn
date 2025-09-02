@@ -1,9 +1,9 @@
 <template>
-  <section class="bg-gray-50 py-20 font-sans">
+  <section class="bg-gray-50 py-7 font-sans">
     <div class="container mx-auto px-6">
       <!-- Title -->
       <div class="text-center mb-12">
-        <h2 class="text-4xl font-extrabold text-blue-600 mb-4">Get in touch!</h2>
+        <h2 class="text-4xl font-extrabold text-primary mb-4">Get in touch!</h2>
         <p class="text-gray-600 text-lg">
           Contact us for a quote, help or to join the team.
         </p>
@@ -13,8 +13,8 @@
       <div class="flex px-2 md:px-0 flex-col md:flex-row justify-center items-center gap-4 mb-14">
         <!-- Location Card -->
         <a href="https://maps.app.goo.gl/pG7hwb5oKvWVbDtq8" target="_blank"
-          class="flex flex-col items-center text-center p-4 rounded-xl bg-white shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer w-full md:w-[250px] h-[140px] justify-center border-2 border-transparent hover:border-blue-600">
-          <div class="text-blue-600 text-2xl mb-2">
+          class="flex flex-col items-center text-center p-4 rounded-xl bg-white shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer w-full md:w-[250px] h-[140px] justify-center border-2 border-transparent hover:border-primary">
+          <div class="text-primary text-2xl mb-2">
             <i class="fas fa-map-marker-alt"></i>
           </div>
           <p class="text-gray-800 text-sm font-medium">
@@ -24,8 +24,8 @@
 
         <!-- Phone Card -->
         <a href="tel:0567844965"
-          class="flex flex-col items-center text-center p-4 rounded-xl bg-white shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer w-full md:w-[250px] h-[140px] justify-center border-2 border-transparent hover:border-blue-600">
-          <div class="text-blue-600 text-2xl mb-2">
+          class="flex flex-col items-center text-center p-4 rounded-xl bg-white shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer w-full md:w-[250px] h-[140px] justify-center border-2 border-transparent hover:border-primary">
+          <div class="text-primary text-2xl mb-2">
             <i class="fas fa-phone-alt"></i>
           </div>
           <p class="text-gray-800 text-sm font-medium">
@@ -34,14 +34,14 @@
         </a>
 
         <!-- Email Card -->
-        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=sherifbrooklyn@gmail.com&su=Contact%20Request"
+        <a href="https://mail.google.com/mail/?view=cm&fs=1&to=ai@brooklynacademy.net&su=Contact%20Request"
           target="_blank"
-          class="flex flex-col items-center text-center p-4 rounded-xl bg-white shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer w-full md:w-[250px] h-[140px] justify-center border-2 border-transparent hover:border-blue-600">
-          <div class="text-blue-600 text-2xl mb-2">
+          class="flex flex-col items-center text-center p-4 rounded-xl bg-white shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer w-full md:w-[250px] h-[140px] justify-center border-2 border-transparent hover:border-primary">
+          <div class="text-primary text-2xl mb-2">
             <i class="fas fa-envelope"></i>
           </div>
           <p class="text-gray-800 text-sm font-medium">
-            sherifbrooklyn@gmail.com
+            ai@brooklynacademy.net
           </p>
         </a>
       </div>
@@ -55,7 +55,7 @@
               <label class="block text-gray-700 font-semibold mb-2" for="name">Your Name</label>
               <div class="relative">
                 <i class="fas fa-user absolute top-3.5 left-4 text-gray-400"></i>
-                <input id="name" v-model="form.name" type="text" required placeholder="John Doe"
+                <input id="name" v-model="form.name" type="text" required placeholder="Your name"
                   class="pl-11 w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-shadow" />
               </div>
             </div>
@@ -79,9 +79,9 @@
           </div>
 
           <!-- Submit Button -->
-          <div class="text-center">
+          <div class="text-center flex items-center justify-center ">
             <button type="submit" :disabled="loading"
-              class="w-full md:w-60 bg-blue-600 flex items-center justify-center text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100">
+              class="w-full md:w-60 bg-primary flex items-center justify-center text-white font-bold py-3 px-6 rounded-lg hover:bg-blue-700 transition transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:scale-100">
               <span v-if="loading"
                 class="loader border-4 border-t-4 border-white border-t-transparent rounded-full w-6 h-6 animate-spin"></span>
               <span v-else>Send Message</span>
