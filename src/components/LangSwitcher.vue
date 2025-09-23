@@ -9,7 +9,7 @@
         'px-3 py-1 rounded text-sm font-semibold border transition duration-200',
         locale === lng.code
           ? 'bg-primary text-white border-primary'
-          : 'bg-white text-gray-800 border-gray-300 hover:bg-gray-100'
+          : 'bg-white text-primary border-gray-300 hover:bg-gray-100'
       ]"
     >
       {{ lng.label }}
@@ -47,11 +47,3 @@ watch(locale, (newLang) => {
 })
 </script>
 
-<style scoped>
-.bg-primary {
-  background-color: #1e3a8a;
-}
-.border-primary {
-  border-color: #1e3a8a;
-}
-</style>

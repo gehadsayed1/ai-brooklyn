@@ -45,8 +45,11 @@
     
     </ul>
 
-    <!-- Language Switch -->
+   <div class="flex items-center gap-5">
+     <!-- Language Switch -->
     <LangSwitcher class="ml-4" />
+    <LogIn  class="text-2xl text-primary hover:text-primary cursor-pointer"  @click="router.push({ name: 'BusinessInstructor'})"/>
+   </div>
   </nav>
 </template>
 
@@ -55,6 +58,7 @@ import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import LangSwitcher from './LangSwitcher.vue'
 import { useI18n } from 'vue-i18n'
+import { LogIn } from 'lucide-vue-next'
 
 const { t } = useI18n()
 const router = useRouter()
