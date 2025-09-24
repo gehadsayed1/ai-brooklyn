@@ -1,7 +1,7 @@
 <template>
   <div class="w-full min-h-screen bg-gray-100 flex flex-col">
     <!-- Header -->
-    <div class="bg-[#002d62] text-red-500 py-5 px-6">
+    <div class="bg-[#002d62] text-white py-5 px-6">
       <h1 class="text-lg md:text-2xl font-bold">
         Brooklyn Business School Business Instructor by AI
       </h1>
