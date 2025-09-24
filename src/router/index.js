@@ -17,7 +17,8 @@ const routes = [
     path: '/business-instructor',
     name: 'BusinessInstructor',
     component: () => import('../views/BusinessInstructor.vue')
-  }
+  },
+ 
 
 ]
 

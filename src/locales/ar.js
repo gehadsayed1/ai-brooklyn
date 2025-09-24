@@ -5,6 +5,7 @@ export default {
       solutions: "الحلول",
       about: "من نحن",
       contact: "تواصل معنا",
+      login: "تسجيل الدخول",
     },
     hero: {
       title: "تمكين المستقبل بالذكاء الاصطناعي",

@@ -4,6 +4,7 @@ export default {
       solutions: "Solutions",
       about: "About Us",
       contact: "Contact Us",
+      login: "Login",
     },
     hero: {
       title: "Empowering Tomorrow with AI",
