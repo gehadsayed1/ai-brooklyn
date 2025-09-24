@@ -9,7 +9,7 @@
 
    
     <div class="flex-grow gap-6 flex flex-col   text-center py-8">
-      <h2 class="text-xl md:text-5xl font-bold text-[#002d62] mb-4">
+      <h2 class="text-xl md:text-4xl font-bold text-[#002d62] mb-4">
         Welcome to the Future of Business Education
       </h2>
       <p class="text-sm md:text-xl text-gray-700">
