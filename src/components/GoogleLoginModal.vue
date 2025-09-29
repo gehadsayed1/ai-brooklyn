@@ -1,8 +1,8 @@
 <template>
   <transition name="fade">
-    <div v-if="isOpen" class="popup bg-white rounded-xl shadow-lg p-6 w-96 relative">
-      <button @click="$emit('close')" class="close-btn absolute top-3 right-3 text-gray-600 hover:text-red-600">
-        <X class="w-6 h-6" />
+    <div v-if="isOpen" class="popup bg-white rounded-xl shadow-lg p-10 w-96 relative">
+      <button @click="$emit('close')" class="close-btn absolute p-1 bg-red-300 -top-3 -right-2 text-gray-600 hover:text-red-600">
+        <X class="w-5 h-5" />
       </button>
       
       <img src="../assets/logo1.png" alt="Logo" class="w-56 mx-auto mb-4" />
@@ -60,5 +60,7 @@ const loginWithGoogle = () => {
 }
 .close-btn {
   cursor: pointer;
+  border-radius: 50%;
+
 }
 </style>

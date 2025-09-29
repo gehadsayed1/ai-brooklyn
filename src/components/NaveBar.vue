@@ -1,6 +1,6 @@
 <template>
   <nav
-    class="sticky top-0 z-50 bg-[#EFF6FF] flex px-2 md:px-10 border-b border-blue-200 md:shadow-lg shadow-2xl items-center justify-between"
+    class="sticky top-0 z-50 bg-white flex px-2 md:px-10 border-b border-blue-200 md:shadow-lg shadow-2xl items-center justify-between"
   >
     <!-- Logo -->
     <div class="text-lg font-bold cursor-pointer">
@@ -32,7 +32,7 @@
     <ul
       :class="[
         'md:flex md:space-x-2 md:static absolute top-full left-0 w-full md:w-auto text-primary md:bg-transparent transition-all duration-300 ease-in-out',
-        isMenuOpen ? 'block bg-[#EFF6FF]' : 'hidden',
+        isMenuOpen ? 'block bg-white' : 'hidden',
       ]"
     >
       <li>
@@ -76,7 +76,7 @@
       <!-- Login Icon -->
       <button
         @click="isModalOpen = true"
-        class="focus:outline-none bg-primary flex items-center gap-1 text-white font-semibold py-1 px-4 rounded hover:bg-blue-400 cursor-pointer transition transform hover:scale-105"
+        class="focus:outline-none bg-primary flex items-center gap-1 text-white font-semibold py-1 px-4 rounded hover:bg-blue-900 cursor-pointer transition transform hover:scale-105"
       >
         <span>{{ t("nav.login") }}</span>
         <LogIn size="18" />

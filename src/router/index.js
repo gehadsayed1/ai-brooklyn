@@ -21,6 +21,12 @@ const routes = [
       user: route.query.user ? JSON.parse(route.query.user) : null,
     }),
   },
+    {
+    path: "/models",
+    name: "models",
+    component: () => import("../views/Models.vue"),
+  },
+
 ];
 
 const router = createRouter({
