@@ -33,34 +33,14 @@
         >
           <button
             @click="logout"
-            class="flex items-center gap-2 w-full text-left px-4 py-2 hover:bg-gray-200 disabled:opacity-50"
+            class="flex items-center j gap-2 w-full text-left px-4 py-2 hover:bg-gray-200 disabled:opacity-50"
             :disabled="loading"
           >
-            <!-- النص -->
-            <span>Logout</span>
+            
+            <span class="text-red-500 font-bold ho ">Logout</span>
 
-            <!-- الاسبينر -->
-            <svg
-              v-if="loading"
-              class="animate-spin h-4 w-4 text-gray-600"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-            >
-              <circle
-                class="opacity-25"
-                cx="12"
-                cy="12"
-                r="10"
-                stroke="currentColor"
-                stroke-width="4"
-              ></circle>
-              <path
-                class="opacity-75"
-                fill="currentColor"
-                d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-              ></path>
-            </svg>
+          
+            <div v-if="loading" class="animate-spin rounded-full h-6 w-6 border-t-3 border-blue-600 border-solid"></div>
           </button>
         </div>
       </div>
