@@ -5,7 +5,7 @@
     <!-- Logo -->
     <div class="text-lg font-bold cursor-pointer">
       <img
-        class="w-10"
+        class="w-35"
         @click="router.push('/')"
         src="../assets/logo1.png"
         alt="Logo"
