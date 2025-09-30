@@ -4,7 +4,8 @@ import { useRouter } from "vue-router";
 import LangSwitcher from "./LangSwitcher.vue";
 import { useI18n } from "vue-i18n";
 import { LogIn, LogOut } from "lucide-vue-next";
-import { useLoginWithGoogleStore } from "../stores/loginWithGoogle";
+import { useLoginWithGoogleStore } from "../stores/LoginWithGoogle";
+;
 
 const { t } = useI18n();
 const router = useRouter();
