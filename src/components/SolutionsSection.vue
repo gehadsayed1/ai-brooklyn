@@ -15,7 +15,7 @@
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
         <!-- Veo 3 -->
         <div data-aos="fade-up" class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
-          <img src="../assets/veo.png" alt="Veo 3 Video AI" class="w-full h-40 m-auto object-cover mb-4" />
+          <img src="../assets/chatbot.png" alt="Veo 3 Video AI" class="w-full h-60  rounded-2xl m-auto object-cover mb-4" />
           <h3 class="text-xl font-semibold text-gray-800 mb-2">
             {{ $t('business_ai.services.veo.title') }}
           </h3>
@@ -32,7 +32,7 @@
 
         <!-- 1Task -->
         <div data-aos="fade-up" class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
-          <img src="../assets/ai1.png" alt="Workspace AI" class="w-full h-40 m-auto object-cover mb-4" />
+          <img src="../assets/ai1.png" alt="Workspace AI" class="w-full h-60  rounded-2xl m-auto object-cover mb-4" />
           <h3 class="text-xl font-semibold text-gray-800 mb-2">
             {{ $t('business_ai.services.task.title') }}
           </h3>
@@ -49,7 +49,7 @@
 
         <!-- AI Agent -->
         <div data-aos="fade-up" class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition">
-          <img src="../assets/aiagent.png" alt="AI Agent" class="w-full h-40 m-auto object-cover mb-4" />
+          <img src="../assets/aiagent.png" alt="AI Agent" class="w-full h-60  rounded-2xl m-auto object-cover mb-4" />
           <h3 class="text-xl font-semibold text-gray-800 mb-2">
             {{ $t('business_ai.services.agent.title') }}
           </h3>

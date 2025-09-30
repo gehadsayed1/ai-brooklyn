@@ -144,7 +144,7 @@ export default {
         ],
       },
       "video-ai": {
-        title: "Veo 3 – ذكاء الفيديو",
+        title: "Ai Chatbot",
         description: "أنشئ فيديوهات سينمائية من نصوص بسيطة باستخدام Veo.",
         details: "",
         features: [

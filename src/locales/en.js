@@ -39,7 +39,7 @@ export default {
       subtitle: "Empowering businesses through intelligent, data-driven technologies.",
       services: {
         veo: {
-          title: "Veo 3 – Video AI",
+          title: "Ai Chatbot",
           desc: "Create cinematic quality videos from simple text prompts using cutting-edge AI from Veo.",
         },
         task: {
@@ -143,7 +143,7 @@ export default {
         ],
       },
       "video-ai": {
-        title: "Veo 3 – Video AI",
+        title: "Ai Chatbot",
         description: "Create cinematic quality videos from simple text prompts using cutting-edge AI from Veo.",
         details: "",
         features: [
