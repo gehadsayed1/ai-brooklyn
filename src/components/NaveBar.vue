@@ -9,7 +9,7 @@ import { useLoginWithGoogleStore } from "../stores/loginWithGoogle";
 const { t } = useI18n();
 const router = useRouter();
 const isMenuOpen = ref(false);
-const currentSection = ref(window.location.hash || "#home");
+const currentSection = ref("#home");
 
 const loginStore = useLoginWithGoogleStore();
 const isLoggingOut = ref(false);
@@ -18,9 +18,12 @@ const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
 };
 
-const setActive = (hash) => {
-  currentSection.value = hash;
-  window.location.hash = hash;
+const scrollTo = (id) => {
+  const el = document.getElementById(id);
+  if (el) {
+    el.scrollIntoView({ behavior: "smooth" });
+    currentSection.value = `#${id}`;
+  }
 };
 
 const handleLogout = async () => {
@@ -89,57 +92,48 @@ onMounted(() => {
       ]"
     >
       <li>
-        <a
-          href="#home"
-          @click.prevent="setActive('#home')"
+        <button
+          @click="scrollTo('home')"
           :class="[
             'nav-link block md:inline-block p-3 hover:text-primary',
             currentSection === '#home' ? 'active text-primary font-bold' : '',
           ]"
         >
-          {{ t("nav.home") }}
-        </a>
+          {{ t('nav.home') }}
+        </button>
       </li>
       <li>
-        <a
-          href="#about"
-          @click.prevent="setActive('#about')"
+        <button
+          @click="scrollTo('about')"
           :class="[
             'nav-link block md:inline-block p-3 hover:text-primary',
             currentSection === '#about' ? 'active text-primary font-bold' : '',
           ]"
         >
-          {{ t("nav.about") }}
-        </a>
+          {{ t('nav.about') }}
+        </button>
       </li>
       <li>
-        <a
-          href="#solutions"
-          @click.prevent="setActive('#solutions')"
+        <button
+          @click="scrollTo('solutions')"
           :class="[
             'nav-link block md:inline-block p-3 hover:text-primary',
-            currentSection === '#solutions'
-              ? 'active text-primary font-bold'
-              : '',
+            currentSection === '#solutions' ? 'active text-primary font-bold' : '',
           ]"
         >
-          {{ t("nav.solutions") }}
-        </a>
+          {{ t('nav.solutions') }}
+        </button>
       </li>
-
       <li>
-        <a
-          href="#contact"
-          @click.prevent="setActive('#contact')"
+        <button
+          @click="scrollTo('contact')"
           :class="[
             'nav-link block md:inline-block p-3 hover:text-primary',
-            currentSection === '#contact'
-              ? 'active text-primary font-bold'
-              : '',
+            currentSection === '#contact' ? 'active text-primary font-bold' : '',
           ]"
         >
-          {{ t("nav.contact") }}
-        </a>
+          {{ t('nav.contact') }}
+        </button>
       </li>
     </ul>
 
@@ -152,7 +146,7 @@ onMounted(() => {
         @click="loginStore.loginWithGoogle"
         class="focus:outline-none bg-primary flex items-center gap-1 text-white font-semibold py-1 px-4 rounded hover:bg-blue-900 cursor-pointer transition transform hover:scale-105"
       >
-        <span>{{ t("nav.login") }}</span>
+        <span>{{ t('nav.login') }}</span>
         <LogIn size="18" />
       </button>
 
@@ -195,7 +189,7 @@ onMounted(() => {
               class="w-4 h-4 border-2 border-red-500 border-t-transparent rounded-full animate-spin"
             ></div>
 
-            <!-- أيقونة اللوج آوت العادية -->
+          
             <LogOut v-else class="w-4 h-4" />
           </button>
         </div>
