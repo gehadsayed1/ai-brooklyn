@@ -44,7 +44,7 @@
           class="mt-6 w-full bg-primary text-white cursor-pointer py-3 rounded-lg font-medium hover:bg-primary/90 transition"
           @click="goToModule(module.route)"
         >
-          Open
+          Use Module
         </button>
       </div>
     </section>

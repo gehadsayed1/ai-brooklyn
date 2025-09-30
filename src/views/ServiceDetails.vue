@@ -12,7 +12,7 @@
             {{ t(`services.${serviceKey}.title`) }}
           </h1>
           <p class="text-lg text-gray-600 leading-relaxed">
-            {{ t(`services.${serviceKey}.description`) }}
+            <!-- {{ t(`services.${serviceKey}.description`) }} -->
           </p>
         </div>
 

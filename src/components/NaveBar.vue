@@ -1,14 +1,17 @@
 <script setup>
-import { ref, onMounted } from "vue";
-import { useRouter } from "vue-router";
+import { ref, onMounted, computed } from "vue";
+import { useRouter, useRoute } from "vue-router";
 import LangSwitcher from "./LangSwitcher.vue";
 import { useI18n } from "vue-i18n";
 import { LogIn, LogOut } from "lucide-vue-next";
 import { useLoginWithGoogleStore } from "../stores/LoginWithGoogle";
-;
+import GoogleLoginModal from "./GoogleLoginModal.vue";
 
 const { t } = useI18n();
 const router = useRouter();
+const route = useRoute(); 
+const isLoginPopupOpen = ref(false);
+
 const isMenuOpen = ref(false);
 const currentSection = ref("#home");
 
@@ -36,7 +39,18 @@ const handleLogout = async () => {
   }
 };
 
-// Scroll highlight
+const isHomePage = computed(() => {
+  // الشرط الأول: لو في الهوم
+  if (route.path === "/") return true;
+
+  // الشرط الثاني: لو في service-details مع query معين
+  if (route.path === "/service-details" ) {
+    return true;
+  }
+
+  return false;
+});
+
 onMounted(() => {
   const sections = document.querySelectorAll("section[id]");
 
@@ -57,7 +71,7 @@ onMounted(() => {
 
 <template>
   <nav
-    class="sticky top-0 z-50 bg-white flex px-2 md:px-10 border-b border-blue-200 md:shadow-lg shadow-2xl items-center justify-between"
+    class="sticky top-0 z-50 bg-white flex px-2 py-2 md:px-10 border-b border-blue-200 md:shadow-lg shadow-2xl items-center justify-between"
   >
     <!-- Logo -->
     <div class="text-lg font-bold cursor-pointer">
@@ -71,11 +85,7 @@ onMounted(() => {
 
     <!-- Burger Icon -->
     <div class="md:hidden text-gray-400 cursor-pointer" @click="toggleMenu">
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="w-6 h-6"
-        viewBox="0 0 24 24"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24">
         <path
           d="M4 6h16M4 12h16M4 18h16"
           stroke="currentColor"
@@ -87,7 +97,8 @@ onMounted(() => {
 
     <!-- Menu Items -->
     <ul
-      :class="[
+      v-if="isHomePage"
+      :class="[ 
         'md:flex md:space-x-2 md:static absolute top-full left-0 w-full md:w-auto text-primary md:bg-transparent transition-all duration-300 ease-in-out',
         isMenuOpen ? 'block bg-white' : 'hidden',
       ]"
@@ -140,11 +151,14 @@ onMounted(() => {
 
     <!-- Right side -->
     <div class="flex items-center gap-5 relative">
-      <LangSwitcher class="ml-4" />
+      
+      <div v-if="isHomePage">
+        <LangSwitcher class="ml-4" />
+      </div>
 
-      <button
+     <button
         v-if="!loginStore.user"
-        @click="loginStore.loginWithGoogle"
+        @click="isLoginPopupOpen = true"
         class="focus:outline-none bg-primary flex items-center gap-1 text-white font-semibold py-1 px-4 rounded hover:bg-blue-900 cursor-pointer transition transform hover:scale-105"
       >
         <span>{{ t('nav.login') }}</span>
@@ -183,18 +197,17 @@ onMounted(() => {
             class="flex items-center gap-2 w-full text-left text-red-500 px-4 py-2 hover:bg-gray-100 hover:underline cursor-pointer"
           >
             <span>Log out</span>
-
-            <!-- Spinner Tailwind -->
             <div
               v-if="isLoggingOut"
               class="w-4 h-4 border-2 border-red-500 border-t-transparent rounded-full animate-spin"
             ></div>
-
-          
             <LogOut v-else class="w-4 h-4" />
           </button>
         </div>
       </div>
     </div>
   </nav>
+  <div v-if="isLoginPopupOpen" class="fixed inset-0  bg-[rgba(0,0,0,0.5)] flex justify-center items-center z-50">
+    <GoogleLoginModal :isOpen="isLoginPopupOpen" @close="isLoginPopupOpen = false" />
+  </div>
 </template>

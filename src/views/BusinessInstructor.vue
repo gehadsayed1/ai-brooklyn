@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-[60vh] flex flex-col">
+  <div class="w-full h-[80vh] flex flex-col">
     <!-- Content -->
     <div class="flex-grow gap-6 mt-8 flex flex-col text-center py-8">
       <h2 class="text-xl md:text-4xl font-bold text-[#002d62] mb-4">

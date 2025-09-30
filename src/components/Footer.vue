@@ -25,9 +25,9 @@
       <div>
         <h3 class="text-xl font-semibold mb-4">{{ $t('footer.services.title') }}</h3>
         <ul class="space-y-2 text-gray-400 text-sm">
-          <li><a href="#" class="hover:text-white transition">{{ $t('footer.services.consultation') }}</a></li>
-          <li><a href="#" class="hover:text-white transition">{{ $t('footer.services.crm') }}</a></li>
-          <li><a href="#" class="hover:text-white transition">{{ $t('footer.services.web') }}</a></li>
+          <li><a  @click="router.push({ name: 'ServiceDetails', query: { service: 'video-ai' } })"  class="hover:text-white cursor-pointer  transition">{{ $t('business_ai.services.veo.title') }}</a></li>
+          <li><a  @click="router.push({ name: 'ServiceDetails', query: { service: 'workspace-ai' } })" class="hover:text-white cursor-pointer transition">{{ $t('business_ai.services.task.title') }}</a></li>
+          <li><a  @click="router.push({ name: 'ServiceDetails', query: { service: 'ai-agent' } })"  class="hover:text-white cursor-pointer transition">{{ $t('business_ai.services.agent.title') }}</a></li>
         </ul>
       </div>
 
@@ -50,7 +50,10 @@
 
 
 <script setup>
-// Font Awesome is already imported below
+
+import { useRouter } from 'vue-router'
+const router = useRouter()
+
 </script>
 
 <style scoped>

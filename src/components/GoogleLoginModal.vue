@@ -26,8 +26,9 @@
 
 <script setup>
 import { X } from "lucide-vue-next";
+import { useLoginWithGoogleStore } from "../stores/LoginWithGoogle";
 
-import { useLoginWithGoogleStore } from "../store/LoginWithGoogle";
+
 
 const loginWithGoogleStore = useLoginWithGoogleStore();
 
