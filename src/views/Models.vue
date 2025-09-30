@@ -22,12 +22,12 @@
     </div>
 
     <!-- Modules Grid -->
-    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 mt-10 max-w-6xl w-full">
+    <section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10 max-w-6xl w-full">
       <div
         v-for="module in filteredModules"
         :key="module.name"
-        class="bg-gray-50 border border-gray-300 rounded-3xl shadow-md p-8 hover:shadow-lg transition-shadow cursor-pointer group relative"
-        @click="goToModule(module.route)"
+        class="bg-gray-50 border h-70 border-gray-300 rounded-3xl flex flex-col justify-between shadow-md p-8 hover:shadow-lg transition-shadow cursor-pointer group relative"
+       
         role="button"
         tabindex="0"
       >
@@ -41,8 +41,8 @@
         </div>
         <p class="text-gray-600 mt-4 leading-relaxed">{{ module.description }}</p>
         <button
-          class="mt-6 w-full bg-primary text-white py-3 rounded-lg font-medium hover:bg-primary/90 transition"
-          @click.stop="goToModule(module.route)"
+          class="mt-6 w-full bg-primary text-white cursor-pointer py-3 rounded-lg font-medium hover:bg-primary/90 transition"
+          @click="goToModule(module.route)"
         >
           Open
         </button>
@@ -54,8 +54,11 @@
 <script setup>
 import { ref, computed } from "vue";
 import { User, BookOpenCheck, FileText } from "lucide-vue-next";
+import { useRouter } from "vue-router";
+
 
 const searchQuery = ref("");
+const router = useRouter()
 
 const modules = ref([
   {
@@ -71,10 +74,10 @@ const modules = ref([
     route: "/exams",
   },
   {
-    name: "Complaints",
-    description: "Handle and track complaints efficiently",
+    name: "Business Instructor",
+    description: "Manage business instructor records and personal",
     icon: FileText,
-    route: "/complaints",
+    route: "/business-instructor",
   },
 ]);
 
@@ -86,7 +89,7 @@ const filteredModules = computed(() =>
 
 function goToModule(route) {
   console.log("Navigate to:", route);
-  // router.push(route)
+  router.push(route)
 }
 </script>
 

@@ -22,7 +22,7 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
     }
   };
 
-  // دالة تقرأ البيانات من الـ URL لما يرجع
+ 
   const loadUserFromUrl = () => {
     const params = new URLSearchParams(window.location.search);
 
@@ -44,21 +44,23 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
   };
 
 const logout = async () => {
-  loading.value = true;
   try {
-    if (token.value) {
+    if (user.value?.token) {
       await fetch("https://sea-turtle-app-vshwt.ondigitalocean.app/api/logout", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token.value}`,
+          Authorization: `Bearer ${user.value.token}`,
         },
       });
     }
+    user.value = null; 
   } catch (err) {
     console.error("Logout failed:", err);
+    error.value = err;
   } finally {
-    window.location.href = "/";
+    loading.value = false;
+    window.location.href = "/"; 
   }
 };
 
