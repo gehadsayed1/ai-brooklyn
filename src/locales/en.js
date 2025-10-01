@@ -42,14 +42,17 @@ export default {
       veo: {
         title: "Ai Chatbot",
         desc: "AI Chatbot that delivers smart, instant, and natural conversations—anytime, anywhere",
+        price: "Starting from $10",
       },
       task: {
         title: "1Task – Workspace by AI",
         desc: "Streamline your workspace using AI to automate, delegate, and track every task intelligently.",
+        price: "Starting from $10",
       },
       agent: {
         title: "AI Agent",
         desc: "Deploy autonomous AI agents to interact with users, perform tasks, and make decisions on your behalf.",
+        price: "Starting from $10",
       },
       learn_more: "Learn More →",
     },
@@ -114,66 +117,67 @@ export default {
     messagePlaceholder: "Tell us more about your needs",
     button: "Send Request",
   },
+
   services: {
     "ai-consultation": {
       title: "AI Business Consultation",
       description:
-        "Get expert advice on implementing AI to streamline operations and enhance decision-making.",
+        "Get expert advice on applying AI to improve operations and enhance decision-making.",
       details: "",
       features: [
-        "Tailored AI strategies",
-        "Market & competitor analysis",
-        "Operational efficiency boost",
+        "Customized AI strategies",
+        "Market and competitor analysis",
+        "Improved operational efficiency",
       ],
     },
     "lead-management": {
-      title: "AI-Powered Lead Management",
+      title: "AI Lead Management",
       description:
-        "Automatically collect, filter, and respond to leads using smart CRM tools integrated with AI.",
+        "Automatically collect, qualify, and respond to leads using smart AI-powered CRM tools.",
       details: "",
       features: [
-        "Real-time Facebook leads capture",
-        "AI-based scoring & response",
-        "CRM integration",
+        "Real-time lead capture from Facebook",
+        "AI-based scoring and response",
+        "Integration with CRM systems",
       ],
     },
     "web-ai": {
-      title: "AI-Integrated Web Solutions",
+      title: "AI-Powered Web Solutions",
       description:
-        "Build smarter websites that adapt to user behavior, personalize content, and optimize performance.",
+        "Build intelligent websites that adapt to user behavior, personalize content, and optimize performance.",
       details: "",
       features: [
-        "AI-powered personalization",
-        "Fast, scalable codebase",
-        "User engagement tracking",
+        "AI-driven personalization",
+        "Fast and scalable codebase",
+        "User interaction tracking",
       ],
     },
-    "video-ai": {
-      title: "Ai Chatbot",
+    "ai-chatbot": {
+      title: "Smart AI Chatbot",
       description:
-        "Engage smarter with your customers around the clock. Our AI Chatbot leverages the power of artificial intelligence to provide natural conversations, instant support, and an interactive experience that takes your business to the next level.",
+        "Engage smarter with your customers 24/7. Our AI-powered chatbot provides natural, instant conversations and an interactive experience that takes your business to the next level.",
       details: "",
       features: [
-        "Realistic scene generation",
-        "Script-based video creation",
-        "High-resolution video output",
+        "Realistic dialogue generation",
+        "Text-to-video conversation features",
+        "High-quality interaction output",
       ],
     },
     "workspace-ai": {
-      title: "1Task – Workspace by AI",
+      title: "1Task – AI Workspace",
       description:
-        "Streamline your workspace using AI to automate, delegate, and track every task intelligently.",
+        "Simplify your workspace with AI to automate tasks, plan daily activities, and track progress.",
       details: "",
       features: [
-        "Task assignment automation",
-        "Daily AI-powered planning",
-        "Progress tracking & reporting",
+        "Automated task assignments",
+        "AI-powered daily planning",
+        "Progress tracking and reporting",
       ],
     },
     "ai-agent": {
-      title: "AI Agent",
+      title: "Autonomous AI Agent",
       description:
-        "Deploy autonomous AI agents to interact with users, perform tasks, and make decisions on your behalf.",
+        "Deploy independent AI agents to interact with users, execute tasks, and make decisions on your behalf.",
       details: "",
       features: [
         "Natural language communication",
@@ -184,11 +188,23 @@ export default {
     overview: "Overview",
     features: "Features",
     benefits: "Benefits",
-    benefit1: "Advanced AI Technology",
-    benefit2: "24/7 Support",
-    benefit3: "Customizable Solutions",
-    benefit4: "Secure & Reliable",
-    benefit5: "Cost Effective",
-    benefit6: "Easy Integration",
+    benefit1: "Advanced AI technology",
+    benefit2: "24/7 support",
+    benefit3: "Customizable solutions",
+    benefit4: "Secure and reliable",
+    benefit5: "Cost-effective",
+    benefit6: "Easy integration",
+  },
+  payment: {
+    title: "Secure Payment",
+    description:
+      "Enter your card details below to start your subscription securely.",
+    cardNumber: "Card Number",
+    expiry: "Expiry Date",
+    cvv: "CVV",
+    cardName: "Cardholder Name",
+    startTrial: "Start Trial",
+    secureNote: "Your payment is encrypted and secured with SSL technology.",
+    success: "Payment successful! Thank you for your subscription.",
   },
 };

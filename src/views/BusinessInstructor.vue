@@ -1,3 +1,5 @@
+
+
 <template>
   <div class="w-full h-[80vh] flex flex-col">
     <!-- Content -->
@@ -11,26 +13,6 @@
       </p>
     </div>
   </div>
+     
 </template>
 
-<script setup>
-import { onMounted, onUnmounted } from "vue";
-
-onMounted(() => {
-  const script = document.createElement("script");
-  script.src = "https://static.getbutton.io/widget/bundle.js?id=URimL";
-  script.defer = true;
-  script.id = "chat-widget"; 
-  document.body.appendChild(script);
-});
-
-onUnmounted(() => {
- 
-  const script = document.getElementById("chat-widget");
-  if (script) script.remove();
-
-
-  const widget = document.querySelector(".gb-widget"); 
-  if (widget) widget.remove();
-});
-</script>

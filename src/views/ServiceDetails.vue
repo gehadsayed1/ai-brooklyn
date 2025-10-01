@@ -11,9 +11,7 @@
           <h1 class="text-4xl font-bold text-primary mb-4">
             {{ t(`services.${serviceKey}.title`) }}
           </h1>
-          <p class="text-lg text-gray-600 leading-relaxed">
-            <!-- {{ t(`services.${serviceKey}.description`) }} -->
-          </p>
+        
         </div>
 
         <!-- Service Details (Overview) -->
@@ -28,9 +26,6 @@
 
         <!-- Features List -->
         <div class="space-y-4">
-          <!-- <h3 class="text-xl font-semibold text-gray-800 mb-4">
-            {{ t('services.features') }}
-          </h3> -->
           <div
             v-for="feature in serviceData.features"
             :key="feature"
@@ -78,82 +73,110 @@
       <!-- Right Column: Form -->
       <div class="sticky top-24">
         <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-          <h2 class="text-2xl font-bold text-primary mb-6">
-            {{ t('serviceForm.title') }}
-          </h2>
+          <!-- Header -->
+          <div class="flex items-center justify-between mb-6">
+            <h2 class="text-2xl font-bold text-primary">
+              {{ t("payment.title") }}
+            </h2>
+            <!-- Card Logos -->
+            <div class="flex gap-2">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png"
+                alt="Visa"
+                class="h-6"
+              />
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/0/04/Mastercard-logo.png"
+                alt="MasterCard"
+                class="h-6"
+              />
+            </div>
+          </div>
 
-          <form @submit.prevent="submitForm" class="space-y-6">
-            <div class="space-y-4">
-              <div>
-                <label class="block mb-2 font-medium text-gray-700">
-                  {{ t('serviceForm.serviceName') }}
-                </label>
-                <div class="relative">
-                  <i class="fas fa-briefcase absolute left-4 top-3.5 text-gray-400"></i>
-                  <input
-                    v-model="form.service"
-                    type="text"
-                    readonly
-                    class="w-full pl-12 pr-4 py-3 border rounded-lg bg-gray-50 text-gray-700"
-                  />
-                </div>
-              </div>
+          <!-- Description -->
+          <p class="text-gray-600 mb-6 leading-relaxed">
+            {{ t("payment.description") }}
+          </p>
 
-              <div>
-                <label class="block mb-2 font-medium text-gray-700">
-                  {{ t('serviceForm.name') }}
-                </label>
-                <div class="relative">
-                  <i class="fas fa-user absolute left-4 top-3.5 text-gray-400"></i>
-                  <input
-                    v-model="form.name"
-                    type="text"
-                    required
-                    class="w-full pl-12 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                    :placeholder="t('serviceForm.namePlaceholder')"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label class="block mb-2 font-medium text-gray-700">
-                  {{ t('serviceForm.email') }}
-                </label>
-                <div class="relative">
-                  <i class="fas fa-envelope absolute left-4 top-3.5 text-gray-400"></i>
-                  <input
-                    v-model="form.email"
-                    type="email"
-                    required
-                    class="w-full pl-12 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                    :placeholder="t('serviceForm.emailPlaceholder')"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label class="block mb-2 font-medium text-gray-700">
-                  {{ t('serviceForm.message') }}
-                </label>
-                <div class="relative">
-                  <i class="fas fa-comment absolute left-4 top-3.5 text-gray-400"></i>
-                  <textarea
-                    v-model="form.message"
-                    rows="4"
-                    class="w-full pl-12 pr-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary/20 focus:border-primary"
-                    :placeholder="t('serviceForm.messagePlaceholder')"
-                  ></textarea>
-                </div>
+          <!-- Form -->
+          <form @submit.prevent="submitPayment" class="space-y-6">
+            <!-- Card Number -->
+            <div>
+              <label class="block mb-2 font-medium text-gray-700">
+                {{ t("payment.cardNumber") }}
+              </label>
+              <div class="relative">
+                <i
+                  class="fas fa-credit-card absolute left-4 top-3.5 text-gray-400"
+                ></i>
+                <input
+                  v-model="payment.cardNumber"
+                  type="text"
+                  required
+                  placeholder="1234 5678 9012 3456"
+                  class="w-full pl-12 pr-4 py-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                />
               </div>
             </div>
 
+            <!-- Expiry & CVV -->
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="block mb-2 font-medium text-gray-700">
+                  {{ t("payment.expiry") }}
+                </label>
+                <input
+                  v-model="payment.expiry"
+                  type="text"
+                  required
+                  placeholder="MM/YY"
+                  class="w-full px-4 py-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                />
+              </div>
+              <div>
+                <label class="block mb-2 font-medium text-gray-700">
+                  {{ t("payment.cvv") }}
+                </label>
+                <input
+                  v-model="payment.cvv"
+                  type="text"
+                  required
+                  placeholder="123"
+                  class="w-full px-4 py-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                />
+              </div>
+            </div>
+
+            <!-- Card Holder Name -->
+            <div>
+              <label class="block mb-2 font-medium text-gray-700">
+                {{ t("payment.cardName") }}
+              </label>
+              <input
+                v-model="payment.cardName"
+                type="text"
+                required
+                placeholder="John Doe"
+                class="w-full px-4 py-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary/20 focus:border-primary"
+              />
+            </div>
+
+            <!-- Submit -->
             <button
               type="submit"
               class="w-full bg-primary text-white py-3 rounded-lg font-medium hover:bg-primary/90 transition-colors duration-300 flex items-center justify-center gap-2"
             >
-              <i class="fas fa-paper-plane"></i>
-              {{ t('serviceForm.button') }}
+              <i class="fas fa-lock"></i>
+              {{ t("payment.startTrial") }}
             </button>
+
+            <!-- Trust Note -->
+            <p
+              class="text-xs text-gray-500 text-center mt-4 flex items-center justify-center gap-2"
+            >
+              <i class="fas fa-shield-alt text-green-500"></i>
+              {{ t("payment.secureNote") }}
+            </p>
           </form>
         </div>
       </div>
@@ -162,7 +185,7 @@
 </template>
 
 <script setup>
-import { ref, watch, computed } from "vue"
+import { ref, computed } from "vue"
 import { useRoute } from "vue-router"
 import { useI18n } from "vue-i18n"
 
@@ -171,45 +194,32 @@ const route = useRoute()
 const isArabic = computed(() => locale.value === 'ar')
 const serviceKey = route.query.service || ''
 
-// Form state
-const form = ref({
-  service: "",
-  name: "",
-  email: "",
-  message: "",
+
+const payment = ref({
+  cardNumber: "",
+  expiry: "",
+  cvv: "",
+  cardName: ""
 })
 
-watch(
-  () => t(`services.${serviceKey}.title`),
-  (newTitle) => {
-    form.value.service = newTitle
-  },
-  { immediate: true }
-)
-
-const features = computed(() => {
-  try {
-    return t(`services.${serviceKey}.features`, { returnObjects: true })
-  } catch (error) {
-    return []
+function submitPayment() {
+  alert(t("payment.success"))
+  payment.value = {
+    cardNumber: "",
+    expiry: "",
+    cvv: "",
+    cardName: ""
   }
-})
+}
+
 
 const serviceData = computed(() => {
-  // الحصول على بيانات الخدمة الحالية من ملف الترجمة
   return t(`services.${serviceKey}`, { returnObjects: true }) || {
     title: '',
     description: '',
     features: []
   }
 })
-
-function submitForm() {
-  alert(t('serviceForm.success'))
-  form.value.name = ''
-  form.value.email = ''
-  form.value.message = ''
-}
 </script>
 
 <style scoped>

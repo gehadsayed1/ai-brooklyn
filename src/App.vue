@@ -1,10 +1,11 @@
 <template>
   <div>
     <NaveBar />
-
     <router-view />
-
     <Footer v-if="showFooter" />
+
+    <!-- Dynamic ChatBot -->
+    <ChatBot />
   </div>
 </template>
 
@@ -13,18 +14,11 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 import Footer from "./components/Footer.vue";
 import NaveBar from "./components/NaveBar.vue";
+import ChatBot from "./components/ChatBot.vue";
 
 const route = useRoute();
 
 const showFooter = computed(() => {
- 
-  if (route.path === "/") return true;
-
-  
-  if (route.path === "/service-details") {
-    return true;
-  }
-
-  return false;
+  return route.path === "/" || route.path === "/service-details";
 });
 </script>
