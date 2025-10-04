@@ -31,14 +31,13 @@
             {{ $t(service.desc) }}
           </p>
 
-        
           <div class="flex justify-between items-center mt-6 r">
-    <button
-  @click="handleClick(service)"
-  class="text-primary cursor-pointer font-medium hover:underline"
->
-  {{ $t('business_ai.services.learn_more') }}
-</button>
+            <button
+              @click="handleClick(service)"
+              class="text-primary cursor-pointer font-medium hover:underline"
+            >
+              {{ $t("business_ai.services.learn_more") }}
+            </button>
 
             <span
               class="bg-primary text-white text-sm font-semibold px-3 py-1 rounded-full shadow flex items-center gap-1"
@@ -75,7 +74,6 @@ const handleClick = (service) => {
   }
 };
 
-
 const services = [
   {
     img: img,
@@ -87,12 +85,11 @@ const services = [
   },
   {
     img: img2,
-    alt: "Workspace AI",
-    title: "business_ai.services.task.title",
-    desc: "business_ai.services.task.desc",
-    price: "business_ai.services.task.price",
-    link: "https://www.1task.net",
-    external: true,
+    alt: "Business coach",
+    title: "business_ai.services.business.title",
+    desc: "business_ai.services.business.desc",
+    price: "business_ai.services.business.price",
+    query: "business",
   },
   {
     img: img3,
@@ -103,5 +100,4 @@ const services = [
     query: "ai-agent",
   },
 ];
-
 </script>

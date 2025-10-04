@@ -44,9 +44,9 @@ export default {
         desc: "AI Chatbot that delivers smart, instant, and natural conversations—anytime, anywhere",
         price: "Starting from $10",
       },
-      task: {
-        title: "1Task – Workspace by AI",
-        desc: "Streamline your workspace using AI to automate, delegate, and track every task intelligently.",
+      business: {
+        title: "Business coach",
+        desc: "AI-powered coaching to boost productivity and business growth",
         price: "Starting from $10",
       },
       agent: {
@@ -200,6 +200,7 @@ export default {
     description:
       "Enter your card details below to start your subscription securely.",
     cardNumber: "Card Number",
+    email: "Email Address",
     expiry: "Expiry Date",
     cvv: "CVV",
     cardName: "Cardholder Name",

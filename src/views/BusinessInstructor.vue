@@ -1,3 +1,8 @@
+<script setup >
+import ChatBot from '../components/ChatBot.vue';
+
+</script>
+
 
 
 <template>
@@ -13,6 +18,7 @@
       </p>
     </div>
   </div>
-     
+     <!-- Dynamic ChatBot -->
+    <ChatBot />
 </template>
 

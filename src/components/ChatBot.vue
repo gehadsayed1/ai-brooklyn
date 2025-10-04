@@ -13,7 +13,7 @@ let script;
 const loadChat = () => {
   if (!document.getElementById("chat-widget")) {
     script = document.createElement("script");
-    script.src = "https://static.getbutton.io/widget/bundle.js?id=URimL"; 
+    script.src = "https://static.getbutton.io/widget/bundle.js?id=hiUvw"; 
     script.defer = true;
     script.id = "chat-widget";
     document.body.appendChild(script);
@@ -21,15 +21,12 @@ const loadChat = () => {
 };
 
 const removeChat = () => {
-
   const s = document.getElementById("chat-widget");
   if (s && s.parentNode) s.parentNode.removeChild(s);
 
- 
   document.querySelectorAll(".gb-widget, .gb-widget-launcher, .gb-widget-content")
     .forEach(el => el.remove());
 };
-
 
 watch(
   () => route.path,
@@ -44,7 +41,6 @@ watch(
   },
   { immediate: true }
 );
-
 
 onMounted(() => {
   if (route.path === "/business-instructor") {

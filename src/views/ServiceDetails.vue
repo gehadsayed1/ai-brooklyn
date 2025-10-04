@@ -9,18 +9,17 @@
         <!-- Service Header -->
         <div class="border-b pb-6">
           <h1 class="text-4xl font-bold text-primary mb-4">
-            {{ t(`services.${serviceKey}.title`) }}
+            {{ t(`business_ai.services.${serviceKey}.title`) }}
           </h1>
-        
         </div>
 
         <!-- Service Details (Overview) -->
         <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
           <h3 class="text-xl font-semibold text-gray-800 mb-4">
-            {{ t('services.overview') }}
+            {{ t("services.overview") }}
           </h3>
           <p class="text-gray-600 leading-relaxed mb-6">
-            {{ t(`services.${serviceKey}.description`) }}
+            {{ t(`business_ai.services.${serviceKey}.desc`) }}
           </p>
         </div>
 
@@ -39,32 +38,32 @@
         <!-- Benefits Section -->
         <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
           <h3 class="text-xl font-semibold text-gray-800 mb-4">
-            {{ t('services.benefits') }}
+            {{ t("services.benefits") }}
           </h3>
           <div class="grid grid-cols-2 gap-4">
             <div class="flex items-center gap-3 text-gray-700">
               <i class="fas fa-star text-primary"></i>
-              <span>{{ t('services.benefit1') }}</span>
+              <span>{{ t("services.benefit1") }}</span>
             </div>
             <div class="flex items-center gap-3 text-gray-700">
               <i class="fas fa-star text-primary"></i>
-              <span>{{ t('services.benefit2') }}</span>
+              <span>{{ t("services.benefit2") }}</span>
             </div>
             <div class="flex items-center gap-3 text-gray-700">
               <i class="fas fa-star text-primary"></i>
-              <span>{{ t('services.benefit3') }}</span>
+              <span>{{ t("services.benefit3") }}</span>
             </div>
             <div class="flex items-center gap-3 text-gray-700">
               <i class="fas fa-star text-primary"></i>
-              <span>{{ t('services.benefit4') }}</span>
+              <span>{{ t("services.benefit4") }}</span>
             </div>
             <div class="flex items-center gap-3 text-gray-700">
               <i class="fas fa-star text-primary"></i>
-              <span>{{ t('services.benefit5') }}</span>
+              <span>{{ t("services.benefit5") }}</span>
             </div>
             <div class="flex items-center gap-3 text-gray-700">
               <i class="fas fa-star text-primary"></i>
-              <span>{{ t('services.benefit6') }}</span>
+              <span>{{ t("services.benefit6") }}</span>
             </div>
           </div>
         </div>
@@ -100,6 +99,21 @@
 
           <!-- Form -->
           <form @submit.prevent="submitPayment" class="space-y-6">
+            <div>
+              <label class="block mb-2 font-medium text-gray-700">
+                {{ t("payment.email") }}
+              </label>
+              <div class="relative">
+                <Mail class="absolute left-4 top-3.5 text-gray-400" />
+                <input
+                  v-model="payment.email"
+                  type="email"
+                  required
+                  placeholder="example@gmail.com"
+                  class="w-full pl-12 pr-4 py-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                />
+              </div>
+            </div>
             <!-- Card Number -->
             <div>
               <label class="block mb-2 font-medium text-gray-700">
@@ -185,41 +199,42 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue"
-import { useRoute } from "vue-router"
-import { useI18n } from "vue-i18n"
+import { ref, computed } from "vue";
+import { useRoute } from "vue-router";
+import { useI18n } from "vue-i18n";
+import { Mail } from "lucide-vue-next";
 
-const { t, locale } = useI18n()
-const route = useRoute()
-const isArabic = computed(() => locale.value === 'ar')
-const serviceKey = route.query.service || ''
-
+const { t, locale } = useI18n();
+const route = useRoute();
+const isArabic = computed(() => locale.value === "ar");
+const serviceKey = route.query.service || "";
 
 const payment = ref({
   cardNumber: "",
   expiry: "",
   cvv: "",
-  cardName: ""
-})
+  cardName: "",
+});
 
 function submitPayment() {
-  alert(t("payment.success"))
+  alert(t("payment.success"));
   payment.value = {
     cardNumber: "",
     expiry: "",
     cvv: "",
-    cardName: ""
-  }
+    cardName: "",
+  };
 }
 
-
 const serviceData = computed(() => {
-  return t(`services.${serviceKey}`, { returnObjects: true }) || {
-    title: '',
-    description: '',
-    features: []
-  }
-})
+  return (
+    t(`services.${serviceKey}`, { returnObjects: true }) || {
+      title: "",
+      description: "",
+      features: [],
+    }
+  );
+});
 </script>
 
 <style scoped>
@@ -242,7 +257,8 @@ html {
 }
 
 /* Form focus styles */
-input:focus, textarea:focus {
+input:focus,
+textarea:focus {
   outline: none;
 }
 </style>

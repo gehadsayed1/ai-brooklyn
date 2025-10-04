@@ -61,18 +61,18 @@ const searchQuery = ref("");
 const router = useRouter()
 
 const modules = ref([
-  {
-    name: "Students",
-    description: "Manage student records and personal ",
-    icon: User,
-    route: "/students",
-  },
-  {
-    name: "Exams",
-    description: "Create, edit, and monitor exams",
-    icon: BookOpenCheck,
-    route: "/exams",
-  },
+  // {
+  //   name: "Students",
+  //   description: "Manage student records and personal ",
+  //   icon: User,
+  //   route: "/students",
+  // },
+  // {
+  //   name: "Exams",
+  //   description: "Create, edit, and monitor exams",
+  //   icon: BookOpenCheck,
+  //   route: "/exams",
+  // },
   {
     name: "Business Instructor",
     description: "Manage business instructor records and personal",
