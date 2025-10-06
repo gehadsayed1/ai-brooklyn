@@ -11,11 +11,11 @@ const goBackToModels = () => {
 
 <template>
   <div class="w-full h-[80vh] flex flex-col">
-    <!-- Back Button -->
+    
     <div class="p-4">
       <button 
         @click="goBackToModels"
-        class="flex items-center gap-2 text-primary hover:text-blue-700 transition-colors"
+        class="flex cursor-pointer  items-center gap-2 text-primary hover:text-blue-700 transition-colors"
       >
         <ArrowLeft class="w-5 h-5" />
         <span>{{ $t('models.useModule') }}</span>
