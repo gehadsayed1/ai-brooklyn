@@ -1,9 +1,5 @@
 <script setup >
-import ChatBot from '../components/ChatBot.vue';
-
 </script>
-
-
 
 <template>
   <div class="w-full h-[80vh] flex flex-col">
@@ -18,7 +14,5 @@ import ChatBot from '../components/ChatBot.vue';
       </p>
     </div>
   </div>
-     <!-- Dynamic ChatBot -->
-    <ChatBot />
 </template>
 

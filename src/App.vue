@@ -3,8 +3,7 @@
     <NaveBar />
     <router-view />
     <Footer v-if="showFooter" />
-
-    
+    <ChatBot />
   </div>
 </template>
 
@@ -13,6 +12,7 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 import Footer from "./components/Footer.vue";
 import NaveBar from "./components/NaveBar.vue";
+import ChatBot from "./components/ChatBot.vue";
 
 
 const route = useRoute();

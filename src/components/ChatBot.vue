@@ -21,11 +21,25 @@ const loadChat = () => {
 };
 
 const removeChat = () => {
+  // إزالة الـ script
   const s = document.getElementById("chat-widget");
   if (s && s.parentNode) s.parentNode.removeChild(s);
 
-  document.querySelectorAll(".gb-widget, .gb-widget-launcher, .gb-widget-content")
-    .forEach(el => el.remove());
+  // إزالة جميع عناصر الـ widget
+  document.querySelectorAll("[class*='gb-'], [id*='gb-'], .gb-widget, .gb-widget-launcher, .gb-widget-content, [class*='getbutton']")
+    .forEach(el => {
+      if (el && el.parentNode) {
+        el.parentNode.removeChild(el);
+      }
+    });
+
+  // إزالة أي styles مضافة
+  const styles = document.querySelectorAll('style[data-emotion], link[href*="getbutton"]');
+  styles.forEach(el => {
+    if (el && el.parentNode) {
+      el.parentNode.removeChild(el);
+    }
+  });
 };
 
 watch(
