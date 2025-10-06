@@ -54,9 +54,9 @@
             <div>
               <label class="block text-gray-700 font-semibold mb-2" for="name">Your Name</label>
               <div class="relative">
-                <i class="fas fa-user absolute top-3.5 left-4 text-gray-400"></i>
+                <i class="fas fa-user absolute top-1/2 -translate-y-1/2 ltr:left-4 rtl:right-4 text-gray-400"></i>
                 <input id="name" v-model="form.name" type="text" required placeholder="Your name"
-                  class="pl-11 w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-shadow" />
+                  class="ltr:pl-11 rtl:pr-11 w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-shadow" />
               </div>
             </div>
 
@@ -64,9 +64,9 @@
             <div>
               <label class="block text-gray-700 font-semibold mb-2" for="email">Your Email</label>
               <div class="relative">
-                <i class="fas fa-envelope absolute top-3.5 left-4 text-gray-400"></i>
+                <i class="fas fa-envelope absolute top-1/2 -translate-y-1/2 ltr:left-4 rtl:right-4 text-gray-400"></i>
                 <input id="email" v-model="form.email" type="email" required placeholder="you@example.com"
-                  class="pl-11 w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-shadow" />
+                  class="ltr:pl-11 rtl:pr-11 w-full border border-gray-300 rounded-lg p-3 focus:ring-2 focus:ring-blue-500 outline-none transition-shadow" />
               </div>
             </div>
           </div>
