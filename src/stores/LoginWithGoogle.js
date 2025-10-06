@@ -59,8 +59,8 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
           token,
         };
         if (token) {
-          setCookie("auth_token", token, 7); // تخزين التوكن 7 أيام
-          // حفظ بيانات المستخدم في localStorage
+          setCookie("auth_token", token, 7); 
+   
           localStorage.setItem('user_data', JSON.stringify(parsedUser));
         }
       } catch (err) {
@@ -73,7 +73,7 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
   const checkAuth = () => {
     const token = getCookie("auth_token");
     if (token) {
-      // تحميل بيانات المستخدم من localStorage
+      
       const savedUser = localStorage.getItem('user_data');
       if (savedUser) {
         try {

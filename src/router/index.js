@@ -43,21 +43,20 @@ router.beforeEach((to, from, next) => {
   const store = useLoginWithGoogleStore();
   const isLoggedIn = store.checkAuth();
 
-  // إذا كان مسجل دخول ويحاول الذهاب للصفحة الرئيسية أو ServiceDetails، يتم إرساله إلى Models
-  if (isLoggedIn && (to.path === "/" || to.path === "/service-details")) {
-    next("/models");
+  if (isLoggedIn) {
+    if (to.path === "/models" || to.path === "/business-instructor") {
+      next();
+    } else {
+      next("/models");
+    }
     return;
   }
 
-  // التحقق من الصفحات التي تحتاج تسجيل دخول
-  if (to.meta.requiresAuth) {
-    if (!isLoggedIn) {
-      next("/");
-    } else {
-      next();
-    }
-  } else {
+
+  if (to.path === "/" || to.path === "/service-details") {
     next();
+  } else {
+    next("/");
   }
 });
 
