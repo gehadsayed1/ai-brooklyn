@@ -39,6 +39,15 @@ const handleLogout = async () => {
   }
 };
 
+const handleLogoClick = () => {
+  // إذا كان المستخدم مسجل دخول، لا يفعل شيء
+  if (loginStore.user) {
+    return;
+  }
+  // إذا لم يكن مسجل دخول، يذهب للصفحة الرئيسية
+  router.push('/');
+};
+
 const isHomePage = computed(() => {
  
   if (route.path === "/") return true;
@@ -67,10 +76,10 @@ onMounted(() => {
     class="sticky top-0 z-50 bg-white flex px-2 py-2 md:px-10 border-b border-blue-200 md:shadow-lg shadow-2xl items-center justify-between"
   >
     <!-- Logo -->
-    <div class="text-lg font-bold cursor-pointer">
+    <div class="text-lg font-bold" :class="loginStore.user ? 'cursor-default' : 'cursor-pointer'">
       <img
         class="w-35"
-        @click="router.push('/')"
+        @click="handleLogoClick"
         src="../assets/logo1.png"
         alt="Logo"
       />

@@ -28,7 +28,7 @@ const routes = [
       acs: route.query.acs,
       user: route.query.user,
     }),
-    meta: { requiresAuth: true }
+    meta: { requiresAuth: false }
   },
  
 ];
@@ -41,21 +41,23 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   const store = useLoginWithGoogleStore();
+  const isLoggedIn = store.checkAuth();
 
+  // إذا كان مسجل دخول ويحاول الذهاب للصفحة الرئيسية أو ServiceDetails، يتم إرساله إلى Models
+  if (isLoggedIn && (to.path === "/" || to.path === "/service-details")) {
+    next("/models");
+    return;
+  }
+
+  // التحقق من الصفحات التي تحتاج تسجيل دخول
   if (to.meta.requiresAuth) {
-    const isLoggedIn = store.checkAuth();
     if (!isLoggedIn) {
       next("/");
     } else {
       next();
     }
   } else {
-    
-    if (to.path === "/login" && store.checkAuth()) {
-      next("/models");
-    } else {
-      next();
-    }
+    next();
   }
 });
 

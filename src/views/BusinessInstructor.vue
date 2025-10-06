@@ -1,4 +1,20 @@
 <script setup >
+import { onMounted, onUnmounted } from 'vue';
+
+// منع زر الباك من الرجوع للصفحة الرئيسية
+onMounted(() => {
+  window.history.pushState(null, '', window.location.href);
+  
+  const preventBack = () => {
+    window.history.pushState(null, '', window.location.href);
+  };
+  
+  window.addEventListener('popstate', preventBack);
+  
+  onUnmounted(() => {
+    window.removeEventListener('popstate', preventBack);
+  });
+});
 </script>
 
 <template>

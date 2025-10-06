@@ -1,7 +1,7 @@
 <template>
   <section class="bg-gray-50 py-7 font-sans">
     <div class="container mx-auto px-6">
-      <!-- Title -->
+      
       <div class="text-center mb-12">
         <h2 class="text-4xl font-extrabold text-primary mb-4">Get in touch!</h2>
         <p class="text-gray-600 text-lg">
@@ -9,9 +9,7 @@
         </p>
       </div>
 
-      <!-- Contact Info Cards -->
-      <div class="flex px-2 md:px-0 flex-col md:flex-row justify-center items-center gap-4 mb-14">
-        <!-- Location Card -->
+      <div class="flex px-2 md:px-0 flex-col md:flex-row justify-center items-center gap-4 mb-14">     
         <a href="https://maps.app.goo.gl/pG7hwb5oKvWVbDtq8" target="_blank"
           class="flex flex-col items-center text-center p-4 rounded-xl bg-white shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer w-full md:w-[250px] h-[140px] justify-center border-2 border-transparent hover:border-primary">
           <div class="text-primary text-2xl mb-2">
@@ -96,6 +94,7 @@
 <script setup>
 import { ref } from "vue";
 import Swal from "sweetalert2";
+import emailjs from '@emailjs/browser';
 
 // Reactive state for the form and loading status
 const loading = ref(false);
@@ -112,54 +111,45 @@ const resetForm = () => {
   form.value.message = "";
 };
 
-// Async function to handle the form submission
+// Async function to handle the form submission using EmailJS
 const submitForm = async () => {
   loading.value = true;
 
-  // The URL of your deployed Google Apps Script web app
-  const scriptURL = "https://script.google.com/macros/s/AKfycbwIsqaV1wnpr78qm9N-B4Ev_fROWiCepqd5j5RPnBDh4cQ2pMajr3D8L0PqX4h7A_-_/exec";
-
   try {
-    const response = await fetch(scriptURL, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
+    
+    const result = await emailjs.send(
+      'service_zb5leclz',           
+      'YOUR_TEMPLATE_ID',         
+      {
+        from_name: form.value.name,
+        from_email: form.value.email,
+        message: form.value.message,
+        to_email: 'ai@brooklynacademy.net',  
       },
-      // The script will generate the timestamp, so we only send form data
-      body: JSON.stringify(form.value),
+      'YOUR_PUBLIC_KEY'           
+    );
+
+    // Show a success pop-up to the user
+    Swal.fire({
+      title: "نجح الإرسال!",
+      text: "تم إرسال رسالتك بنجاح. سنتواصل معك قريباً.",
+      icon: "success",
+      confirmButtonColor: "#3085d6",
+      confirmButtonText: "رائع!",
     });
+    
+    // Reset the form after successful submission
+    resetForm();
 
-    if (!response.ok) {
-      // This will catch HTTP errors like 404 or 500
-      throw new Error(`Network response was not ok: ${response.statusText}`);
-    }
-
-    const result = await response.json();
-
-    if (result.status === "success") {
-      // Show a success pop-up to the user
-      Swal.fire({
-        title: "Success!",
-        text: "Your message has been sent successfully.",
-        icon: "success",
-        confirmButtonColor: "#3085d6",
-        confirmButtonText: "Great!",
-      });
-      // Reset the form after successful submission
-      resetForm();
-    } else {
-      // If the script returns an error status, show it to the user
-      throw new Error(result.message || "An unknown error occurred on the server.");
-    }
   } catch (err) {
     // Show an error pop-up if anything goes wrong
     console.error("Submission Error:", err);
     Swal.fire({
-      title: "Error!",
-      text: `Failed to send message. Please try again. (${err.message})`,
+      title: "خطأ!",
+      text: "فشل إرسال الرسالة. يرجى المحاولة مرة أخرى.",
       icon: "error",
       confirmButtonColor: "#d33",
-      confirmButtonText: "Try Again",
+      confirmButtonText: "حاول مرة أخرى",
     });
   } finally {
     // Stop the loading indicator regardless of the outcome

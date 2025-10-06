@@ -12,13 +12,9 @@
         v-model="searchQuery"
         type="text"
         :placeholder="$t('models.searchPlaceholder')"
-        class="w-full px-5 py-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-lg"
+        class="w-full  px-12 py-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-lg"
       />
-      <svg class="w-5 h-5 absolute right-4 top-3.5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
-        viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="11" cy="11" r="7"></circle>
-        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-      </svg>
+      <Search  class="w-6 h-6 absolute right-4 top-4  text-primary"/>
     </div>
 
     <!-- Modules Grid -->
@@ -52,8 +48,8 @@
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import { User, BookOpenCheck, FileText } from "lucide-vue-next";
+import { ref, computed, onMounted, onUnmounted } from "vue";
+import { User, BookOpenCheck, FileText, Search } from "lucide-vue-next";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 
@@ -61,6 +57,23 @@ import { useI18n } from "vue-i18n";
 const searchQuery = ref("");
 const router = useRouter();
 const { t } = useI18n();
+
+// منع زر الباك من الرجوع للصفحة الرئيسية
+onMounted(() => {
+  // إضافة حالة جديدة في history لمنع الرجوع
+  window.history.pushState(null, '', window.location.href);
+  
+  const preventBack = (e) => {
+    window.history.pushState(null, '', window.location.href);
+  };
+  
+  window.addEventListener('popstate', preventBack);
+  
+  // حفظ الدالة للإزالة لاحقاً
+  onUnmounted(() => {
+    window.removeEventListener('popstate', preventBack);
+  });
+});
 
 const modules = computed(() => [
   // {
