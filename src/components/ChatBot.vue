@@ -14,21 +14,29 @@ const loadChat = () => {
   // إزالة أي widget موجود أولاً
   removeChat();
   
-  // إضافة تأخير صغير لضمان الإزالة الكاملة
+  // إضافة تأخير أطول لضمان الإزالة الكاملة
   setTimeout(() => {
-    if (!document.getElementById("chat-widget")) {
-      script = document.createElement("script");
-      script.src = "https://static.getbutton.io/widget/bundle.js?id=hiUvw"; 
-      script.defer = true;
-      script.id = "chat-widget";
-      document.body.appendChild(script);
+    // إزالة أي script موجود مسبقاً
+    const existingScript = document.getElementById("chat-widget");
+    if (existingScript) {
+      existingScript.remove();
     }
-  }, 100);
+    
+    // إنشاء script جديد
+    script = document.createElement("script");
+    script.src = "https://static.getbutton.io/widget/bundle.js?id=hiUvw"; 
+    script.defer = true;
+    script.id = "chat-widget";
+    script.onload = () => {
+      console.log('Chat widget loaded successfully');
+    };
+    document.body.appendChild(script);
+  }, 300);
 };
 
 const removeChat = () => {
   console.log('Removing chat widget...');
-  
+
   // إزالة الـ script
   const s = document.getElementById("chat-widget");
   if (s && s.parentNode) {
@@ -43,7 +51,7 @@ const removeChat = () => {
     }
   });
 
-  // إزالة أي styles مضافة
+  // إزالة الـ styles
   const styles = document.querySelectorAll('style[data-emotion], link[href*="getbutton"], style[id*="gb-"]');
   styles.forEach(el => {
     if (el && el.parentNode) {
@@ -51,13 +59,18 @@ const removeChat = () => {
     }
   });
 
-  // إزالة أي event listeners
+  // إزالة الـ event listeners
   if (window.getbutton) {
     try {
       window.getbutton.destroy();
     } catch (e) {
       console.log('getbutton destroy failed:', e);
     }
+  }
+
+  // إزالة أي متغيرات global
+  if (window.getbutton) {
+    delete window.getbutton;
   }
 };
 
@@ -68,10 +81,12 @@ watch(
     
     if (newPath === "/business-instructor") {
       visible.value = true;
-      // إضافة تأخير لضمان تحميل الصفحة أولاً
+      // إزالة فورية أولاً
+      removeChat();
+      // ثم تحميل جديد بعد تأخير
       setTimeout(() => {
         loadChat();
-      }, 200);
+      }, 500);
     } else {
       visible.value = false;
       removeChat();
@@ -81,9 +96,14 @@ watch(
 );
 
 onMounted(() => {
+  console.log('ChatBot mounted, current path:', route.path);
   if (route.path === "/business-instructor") {
     visible.value = true;
-    loadChat();
+    // إزالة أولاً ثم تحميل
+    removeChat();
+    setTimeout(() => {
+      loadChat();
+    }, 200);
   }
 });
 
