@@ -68,7 +68,7 @@ const removeChat = () => {
     }
   }
 
-  // إزالة أي متغيرات global
+  l
   if (window.getbutton) {
     delete window.getbutton;
   }
@@ -95,15 +95,29 @@ watch(
   { immediate: true }
 );
 
+// في BusinessInstructor.vue - استبدل onMounted بهذا:
 onMounted(() => {
-  console.log('ChatBot mounted, current path:', route.path);
-  if (route.path === "/business-instructor") {
-    visible.value = true;
-    // إزالة أولاً ثم تحميل
-    removeChat();
+  const urlParams = new URLSearchParams(window.location.search);
+  const fromModels = urlParams.get('from') === 'models';
+  
+  if (fromModels) {
+    // إزالة المعامل من URL
+    const newUrl = window.location.pathname;
+    window.history.replaceState({}, '', newUrl);
+    
+    // إضافة fade effect قبل reload
     setTimeout(() => {
-      loadChat();
+      // إضافة transition سلس
+      document.body.style.transition = 'opacity 0.4s ease-in-out';
+      document.body.style.opacity = '0.5';
+      
+      // reload بعد انتهاء fade
+      setTimeout(() => {
+        window.location.reload();
+      }, 400);
     }, 200);
+  }
+});
     
     // إضافة آلية إضافية لضمان ظهور الـ ChatBot
     setTimeout(() => {
