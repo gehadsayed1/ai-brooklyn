@@ -60,6 +60,8 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
         };
         if (token) {
           setCookie("auth_token", token, 7); // تخزين التوكن 7 أيام
+          // حفظ بيانات المستخدم في localStorage
+          localStorage.setItem('user_data', JSON.stringify(parsedUser));
         }
       } catch (err) {
         console.error("Error parsing user:", err);
@@ -71,7 +73,15 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
   const checkAuth = () => {
     const token = getCookie("auth_token");
     if (token) {
-      user.value = { ...user.value, token };
+      // تحميل بيانات المستخدم من localStorage
+      const savedUser = localStorage.getItem('user_data');
+      if (savedUser) {
+        try {
+          user.value = { ...JSON.parse(savedUser), token };
+        } catch (err) {
+          console.error("Error loading user from localStorage:", err);
+        }
+      }
       return true;
     }
     return false;
@@ -90,6 +100,8 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
       }
       user.value = null;
       eraseCookie("auth_token");
+      // حذف بيانات المستخدم من localStorage
+      localStorage.removeItem('user_data');
     } catch (err) {
       console.error("Logout failed:", err);
       error.value = err;
