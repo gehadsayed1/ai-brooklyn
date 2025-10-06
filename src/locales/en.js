@@ -39,6 +39,12 @@ export default {
     subtitle:
       "Empowering businesses through intelligent, data-driven technologies.",
     services: {
+      veo: {
+        title: "AI Video",
+      },
+      task: {
+        title: "Business coach",
+      },
       chatbot: {
         title: "Ai Chatbot",
         desc: "AI Chatbot that delivers smart, instant, and natural conversations—anytime, anywhere",
@@ -211,4 +217,23 @@ export default {
   invalidEmail: "Email must be a Gmail address only.",
   trialNote: "No charges will be made until after the 1-month free trial."
   },
+
+  models: {
+    title: "Welcome to Smart Portal",
+    subtitle: "Select a module or start typing to search",
+    searchPlaceholder: "Search modules...",
+    useModule: "Use Module",
+    modules: {
+      businessInstructor: {
+        name: "Business Instructor",
+        description: "Manage business instructor records and personal"
+      }
+    }
+  },
+
+  businessInstructor: {
+    title: "Welcome to the Future of Business Education",
+    subtitle: "Have a question? Our new AI instructor is here to help you 24/7.",
+    instruction: "Click the chat icon in the corner to get started!"
+  }
 };

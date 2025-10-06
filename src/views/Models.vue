@@ -2,8 +2,8 @@
   <div class="min-h-screen bg-white flex flex-col items-center p-8">
     <!-- Welcome Section -->
     <header class="text-center mt-12 max-w-2xl">
-      <h1 class="text-3xl font-extrabold text-primary mb-2">Welcome to Smart Portal</h1>
-      <p class="text-gray-600 text-lg">Select a module or start typing to search</p>
+      <h1 class="text-3xl font-extrabold text-primary mb-2">{{ $t('models.title') }}</h1>
+      <p class="text-gray-600 text-lg">{{ $t('models.subtitle') }}</p>
     </header>
 
     <!-- Search Bar -->
@@ -11,7 +11,7 @@
       <input
         v-model="searchQuery"
         type="text"
-        placeholder="Search modules..."
+        :placeholder="$t('models.searchPlaceholder')"
         class="w-full px-5 py-3 rounded-xl border border-gray-300 shadow-sm focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-lg"
       />
       <svg class="w-5 h-5 absolute right-4 top-3.5 text-gray-400" fill="none" stroke="currentColor" stroke-width="2"
@@ -44,7 +44,7 @@
           class="mt-6 w-full bg-primary text-white cursor-pointer py-3 rounded-lg font-medium hover:bg-primary/90 transition"
           @click="goToModule(module.route)"
         >
-          Use Module
+          {{ $t('models.useModule') }}
         </button>
       </div>
     </section>
@@ -55,27 +55,29 @@
 import { ref, computed } from "vue";
 import { User, BookOpenCheck, FileText } from "lucide-vue-next";
 import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
 
 
 const searchQuery = ref("");
-const router = useRouter()
+const router = useRouter();
+const { t } = useI18n();
 
-const modules = ref([
+const modules = computed(() => [
   // {
-  //   name: "Students",
-  //   description: "Manage student records and personal ",
+  //   name: t('models.modules.students.name'),
+  //   description: t('models.modules.students.description'),
   //   icon: User,
   //   route: "/students",
   // },
   // {
-  //   name: "Exams",
-  //   description: "Create, edit, and monitor exams",
+  //   name: t('models.modules.exams.name'),
+  //   description: t('models.modules.exams.description'),
   //   icon: BookOpenCheck,
   //   route: "/exams",
   // },
   {
-    name: "Business Instructor",
-    description: "Manage business instructor records and personal",
+    name: t('models.modules.businessInstructor.name'),
+    description: t('models.modules.businessInstructor.description'),
     icon: FileText,
     route: "/business-instructor",
   },
