@@ -104,7 +104,13 @@ const filteredModules = computed(() =>
 
 function goToModule(route) {
   console.log("Navigate to:", route);
-  router.push(route)
+  
+  // إذا كان الانتقال إلى BusinessInstructor، أضف معامل للتحقق من العودة
+  if (route === "/business-instructor") {
+    router.push(`${route}?from=models`);
+  } else {
+    router.push(route);
+  }
 }
 </script>
 

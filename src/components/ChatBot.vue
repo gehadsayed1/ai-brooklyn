@@ -51,7 +51,7 @@ const removeChat = () => {
     }
   });
 
-  // إزالة الـ styles
+ 
   const styles = document.querySelectorAll('style[data-emotion], link[href*="getbutton"], style[id*="gb-"]');
   styles.forEach(el => {
     if (el && el.parentNode) {
@@ -59,7 +59,7 @@ const removeChat = () => {
     }
   });
 
-  // إزالة الـ event listeners
+ 
   if (window.getbutton) {
     try {
       window.getbutton.destroy();
@@ -104,6 +104,16 @@ onMounted(() => {
     setTimeout(() => {
       loadChat();
     }, 200);
+    
+    // إضافة آلية إضافية لضمان ظهور الـ ChatBot
+    setTimeout(() => {
+      // التحقق من وجود الـ ChatBot
+      const chatElements = document.querySelectorAll("[class*='gb-'], [id*='gb-']");
+      if (chatElements.length === 0) {
+        console.log('ChatBot not found, reloading...');
+        loadChat();
+      }
+    }, 2000);
   }
 });
 
