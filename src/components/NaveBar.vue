@@ -40,15 +40,8 @@ const handleLogout = async () => {
 };
 
 const isHomePage = computed(() => {
-  // الشرط الأول: لو في الهوم
+ 
   if (route.path === "/") return true;
-
-  // الشرط الثاني: لو في service-details مع query معين
-  if (route.path === "/service-details" ) {
-    return true;
-  }
-
-  return false;
 });
 
 onMounted(() => {
@@ -152,7 +145,7 @@ onMounted(() => {
     <!-- Right side -->
     <div class="flex items-center gap-5 relative">
       
-      <div v-if="isHomePage">
+      <div >
         <LangSwitcher class="ml-4" />
       </div>
 

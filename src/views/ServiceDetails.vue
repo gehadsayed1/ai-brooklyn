@@ -6,14 +6,12 @@
     <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-start">
       <!-- Left Column: Service Info -->
       <div class="space-y-8">
-        <!-- Service Header -->
         <div class="border-b pb-6">
           <h1 class="text-4xl font-bold text-primary mb-4">
             {{ t(`business_ai.services.${serviceKey}.title`) }}
           </h1>
         </div>
 
-        <!-- Service Details (Overview) -->
         <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
           <h3 class="text-xl font-semibold text-gray-800 mb-4">
             {{ t("services.overview") }}
@@ -23,7 +21,6 @@
           </p>
         </div>
 
-        <!-- Features List -->
         <div class="space-y-4">
           <div
             v-for="feature in serviceData.features"
@@ -35,7 +32,6 @@
           </div>
         </div>
 
-        <!-- Benefits Section -->
         <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
           <h3 class="text-xl font-semibold text-gray-800 mb-4">
             {{ t("services.benefits") }}
@@ -72,12 +68,10 @@
       <!-- Right Column: Form -->
       <div class="sticky top-24">
         <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-100">
-          <!-- Header -->
           <div class="flex items-center justify-between mb-6">
             <h2 class="text-2xl font-bold text-primary">
               {{ t("payment.title") }}
             </h2>
-            <!-- Card Logos -->
             <div class="flex gap-2">
               <img
                 src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png"
@@ -92,13 +86,12 @@
             </div>
           </div>
 
-          <!-- Description -->
           <p class="text-gray-600 mb-6 leading-relaxed">
             {{ t("payment.description") }}
           </p>
 
-          <!-- Form -->
           <form @submit.prevent="submitPayment" class="space-y-6">
+            <!-- Email -->
             <div>
               <label class="block mb-2 font-medium text-gray-700">
                 {{ t("payment.email") }}
@@ -111,9 +104,19 @@
                   required
                   placeholder="example@gmail.com"
                   class="w-full pl-12 pr-4 py-3 border rounded-lg bg-gray-50 focus:ring-2 focus:ring-primary/20 focus:border-primary"
+                  @blur="validateEmail"
                 />
               </div>
+         
+              <p class="text-sm text-gray-500 mt-2 flex items-center gap-1">
+                <Lightbulb  size="17" class="text-yellow-500" /> {{ t("payment.emailNote") }}
+              </p>
+     
+              <p v-if="emailError" class="text-red-500 text-sm mt-1">
+                {{ t("payment.invalidEmail") }}
+              </p>
             </div>
+
             <!-- Card Number -->
             <div>
               <label class="block mb-2 font-medium text-gray-700">
@@ -175,6 +178,11 @@
               />
             </div>
 
+        
+            <p class="text-lg text-gray-900 text-center flex items-center gap-1 justify-center">
+              <Lock size="17" class="text-green-500" /> {{ t("payment.trialNote") }}
+            </p>
+
             <!-- Submit -->
             <button
               type="submit"
@@ -184,7 +192,6 @@
               {{ t("payment.startTrial") }}
             </button>
 
-            <!-- Trust Note -->
             <p
               class="text-xs text-gray-500 text-center mt-4 flex items-center justify-center gap-2"
             >
@@ -202,7 +209,7 @@
 import { ref, computed } from "vue";
 import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
-import { Mail } from "lucide-vue-next";
+import { Lightbulb, Lock, Mail } from "lucide-vue-next";
 
 const { t, locale } = useI18n();
 const route = useRoute();
@@ -210,15 +217,28 @@ const isArabic = computed(() => locale.value === "ar");
 const serviceKey = route.query.service || "";
 
 const payment = ref({
+  email: "",
   cardNumber: "",
   expiry: "",
   cvv: "",
   cardName: "",
 });
 
+const emailError = ref(false);
+
+function validateEmail() {
+  emailError.value =
+    payment.value.email.trim() !== "" &&
+    !payment.value.email.endsWith("@gmail.com");
+}
+
 function submitPayment() {
+  validateEmail();
+  if (emailError.value) return;
+
   alert(t("payment.success"));
   payment.value = {
+    email: "",
     cardNumber: "",
     expiry: "",
     cvv: "",
@@ -251,12 +271,10 @@ const serviceData = computed(() => {
   --tw-ring-color: var(--color-primary);
 }
 
-/* Smooth scroll behavior */
 html {
   scroll-behavior: smooth;
 }
 
-/* Form focus styles */
 input:focus,
 textarea:focus {
   outline: none;

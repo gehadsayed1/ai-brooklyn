@@ -18,6 +18,6 @@ import NaveBar from "./components/NaveBar.vue";
 const route = useRoute();
 
 const showFooter = computed(() => {
-  return route.path === "/" || route.path === "/service-details";
+  return route.path === "/" || route.path === "/service-details" ;
 });
 </script>

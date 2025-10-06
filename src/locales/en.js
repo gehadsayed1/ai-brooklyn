@@ -39,7 +39,7 @@ export default {
     subtitle:
       "Empowering businesses through intelligent, data-driven technologies.",
     services: {
-      veo: {
+      chatbot: {
         title: "Ai Chatbot",
         desc: "AI Chatbot that delivers smart, instant, and natural conversations—anytime, anywhere",
         price: "Starting from $10",
@@ -207,5 +207,8 @@ export default {
     startTrial: "Start Trial",
     secureNote: "Your payment is encrypted and secured with SSL technology.",
     success: "Payment successful! Thank you for your subscription.",
+      emailNote: "We recommend using a Gmail address for smoother experience.",
+  invalidEmail: "Email must be a Gmail address only.",
+  trialNote: "No charges will be made until after the 1-month free trial."
   },
 };

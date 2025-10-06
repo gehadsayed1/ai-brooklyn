@@ -78,10 +78,10 @@ const services = [
   {
     img: img,
     alt: "ai chatbot",
-    title: "business_ai.services.veo.title",
-    desc: "business_ai.services.veo.desc",
-    price: "business_ai.services.veo.price",
-    query: "ai-chatbot",
+    title: "business_ai.services.chatbot.title",
+    desc: "business_ai.services.chatbot.desc",
+    price: "business_ai.services.chatbot.price",
+    query: "chatbot",
   },
   {
     img: img2,
@@ -97,7 +97,7 @@ const services = [
     title: "business_ai.services.agent.title",
     desc: "business_ai.services.agent.desc",
     price: "business_ai.services.agent.price",
-    query: "ai-agent",
+    query: "agent",
   },
 ];
 </script>
