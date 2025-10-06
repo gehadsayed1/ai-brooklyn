@@ -1,6 +1,6 @@
 <template>
   <section
-    class="py-20 px-6 md:px-16 bg-gradient-to-b from-gray-50 to-white text-gray-800"
+    class="py-12 px-6 md:px-16 bg-gradient-to-b from-gray-50 to-white text-gray-800"
     :dir="isArabic ? 'rtl' : 'ltr'"
   >
     <div class="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-start">
