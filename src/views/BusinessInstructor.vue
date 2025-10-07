@@ -1,9 +1,10 @@
 <script setup >
 import { useRouter } from 'vue-router';
 import { ArrowLeft } from 'lucide-vue-next';
-import { onMounted } from 'vue';
+import { onMounted, ref } from 'vue';
 
 const router = useRouter();
+const isLoading = ref(false);
 
 const goBackToModels = () => {
   router.push('/models');
@@ -20,6 +21,9 @@ onMounted(() => {
     const newUrl = window.location.pathname;
     window.history.replaceState({}, '', newUrl);
     
+    // إظهار loading spinner
+    isLoading.value = true;
+    
     // إعادة تحميل الصفحة لضمان ظهور الـ ChatBot
     setTimeout(() => {
       window.location.reload();
@@ -29,7 +33,19 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="w-full h-[80vh] flex flex-col">
+  <div class="w-full h-[80vh] flex flex-col relative">
+    
+    <!-- Loading Spinner Overlay -->
+    <div 
+      v-if="isLoading" 
+      class="fixed inset-0 bg-white bg-opacity-90 flex items-center justify-center z-50"
+    >
+      <div class="flex flex-col items-center gap-4">
+        <!-- Spinner -->
+        <div class="animate-spin rounded-full h-16 w-16 border-4 border-gray-300 border-t-blue-600"></div>
+    
+      </div>
+    </div>
     
     <div class="p-4">
       <button 

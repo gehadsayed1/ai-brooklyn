@@ -68,7 +68,6 @@ const removeChat = () => {
     }
   }
 
-  l
   if (window.getbutton) {
     delete window.getbutton;
   }
@@ -105,16 +104,10 @@ onMounted(() => {
     const newUrl = window.location.pathname;
     window.history.replaceState({}, '', newUrl);
     
-    // إضافة fade effect قبل reload
+    // إعادة تحميل مباشر بدون fade effect
     setTimeout(() => {
-      // إضافة transition سلس
-      document.body.style.transition = 'opacity 0.4s ease-in-out';
-      document.body.style.opacity = '0.5';
-     
-      setTimeout(() => {
-        window.location.reload();
-      }, 400);
-    }, 200);
+      window.location.reload();
+    }, 100);
   }
 });
     
