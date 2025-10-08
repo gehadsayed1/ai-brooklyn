@@ -163,18 +163,21 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
 
   const logout = async () => {
     loading.value = true;
+    
+    // حذف البيانات المحلية أولاً
+    user.value = null;
+    eraseCookie("auth_token");
+    localStorage.removeItem('user_data');
+    
     try {
-      // إرسال request للـ logout API
+      // إرسال request للـ logout API (في الخلفية)
       await axiosInstance.post(LOGOUT);
     } catch (err) {
-      console.error("Logout failed:", err);
+      console.error("Logout API failed:", err);
       error.value = err;
     } finally {
-      // حذف البيانات المحلية حتى لو فشل الـ API
-      user.value = null;
-      eraseCookie("auth_token");
-      localStorage.removeItem('user_data');
       loading.value = false;
+      // التوجيه للـ home page
       window.location.href = "/";
     }
   };
