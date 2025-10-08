@@ -90,6 +90,7 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
           
           // إذا كان الاشتراك منتهي، عمل logout تلقائي
           if (isExpired) {
+            console.log('Subscription expired, logging out...');
             await logout();
             throw new Error('Subscription expired');
           }
@@ -100,9 +101,15 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
     } catch (err) {
       console.error("Error fetching user data:", err);
       error.value = err;
-      // في حالة فشل الـ API، نحذف الـ token
-      eraseCookie("auth_token");
-      localStorage.removeItem('user_data');
+      
+      // فقط نحذف الـ token إذا كان الخطأ 401 (Unauthorized)
+      if (err.response && err.response.status === 401) {
+        console.log('Unauthorized, clearing auth data...');
+        eraseCookie("auth_token");
+        localStorage.removeItem('user_data');
+        user.value = null;
+      }
+      
       throw err;
     } finally {
       loading.value = false;

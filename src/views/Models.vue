@@ -52,14 +52,31 @@ import { ref, computed, onMounted, onUnmounted } from "vue";
 import { User, BookOpenCheck, FileText, Search } from "lucide-vue-next";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
-
+import { useLoginWithGoogleStore } from "../stores/LoginWithGoogle";
 
 const searchQuery = ref("");
 const router = useRouter();
 const { t } = useI18n();
+const loginStore = useLoginWithGoogleStore();
 
 // منع زر الباك من الرجوع للصفحة الرئيسية
-onMounted(() => {
+onMounted(async () => {
+  // التحقق من تسجيل الدخول والـ access
+  const isAuthenticated = await loginStore.checkAuth();
+  
+  if (!isAuthenticated) {
+    // إذا لم يكن مسجل دخول، يرجع للـ home
+    router.push('/');
+    return;
+  }
+  
+  // التحقق من الـ bot access
+  if (!loginStore.checkBotAccess()) {
+    // إذا لم يكن لديه access، يرجع للـ home
+    router.push('/');
+    return;
+  }
+  
   // إضافة حالة جديدة في history لمنع الرجوع
   window.history.pushState(null, '', window.location.href);
   
