@@ -235,5 +235,17 @@ export default {
     title: "Welcome to the Future of Business Education",
     subtitle: "Have a question? Our new AI instructor is here to help you 24/7.",
     instruction: "Click the chat icon in the corner to get started!"
+  },
+
+  expiryWarning: {
+    title: "⚠️ Warning: Your Subscription is Expiring Soon",
+    message: "Your subscription will expire in",
+    day: "day",
+    days: "days",
+    expiryDate: "Expiry Date:",
+    pleaseRenew: "Please renew your subscription to continue accessing all features",
+    renewButton: "Renew Subscription",
+    laterButton: "Later",
+    dontShowAgain: "Don't show this warning again"
   }
 };

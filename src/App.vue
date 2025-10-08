@@ -29,6 +29,9 @@
       <router-view />
       <Footer v-if="showFooter" />
       <ChatBot />
+      
+      <!-- Expiry Warning Popup -->
+      <ExpiryWarningPopup />
     </div>
   </div>
 </template>
@@ -39,6 +42,7 @@ import { useRoute } from "vue-router";
 import Footer from "./components/Footer.vue";
 import NaveBar from "./components/NaveBar.vue";
 import ChatBot from "./components/ChatBot.vue";
+import ExpiryWarningPopup from "./components/ExpiryWarningPopup.vue";
 
 const route = useRoute();
 const isAppLoading = ref(true);

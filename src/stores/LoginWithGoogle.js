@@ -138,7 +138,7 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
     return user.value.has_bot_access === 1;
   };
 
-  const checkAccessExpiry = () => {
+  const checkAccessExpiry = (autoLogout = false) => {
     if (!user.value || !user.value.access_expiry) return null;
     
     const expiryDate = new Date(user.value.access_expiry);
@@ -148,8 +148,8 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
     
     const isExpired = diffDays < 0;
     
-    // إذا كان الاشتراك منتهي، عمل logout تلقائي
-    if (isExpired) {
+    // إذا كان الاشتراك منتهي وطُلب logout تلقائي
+    if (isExpired && autoLogout) {
       logout();
     }
     
