@@ -39,25 +39,28 @@ const router = createRouter({
 });
 
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const store = useLoginWithGoogleStore();
-  const isLoggedIn = store.checkAuth();
+  const isLoggedIn = await store.checkAuth();
 
-  if (isLoggedIn) {
-    if (to.path === "/models" || to.path === "/business-instructor") {
+  // السماح بالدخول للصفحات العامة للجميع
+  if (to.path === "/" || to.path === "/service-details") {
+    next();
+    return;
+  }
+
+  // حماية الصفحات المحمية (models, business-instructor)
+  if (to.path === "/models" || to.path === "/business-instructor") {
+    if (isLoggedIn) {
       next();
     } else {
-      next("/models");
+      next("/");
     }
     return;
   }
 
-
-  if (to.path === "/" || to.path === "/service-details") {
-    next();
-  } else {
-    next("/");
-  }
+  // أي مسار آخر غير معروف
+  next("/");
 });
 
 export default router;
