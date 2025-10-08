@@ -1,6 +1,7 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import { BASE_URL, LOGIN_WITH_GOOGLE } from "../server/Apis";
+import { BASE_URL, LOGIN_WITH_GOOGLE, GET_USER, LOGOUT } from "../server/Apis";
+import axiosInstance from "../server/axiosInstance";
 
 export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
   const loading = ref(false);
@@ -46,66 +47,133 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
     }
   };
 
-  const loadUserFromUrl = () => {
+  const loadUserFromUrl = async () => {
     const params = new URLSearchParams(window.location.search);
-    const userParam = params.get("user");
     const token = params.get("token");
 
-    if (userParam) {
+    if (token) {
       try {
-        const parsedUser = JSON.parse(decodeURIComponent(userParam));
-        user.value = {
-          ...parsedUser,
-          token,
-        };
-        if (token) {
-          setCookie("auth_token", token, 7); 
-   
-          localStorage.setItem('user_data', JSON.stringify(parsedUser));
-        }
+        // حفظ الـ token أولاً
+        setCookie("auth_token", token, 7);
+        
+        // جلب بيانات المستخدم من الـ API
+        await fetchUserData();
+        
+        // حذف كل الـ parameters من الـ URL
+        const cleanUrl = window.location.origin + window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+        
       } catch (err) {
-        console.error("Error parsing user:", err);
+        console.error("Error loading user:", err);
         error.value = err;
       }
     }
   };
 
-  const checkAuth = () => {
+  const fetchUserData = async () => {
+    loading.value = true;
+    try {
+      const response = await axiosInstance.get(GET_USER);
+      
+      if (response.data && response.data.data) {
+        const userData = response.data.data;
+        user.value = userData;
+        
+        // حفظ بيانات المستخدم في localStorage
+        localStorage.setItem('user_data', JSON.stringify(userData));
+        
+        // التحقق من تاريخ انتهاء الاشتراك
+        if (userData.access_expiry) {
+          const expiryDate = new Date(userData.access_expiry);
+          const today = new Date();
+          const isExpired = expiryDate < today;
+          
+          // إذا كان الاشتراك منتهي، عمل logout تلقائي
+          if (isExpired) {
+            await logout();
+            throw new Error('Subscription expired');
+          }
+        }
+        
+        return userData;
+      }
+    } catch (err) {
+      console.error("Error fetching user data:", err);
+      error.value = err;
+      // في حالة فشل الـ API، نحذف الـ token
+      eraseCookie("auth_token");
+      localStorage.removeItem('user_data');
+      throw err;
+    } finally {
+      loading.value = false;
+    }
+  };
+
+  const checkAuth = async () => {
     const token = getCookie("auth_token");
     if (token) {
-      
       const savedUser = localStorage.getItem('user_data');
       if (savedUser) {
         try {
-          user.value = { ...JSON.parse(savedUser), token };
+          user.value = JSON.parse(savedUser);
         } catch (err) {
           console.error("Error loading user from localStorage:", err);
         }
       }
+      
+      // جلب بيانات المستخدم المحدثة من الـ API
+      try {
+        await fetchUserData();
+      } catch (err) {
+        console.error("Failed to fetch updated user data:", err);
+      }
+      
       return true;
     }
     return false;
   };
 
+  const checkBotAccess = () => {
+    if (!user.value) return false;
+    return user.value.has_bot_access === 1;
+  };
+
+  const checkAccessExpiry = () => {
+    if (!user.value || !user.value.access_expiry) return null;
+    
+    const expiryDate = new Date(user.value.access_expiry);
+    const today = new Date();
+    const diffTime = expiryDate - today;
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    
+    const isExpired = diffDays < 0;
+    
+    // إذا كان الاشتراك منتهي، عمل logout تلقائي
+    if (isExpired) {
+      logout();
+    }
+    
+    return {
+      expiryDate: user.value.access_expiry,
+      daysRemaining: diffDays,
+      isExpired: isExpired,
+      isExpiringSoon: diffDays > 0 && diffDays <= 7, // أقل من 7 أيام
+    };
+  };
+
   const logout = async () => {
+    loading.value = true;
     try {
-      if (user.value?.token) {
-        await fetch("https://sea-turtle-app-vshwt.ondigitalocean.app/api/logout", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${user.value.token}`,
-          },
-        });
-      }
-      user.value = null;
-      eraseCookie("auth_token");
-      // حذف بيانات المستخدم من localStorage
-      localStorage.removeItem('user_data');
+      // إرسال request للـ logout API
+      await axiosInstance.post(LOGOUT);
     } catch (err) {
       console.error("Logout failed:", err);
       error.value = err;
     } finally {
+      // حذف البيانات المحلية حتى لو فشل الـ API
+      user.value = null;
+      eraseCookie("auth_token");
+      localStorage.removeItem('user_data');
       loading.value = false;
       window.location.href = "/";
     }
@@ -119,5 +187,8 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
     loadUserFromUrl,
     logout,
     checkAuth,
+    fetchUserData,
+    checkBotAccess,
+    checkAccessExpiry,
   };
 });
