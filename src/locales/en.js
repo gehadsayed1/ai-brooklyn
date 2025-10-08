@@ -5,6 +5,8 @@ export default {
     about: "About Us",
     contact: "Contact Us",
     login: "Login",
+    logout: "Log out",
+    continueWithGoogle: "Continue with Google",
   },
   hero: {
     title: "Empowering Tomorrow with AI",
@@ -95,6 +97,12 @@ export default {
     success: "Message sent successfully!",
     address: "Dubai, Deira, Mina Saeed, Golden Business Center, Office 206",
     sendFail: "Failed to send. Please try again later.",
+    successTitle: "Success!",
+    successText: "Your message has been sent successfully. We'll get back to you soon.",
+    successButton: "Great!",
+    errorTitle: "Error!",
+    errorText: "Failed to send message. Please try again.",
+    errorButton: "Try Again",
   },
   footer: {
     companyInfo:

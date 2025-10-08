@@ -12,7 +12,7 @@
         class="google-login-btn flex items-center justify-center gap-3 w-full py-3 rounded-lg border border-gray-300 hover:bg-gray-100 transition"
       >
         <img src="https://www.svgrepo.com/show/355037/google.svg" alt="Google" class="w-6 h-6" />
-        <span v-if="!loginWithGoogleStore.loading">Continue with Google</span>
+        <span v-if="!loginWithGoogleStore.loading">{{ t('nav.continueWithGoogle') }}</span>
         <span v-else class="loader border-4 border-t-4 border-primary border-t-transparent rounded-full w-5 h-5 animate-spin"></span>
       </button>
       
@@ -27,9 +27,9 @@
 <script setup>
 import { X } from "lucide-vue-next";
 import { useLoginWithGoogleStore } from "../stores/LoginWithGoogle";
+import { useI18n } from 'vue-i18n';
 
-
-
+const { t } = useI18n();
 const loginWithGoogleStore = useLoginWithGoogleStore();
 
 const props = defineProps({

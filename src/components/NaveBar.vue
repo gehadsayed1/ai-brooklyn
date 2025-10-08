@@ -198,7 +198,7 @@ onMounted(() => {
             @click="handleLogout"
             class="flex items-center gap-2 w-full text-left text-red-500 px-4 py-2 hover:bg-gray-100 hover:underline cursor-pointer"
           >
-            <span>Log out</span>
+            <span>{{ t('nav.logout') }}</span>
             <div
               v-if="isLoggingOut"
               class="w-4 h-4 border-2 border-red-500 border-t-transparent rounded-full animate-spin"
