@@ -34,20 +34,17 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
   };
 
   const loginWithGoogle = () => {
-    console.log('🚀 Starting Google login...');
-    console.log('Redirect URL:', `${BASE_URL}${LOGIN_WITH_GOOGLE}`);
-    
     loading.value = true;
     error.value = null;
     
     try {
       setTimeout(() => {
-        console.log('⏰ Redirecting to Google...');
         window.location.href = `${BASE_URL}${LOGIN_WITH_GOOGLE}`;
       }, 1000);
     } catch (err) {
       console.error('❌ Login error:', err);
       error.value = err;
+      error.value = 'NO_ACCESS'; 
       loading.value = false;
     }
   };
@@ -70,7 +67,6 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
         
         // إذا كان لديه access، توجيهه لصفحة Models
         if (userData && userData.has_bot_access === 1) {
-          console.log('✅ User has access, redirecting to Models...');
           // استخدام router إذا كان متاح، وإلا استخدام window.location
           if (router) {
             router.push('/models');

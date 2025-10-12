@@ -3,7 +3,7 @@
   <transition name="slide-down">
     <div 
       v-if="showNoAccessMessage" 
-      class="fixed top-20 z-50 ltr:right-4 rtl:left-4 max-w-md w-full mx-4 md:mx-0"
+      class="fixed top-20 z-[9999] ltr:right-4 rtl:left-4 max-w-md w-full mx-4 md:mx-0"
     >
       <div class="bg-white rounded-xl shadow-2xl border-l-4 border-red-500 p-4">
         <div class="flex items-start gap-3">
@@ -70,7 +70,7 @@ watch(() => loginWithGoogleStore.error, (newError) => {
       loginWithGoogleStore.error = null;
     }, 10000);
   }
-});
+}, { immediate: true });
 
 // دالة لإغلاق الرسالة يدوياً
 const closeNotification = () => {

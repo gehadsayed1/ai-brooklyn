@@ -15,27 +15,6 @@
         <span v-if="!loginWithGoogleStore.loading">{{ t('nav.continueWithGoogle') }}</span>
         <span v-else class="loader border-4 border-t-4 border-primary border-t-transparent rounded-full w-5 h-5 animate-spin"></span>
       </button>
-      
-      <!-- رسالة مخصصة لو معندوش access -->
-      <transition name="slide-fade">
-        <div v-if="showNoAccessMessage" class="mt-4 p-4 bg-red-50 border border-red-200 rounded-lg">
-          <div class="flex items-start gap-2">
-            <i class="fas fa-exclamation-circle text-red-500 mt-1"></i>
-            <div class="flex-1 text-sm">
-              <p class="text-red-700 font-semibold mb-2">{{ t('login.noAccess.title') }}</p>
-              <p class="text-red-600 mb-3">{{ t('login.noAccess.message') }}</p>
-              <a 
-                href="https://wa.me/971567844965" 
-                target="_blank"
-                class="inline-flex items-center gap-2 text-green-600 hover:text-green-700 font-medium transition"
-              >
-                <i class="fab fa-whatsapp text-lg"></i>
-                <span>+971 567844965</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </transition>
     </div>
   </transition>
 </template>
@@ -45,7 +24,6 @@
 
 <script setup>
 import { X } from "lucide-vue-next";
-import { ref, watch, onUnmounted } from 'vue';
 import { useLoginWithGoogleStore } from "../stores/LoginWithGoogle";
 import { useI18n } from 'vue-i18n';
 
@@ -59,38 +37,7 @@ const props = defineProps({
   },
 });
 
-const showNoAccessMessage = ref(false);
-let hideTimeout = null;
-
-// مراقبة الـ error علشان نعرض الرسالة
-watch(() => loginWithGoogleStore.error, (newError) => {
-  if (newError === 'NO_ACCESS') {
-    showNoAccessMessage.value = true;
-    
-    // إخفاء الرسالة بعد 8 ثواني
-    if (hideTimeout) clearTimeout(hideTimeout);
-    hideTimeout = setTimeout(() => {
-      showNoAccessMessage.value = false;
-      loginWithGoogleStore.error = null; // مسح الـ error
-    }, 8000);
-  } else if (!newError) {
-    // إذا تم مسح الـ error، نخفي الرسالة فوراً
-    showNoAccessMessage.value = false;
-    if (hideTimeout) clearTimeout(hideTimeout);
-  }
-});
-
-
-onUnmounted(() => {
-  if (hideTimeout) clearTimeout(hideTimeout);
-  showNoAccessMessage.value = false;
-});
-
 const loginWithGoogle = () => {
-  // مسح الرسالة والـ error قبل المحاولة الجديدة
-  showNoAccessMessage.value = false;
-  if (hideTimeout) clearTimeout(hideTimeout);
-  
   loginWithGoogleStore.loginWithGoogle();
 };
 </script>
@@ -100,22 +47,6 @@ const loginWithGoogle = () => {
   transition: opacity 0.3s ease;
 }
 .fade-enter-from, .fade-leave-to {
-  opacity: 0;
-}
-
-/* Animation للرسالة */
-.slide-fade-enter-active {
-  transition: all 0.4s ease-out;
-}
-.slide-fade-leave-active {
-  transition: all 0.3s ease-in;
-}
-.slide-fade-enter-from {
-  transform: translateY(-10px);
-  opacity: 0;
-}
-.slide-fade-leave-to {
-  transform: translateY(-5px);
   opacity: 0;
 }
 

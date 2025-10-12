@@ -45,7 +45,6 @@ router.beforeEach(async (to, from, next) => {
 
   // إذا المستخدم مسجل دخول وعنده access ورايح على الـ home، حوله للـ models
   if (to.path === "/" && isLoggedIn && store.checkBotAccess()) {
-    console.log('✅ User has access, redirecting to Models from home...');
     next("/models");
     return;
   }
