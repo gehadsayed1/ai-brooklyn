@@ -88,6 +88,9 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
       
       if (response.data && response.data.data) {
         const userData = response.data.data;
+        console.log("userData", userData);
+        console.log("userData.has_bot_access", userData.has_bot_access);
+        
         
         // التحقق من الـ access قبل حفظ البيانات
         if (userData.has_bot_access === 0) {
@@ -129,6 +132,8 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
       console.error("Error fetching user data:", err);
       error.value = err;
       
+      error.value = 'NO_ACCESS';
+      sessionStorage.setItem('show_no_access', 'true');
       // فقط نحذف الـ token إذا كان الخطأ 401 (Unauthorized)
       if (err.response && err.response.status === 401) {
         console.log('Unauthorized, clearing auth data...');
