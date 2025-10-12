@@ -8,6 +8,12 @@ export default {
     logout: "تسجيل الخروج",
     continueWithGoogle: "المتابعة مع جوجل",
   },
+  login: {
+    noAccess: {
+      title: "عذراً، ليس لديك صلاحية الوصول",
+      message: "للحصول على صلاحية الوصول، يُرجى التواصل معنا عبر واتساب:"
+    }
+  },
   hero: {
     title: "تمكين الغد بالذكاء الاصطناعي",
     description:

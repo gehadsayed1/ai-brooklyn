@@ -34,15 +34,20 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
   };
 
   const loginWithGoogle = () => {
+    console.log('🚀 Starting Google login...');
+    console.log('Redirect URL:', `${BASE_URL}${LOGIN_WITH_GOOGLE}`);
+    
     loading.value = true;
     error.value = null;
+    
     try {
       setTimeout(() => {
+        console.log('⏰ Redirecting to Google...');
         window.location.href = `${BASE_URL}${LOGIN_WITH_GOOGLE}`;
       }, 1000);
     } catch (err) {
+      console.error('❌ Login error:', err);
       error.value = err;
-      console.error(err);
       loading.value = false;
     }
   };
@@ -77,6 +82,18 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
       
       if (response.data && response.data.data) {
         const userData = response.data.data;
+        
+        // التحقق من الـ access قبل حفظ البيانات
+        if (userData.has_bot_access === 0) {
+          // لو معندوش access، نعمل logout ونرمي رسالة مخصصة
+          eraseCookie("auth_token");
+          localStorage.removeItem('user_data');
+          user.value = null;
+          error.value = 'NO_ACCESS'; // رسالة مخصصة
+          loading.value = false;
+          return null;
+        }
+        
         user.value = userData;
         
         // حفظ بيانات المستخدم في localStorage

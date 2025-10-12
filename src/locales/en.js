@@ -8,6 +8,12 @@ export default {
     logout: "Log out",
     continueWithGoogle: "Continue with Google",
   },
+  login: {
+    noAccess: {
+      title: "Sorry, You Don't Have Access",
+      message: "To get access, please contact us via WhatsApp:"
+    }
+  },
   hero: {
     title: "Empowering Tomorrow with AI",
     description:
