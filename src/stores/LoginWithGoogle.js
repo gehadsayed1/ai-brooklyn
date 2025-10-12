@@ -44,7 +44,6 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
     } catch (err) {
       console.error('❌ Login error:', err);
       error.value = err;
-      error.value = 'NO_ACCESS'; 
       loading.value = false;
     }
   };
@@ -96,7 +95,11 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
           eraseCookie("auth_token");
           localStorage.removeItem('user_data');
           user.value = null;
+          
+          // حفظ NO_ACCESS في sessionStorage علشان يفضل بعد reload
+          sessionStorage.setItem('show_no_access', 'true');
           error.value = 'NO_ACCESS'; // رسالة مخصصة
+          
           loading.value = false;
           return null;
         }

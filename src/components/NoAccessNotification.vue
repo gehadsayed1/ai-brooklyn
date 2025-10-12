@@ -48,7 +48,7 @@
 </template>
 
 <script setup>
-import { ref, watch, onUnmounted } from 'vue';
+import { ref, watch, onUnmounted, onMounted } from 'vue';
 import { useLoginWithGoogleStore } from "../stores/LoginWithGoogle";
 import { useI18n } from 'vue-i18n';
 
@@ -57,6 +57,27 @@ const loginWithGoogleStore = useLoginWithGoogleStore();
 
 const showNoAccessMessage = ref(false);
 let hideTimeout = null;
+
+// فحص sessionStorage عند تحميل الـ component
+onMounted(() => {
+  const shouldShowNoAccess = sessionStorage.getItem('show_no_access');
+  
+  if (shouldShowNoAccess === 'true') {
+    console.log('🔴 Found NO_ACCESS flag in sessionStorage, showing notification');
+    
+    // مسح الـ flag من sessionStorage
+    sessionStorage.removeItem('show_no_access');
+    
+    // عرض الرسالة
+    showNoAccessMessage.value = true;
+    
+    // إخفاء الرسالة بعد 10 ثواني
+    hideTimeout = setTimeout(() => {
+      showNoAccessMessage.value = false;
+      sessionStorage.removeItem('show_no_access');
+    }, 10000);
+  }
+});
 
 // مراقبة الـ error علشان نعرض الرسالة
 watch(() => loginWithGoogleStore.error, (newError) => {
@@ -67,6 +88,7 @@ watch(() => loginWithGoogleStore.error, (newError) => {
     if (hideTimeout) clearTimeout(hideTimeout);
     hideTimeout = setTimeout(() => {
       showNoAccessMessage.value = false;
+      sessionStorage.removeItem('show_no_access');
       loginWithGoogleStore.error = null;
     }, 10000);
   }
@@ -76,6 +98,7 @@ watch(() => loginWithGoogleStore.error, (newError) => {
 const closeNotification = () => {
   showNoAccessMessage.value = false;
   if (hideTimeout) clearTimeout(hideTimeout);
+  sessionStorage.removeItem('show_no_access'); // مسح من sessionStorage
   loginWithGoogleStore.error = null;
 };
 
