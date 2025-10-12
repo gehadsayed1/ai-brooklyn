@@ -67,7 +67,7 @@ onMounted(() => {
     if (current) currentSection.value = current;
   });
 
-  loginStore.loadUserFromUrl();
+  loginStore.loadUserFromUrl(router);
 });
 </script>
 

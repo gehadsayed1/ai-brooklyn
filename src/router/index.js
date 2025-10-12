@@ -43,6 +43,13 @@ router.beforeEach(async (to, from, next) => {
   const store = useLoginWithGoogleStore();
   const isLoggedIn = await store.checkAuth();
 
+  // إذا المستخدم مسجل دخول وعنده access ورايح على الـ home، حوله للـ models
+  if (to.path === "/" && isLoggedIn && store.checkBotAccess()) {
+    console.log('✅ User has access, redirecting to Models from home...');
+    next("/models");
+    return;
+  }
+
   // السماح بالدخول للصفحات العامة للجميع
   if (to.path === "/" || to.path === "/service-details") {
     next();
@@ -51,7 +58,7 @@ router.beforeEach(async (to, from, next) => {
 
   // حماية الصفحات المحمية (models, business-instructor)
   if (to.path === "/models" || to.path === "/business-instructor") {
-    if (isLoggedIn) {
+    if (isLoggedIn && store.checkBotAccess()) {
       next();
     } else {
       next("/");

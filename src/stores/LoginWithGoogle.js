@@ -52,7 +52,7 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
     }
   };
 
-  const loadUserFromUrl = async () => {
+  const loadUserFromUrl = async (router = null) => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get("token");
 
@@ -62,11 +62,22 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
         setCookie("auth_token", token, 7);
         
         // جلب بيانات المستخدم من الـ API
-        await fetchUserData();
+        const userData = await fetchUserData();
         
         // حذف كل الـ parameters من الـ URL
         const cleanUrl = window.location.origin + window.location.pathname;
         window.history.replaceState({}, document.title, cleanUrl);
+        
+        // إذا كان لديه access، توجيهه لصفحة Models
+        if (userData && userData.has_bot_access === 1) {
+          console.log('✅ User has access, redirecting to Models...');
+          // استخدام router إذا كان متاح، وإلا استخدام window.location
+          if (router) {
+            router.push('/models');
+          } else {
+            window.location.href = '/models';
+          }
+        }
         
       } catch (err) {
         console.error("Error loading user:", err);

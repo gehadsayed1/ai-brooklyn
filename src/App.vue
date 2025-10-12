@@ -32,6 +32,9 @@
       
       <!-- Expiry Warning Popup -->
       <ExpiryWarningPopup />
+      
+      <!-- No Access Notification -->
+      <NoAccessNotification />
     </div>
   </div>
 </template>
@@ -43,6 +46,7 @@ import Footer from "./components/Footer.vue";
 import NaveBar from "./components/NaveBar.vue";
 import ChatBot from "./components/ChatBot.vue";
 import ExpiryWarningPopup from "./components/ExpiryWarningPopup.vue";
+import NoAccessNotification from "./components/NoAccessNotification.vue";
 
 const route = useRoute();
 const isAppLoading = ref(true);
