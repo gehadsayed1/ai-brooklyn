@@ -21,10 +21,11 @@
         </a>
 
         <!-- Phone Card -->
-        <a href="tel:+971567844965"
+        <a href="https://wa.me/971567844965"
+          target="_blank"
           class="flex flex-col items-center text-center p-4 rounded-xl bg-white shadow-md hover:shadow-xl transition-shadow duration-300 cursor-pointer w-full md:w-[250px] h-[140px] justify-center border-2 border-transparent hover:border-primary">
           <div class="text-primary text-2xl mb-2">
-            <i class="fas fa-phone-alt"></i>
+            <i class="fab fa-whatsapp"></i>
           </div>
           <p class="text-gray-800 text-sm font-medium phone-number">
             +971 567844965

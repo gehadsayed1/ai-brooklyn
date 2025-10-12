@@ -5,15 +5,25 @@
     <meta charset="UTF-8" />
     <!-- <link rel="icon" href="/favicon.ico" />  -->
      <link rel="icon" type="image/png" href="/favicon.png" />
-
+<link rel="stylesheet" href="https://gehadsayed1.github.io/chatbot-widget/widget.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>AI BROOKLYN</title>
+    <title>BROOKLYN</title>
   </head>
   <body>
     <div id="app"></div>
     <script type="module" src="/src/main.js"></script>
      <!-- <script defer src="https://static.getbutton.io/widget/bundle.js?id=URimL" ></script> -->
-  
+      
 
+<script src="https://gehadsayed1.github.io/chatbot-widget/widget.js" defer></script>
+<script>
+  window.addEventListener('DOMContentLoaded', function () {
+    if (window.SmartChatbot) {
+      window.SmartChatbot.init({ openByDefault: true });
+    } else {
+      console.error('SmartChatbot not loaded');
+    }
+  });
+</script>
   </body>
 </html>
