@@ -128,14 +128,14 @@ const submitForm = async () => {
     });
     
     const result = await emailjs.send(
-      'service_k629bjj',            // Service ID
-      'template_84un74o',           // Template ID (غير هذا بالـ ID الصحيح)
+      'service_k629bjj',            
+      'template_84un74o',          
       {
         name: form.value.name,
         email: form.value.email,
         message: form.value.message,
       },
-      'QEPaGIZRDeyyNMz9O'     // Public Key
+      'QEPaGIZRDeyyNMz9O'     
     );
 
     console.log('✅ Email sent successfully:', result);
