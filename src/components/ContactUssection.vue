@@ -120,18 +120,25 @@ const submitForm = async () => {
   loading.value = true;
 
   try {
+    console.log('🚀 Starting email send...');
+    console.log('Form data:', {
+      name: form.value.name,
+      email: form.value.email,
+      message: form.value.message
+    });
     
     const result = await emailjs.send(
-      'service_zb5leclz',           
-      'YOUR_TEMPLATE_ID',         
+      'service_k629bjj',            // Service ID
+      'template_84un74o',           // Template ID (غير هذا بالـ ID الصحيح)
       {
-        from_name: form.value.name,
-        from_email: form.value.email,
+        name: form.value.name,
+        email: form.value.email,
         message: form.value.message,
-        to_email: 'ai@brooklynacademy.net',  
       },
-      'YOUR_PUBLIC_KEY'           
+      'QEPaGIZRDeyyNMz9O'     // Public Key
     );
+
+    console.log('✅ Email sent successfully:', result);
 
     // Show a success pop-up to the user
     Swal.fire({
@@ -146,11 +153,17 @@ const submitForm = async () => {
     resetForm();
 
   } catch (err) {
-    // Show an error pop-up if anything goes wrong
-    console.error("Submission Error:", err);
+    // Show detailed error information
+    console.error("❌ EmailJS Error:", err);
+    console.error("Error details:", {
+      message: err.message,
+      status: err.status,
+      text: err.text
+    });
+    
     Swal.fire({
       title: t('contact.errorTitle'),
-      text: t('contact.errorText'),
+      text: `${t('contact.errorText')}\n\nError: ${err.message || err.text || 'Unknown error'}`,
       icon: "error",
       confirmButtonColor: "#d33",
       confirmButtonText: t('contact.errorButton'),
