@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { useLoginWithGoogleStore } from "../stores/LoginWithGoogle";
+import { useGoogleAnalytics } from "../composables/useGoogleAnalytics";
 
 
 const routes = [
@@ -67,6 +68,12 @@ router.beforeEach(async (to, from, next) => {
 
   // أي مسار آخر غير معروف
   next("/");
+});
+
+// تتبع الصفحات في Google Analytics
+router.afterEach((to) => {
+  const { trackPageView } = useGoogleAnalytics();
+  trackPageView(to.path);
 });
 
 export default router;

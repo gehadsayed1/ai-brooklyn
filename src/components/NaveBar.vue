@@ -6,6 +6,7 @@ import { useI18n } from "vue-i18n";
 import { LogIn, LogOut } from "lucide-vue-next";
 import { useLoginWithGoogleStore } from "../stores/LoginWithGoogle";
 import GoogleLoginModal from "./GoogleLoginModal.vue";
+import { useGoogleAnalytics } from "../composables/useGoogleAnalytics";
 
 const { t } = useI18n();
 const router = useRouter();
@@ -17,6 +18,9 @@ const currentSection = ref("#home");
 
 const loginStore = useLoginWithGoogleStore();
 const isLoggingOut = ref(false);
+
+// Google Analytics
+const { trackButtonClick, trackEvent } = useGoogleAnalytics();
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
@@ -32,6 +36,10 @@ const scrollTo = (id) => {
 
 const handleLogout = async () => {
   isLoggingOut.value = true;
+  // تتبع عملية تسجيل الخروج
+  trackEvent('user_logout', {
+    user_id: loginStore.user?.id || 'unknown'
+  });
   try {
     await loginStore.logout();
   } finally {
