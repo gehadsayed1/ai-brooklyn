@@ -4,6 +4,7 @@ import ContactUssection from "../components/ContactUssection.vue";
 // import Footer from "../components/Footer.vue";
 import HeroSection from "../components/HeroSection.vue";
 import SolutionsSection from "../components/SolutionsSection.vue";
+import VedioPlayer from "../components/vedioPlayer.vue";
 import WhyChooseUsSection from "../components/WhyChooseUsSection.vue";
 // import ProjectsSection from "../components/ProjectsSection.vue";
 // import Navbar from "../components/NaveBar.vue";
@@ -21,6 +22,9 @@ import WhyChooseUsSection from "../components/WhyChooseUsSection.vue";
     <!-- Hero Section -->
     <HeroSection id="home"/>
 
+    <div class="flex itme-center justify-center py-3">
+      <VedioPlayer videoId="Q3ggqDxSlmo"/>
+    </div>
     <!-- About Us Section -->
     <AboutUsSection />
 
