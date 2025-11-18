@@ -241,7 +241,98 @@ export default {
       businessInstructor: {
         name: "Business Instructor",
         description: "Manage business instructor records and personal"
-      }
+      },
+      students: {
+        name: "Students Module",
+        description: "Manage student records and personal information"
+      },
+      videoScript: {
+        name: "Video Script Module",
+        description: "AI-powered video script generation for content creation and storytelling"
+      },
+      businessPlan: {
+        name: "Business Plan Module",
+        description: "Create professional business plans with AI assistance"
+      },
+      marketingGuru: {
+        name: "Marketing Module",
+        description: "Comprehensive marketing strategy and planning tools powered by AI"
+      },
+      HR: {
+        name: "HR Tools",
+        description: "Human resources solutions for team management and development"
+      },
+      Storyboard:{
+        name: "Storyboard by Brooklyn",
+        description: "Advanced multimodal AI for creative storyboarding and visualization"
+      },
+      KPIS:{
+        name: "KPIS",
+        description: "Track and analyze key performance indicators effectively"
+      },
+      Job:{
+        name: "Job Description",
+        description: "Generate compelling job descriptions for recruitment"
+      },
+      businessAnalyst:{
+        name: "Business Analyst",
+        description: "Deep business analysis and insights powered by AI"
+      },
+      CEO:{
+        name: "CEO Assistant",
+        description: "Executive decision support and strategic planning"
+      },
+      SWOT:{
+        name: "SWOT Analysis",
+        description: "Analyze strengths, weaknesses, opportunities, and threats"
+      },
+      ProjectManager:{
+        name: "Project Manager",
+        description: "AI-assisted project planning and management"
+      },
+      TotalQualityManagement:{
+        name: "Total Quality Management",
+        description: "IOptimize quality management processes with AI"
+      },
+      LegalAdvisor:{
+        name: "Legal Advisor",
+        description: "AI-powered legal guidance for business compliance"
+      },
+      CFOAssistant:{
+        name: "CFO Assistant",
+        description: "Financial management and strategic planning support"
+      },
+      MarketingPlan:{
+        name: "Marketing Plan",
+        description: "Strategic marketing planning and execution"
+      }, PicStoryboard: {
+    name: "Pic Storyboard",
+    description: "Visual storyboarding with image generation"
+  },
+
+  KeywordResearch: {
+    name: "Keyword Research",
+    description: "Identify high-impact keywords for SEO success"
+  },
+
+  SEOOptimization: {
+    name: "SEO Optimization",
+    description: "Search engine optimization strategies and tools"
+  },
+
+  UniqueSellingPoint: {
+    name: "Unique Selling Point",
+    description: "Define and communicate your competitive advantage"
+  },
+
+  ResearchAssistant: {
+    name: "Research Assistant",
+    description: "Comprehensive research and data analysis"
+  }
+
+
+
+    
     }
   },
 

@@ -41,22 +41,24 @@ const router = createRouter({
 
 
 router.beforeEach(async (to, from, next) => {
+   next();
+  return;
   const store = useLoginWithGoogleStore();
   const isLoggedIn = await store.checkAuth();
 
-  // إذا المستخدم مسجل دخول وعنده access ورايح على الـ home، حوله للـ models
+
   if (to.path === "/" && isLoggedIn && store.checkBotAccess()) {
     next("/models");
     return;
   }
 
-  // السماح بالدخول للصفحات العامة للجميع
+ 
   if (to.path === "/" || to.path === "/service-details") {
     next();
     return;
   }
 
-  // حماية الصفحات المحمية (models, business-instructor)
+
   if (to.path === "/models" || to.path === "/business-instructor") {
     if (isLoggedIn && store.checkBotAccess()) {
       next();
@@ -66,12 +68,13 @@ router.beforeEach(async (to, from, next) => {
     return;
   }
 
-  // أي مسار آخر غير معروف
+
   next("/");
 });
 
-// تتبع الصفحات في Google Analytics
+
 router.afterEach((to) => {
+  // next(); return;
   const { trackPageView } = useGoogleAnalytics();
   trackPageView(to.path);
 });

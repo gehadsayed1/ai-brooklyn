@@ -18,6 +18,6 @@
             <source src="https://ik.imagekit.io/ts7pphpbz3/Ai%20Tool%20(2).mp4" type="video/mp4">
 
         </video>
-
+<!-- <script defer="" src="https://static.getbutton.io/widget/bundle.js?id=CoSoS"></script> -->
     </div>
 </template>
