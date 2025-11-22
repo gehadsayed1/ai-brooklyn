@@ -46,8 +46,7 @@
 
   </div>
 </template>
-<script setup>
-import { ref, computed } from "vue";
+<script setup>import { computed, onMounted, onUnmounted, ref } from 'vue';;
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
 import { modules } from "../data/modules";
@@ -64,6 +63,22 @@ const filteredModules = computed(() =>
     t(m.nameKey).toLowerCase().includes(searchQuery.value.toLowerCase())
   )
 );
+
+onMounted(() => {
+  // بنضيف نقطة ثابتة جديدة في الهستوري
+  window.history.pushState(null, "", window.location.href);
+
+  // لو حاول يرجع → نرجّعه تاني لنفس الصفحة
+  window.onpopstate = function () {
+    window.history.pushState(null, "", window.location.href);
+  };
+});
+
+onUnmounted(() => {
+  // نرجع الباك لطبيعته لو خرج من الصفحة
+  window.onpopstate = null;
+});
+
 
 function goToModule(mod) {
   console.log(mod);

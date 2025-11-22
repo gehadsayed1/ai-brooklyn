@@ -46,7 +46,7 @@ import NaveBar from "./components/NaveBar.vue";
 import ChatBot from "./components/ChatBot.vue";
 import ExpiryWarningPopup from "./components/ExpiryWarningPopup.vue";
 import NoAccessNotification from "./components/NoAccessNotification.vue";
-import { watch } from "vue";
+
 
 
 
@@ -67,24 +67,6 @@ onMounted(() => {
 });
 
 
-watch(
-  () => route.path,
-  (newPath) => {
-    const blockBack = newPath.startsWith("/models") || newPath.startsWith("/model");
 
-    if (blockBack) {
-      
-      window.history.pushState(null, "", window.location.href);
-
-      window.onpopstate = function () {
-        window.history.pushState(null, "", window.location.href);
-      };
-    } else {
-   
-      window.onpopstate = null;
-    }
-  },
-  { immediate: true }
-);
 
 </script>
