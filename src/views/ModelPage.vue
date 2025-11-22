@@ -4,7 +4,7 @@ import { removeChat } from '../utils/removeChat';
 import { modules } from "../data/modules";
 import { useI18n } from "vue-i18n";
 import { useRouter, useRoute } from "vue-router";
-import { ArrowLeft } from "lucide-vue-next";import { computed, onMounted, onUnmounted } from 'vue';;
+import { ArrowLeft } from "lucide-vue-next";import { computed, onMounted } from 'vue';;
 
 const router = useRouter();
 const route = useRoute();
@@ -26,20 +26,20 @@ onMounted(() => {
 });
 
 
-onMounted(() => {
-  // بنضيف نقطة ثابتة جديدة في الهستوري
-  window.history.pushState(null, "", window.location.href);
+// onMounted(() => {
+//   // بنضيف نقطة ثابتة جديدة في الهستوري
+//   window.history.pushState(null, "", window.location.href);
 
-  // لو حاول يرجع → نرجّعه تاني لنفس الصفحة
-  window.onpopstate = function () {
-    window.history.pushState(null, "", window.location.href);
-  };
-});
+//   // لو حاول يرجع → نرجّعه تاني لنفس الصفحة
+//   window.onpopstate = function () {
+//     window.history.pushState(null, "", window.location.href);
+//   };
+// });
 
-onUnmounted(() => {
-  // نرجع الباك لطبيعته لو خرج من الصفحة
-  window.onpopstate = null;
-});
+// onUnmounted(() => {
+//   // نرجع الباك لطبيعته لو خرج من الصفحة
+//   window.onpopstate = null;
+// });
 
 const currentModule = computed(() =>
   modules.find((m) => m.slug === route.params.slug)
