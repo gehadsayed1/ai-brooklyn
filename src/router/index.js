@@ -15,7 +15,7 @@ const routes = [
     component: () => import("../views/ServiceDetails.vue"),
   },
   {
-    path: "/business-instructor",
+    path: "/model/:slug",
     name: "BusinessInstructor",
     component: () => import("../views/ModelPage.vue"),
     meta: { requiresAuth: true },

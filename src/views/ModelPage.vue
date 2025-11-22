@@ -2,19 +2,22 @@
 
 <script setup>
 import { onMounted, ref } from 'vue';
-import { useRouter } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import { ArrowLeft } from 'lucide-vue-next';
 
 const router = useRouter();
+const route = useRoute();
 const isLoading = ref(false);
+
+const name = route.params.slug
 
 const goBackToModels = () => {
   router.push('/models');
 };
 
-// إعادة تحميل الصفحة لضمان ظهور الـ ChatBot
+
 onMounted(() => {
-  // التحقق من وجود معامل في URL يشير إلى العودة من Models
+
   const urlParams = new URLSearchParams(window.location.search);
   const fromModels = urlParams.get('from') === 'models';
   
@@ -64,6 +67,11 @@ onMounted(() => {
       <h2 class="text-xl md:text-4xl font-bold text-[#002d62] mb-4">
         {{ $t('businessInstructor.title') }}
       </h2>
+
+      <h3 class="text-lg md:text-2xl font-semibold text-[#002d62] mb-4">
+        {{ name }}
+      </h3>
+
       <p class="text-sm md:text-xl text-gray-700">
         {{ $t('businessInstructor.subtitle') }}<br />
         {{ $t('businessInstructor.instruction') }}
