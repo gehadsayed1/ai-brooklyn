@@ -1,25 +1,31 @@
 
 <script setup>
-
-import { useRoute } from 'vue-router';
-import { modules } from '../data/modules';
-import { watch, onMounted, onUnmounted, computed } from "vue";
+import { removeChat } from '../utils/removeChat';
+import { useModuleStore } from '../stores/modules';
+import { watch, onMounted, onUnmounted } from "vue";
+import { useRoute } from "vue-router";
 
 const route = useRoute();
-let script;
+const moduleStore = useModuleStore();
 
-const currentModule = computed(() =>
-  modules.find((m) => m.slug === route.params.slug)
-);
+let script = null;
 
-const widgetId = computed(() => currentModule.value?.widgetId);
+const loadChat = () => {
+  removeChat();
+
+  const widgetId = moduleStore.currentWidgetId;
+  if (!widgetId) return;
+
+  script = document.createElement("script");
+  script.id = "chat-widget";
+  script.src = `https://static.getbutton.io/widget/bundle.js?id=${widgetId}`;
+  script.defer = true;
+  document.body.appendChild(script);
+};
 
 const removeChat = () => {
   const el = document.getElementById("chat-widget");
   if (el) el.remove();
-
-  const btn = document.querySelector(".gb-widget-launcher");
-  if (btn) btn.remove();
 
   if (window.getbutton) {
     try { window.getbutton.destroy(); } catch {}
@@ -27,22 +33,11 @@ const removeChat = () => {
   }
 };
 
-const loadChat = () => {
-  removeChat();
-  const id = widgetId.value;
-  if (!id) return;
-
-  script = document.createElement("script");
-  script.id = "chat-widget";
-  script.src = `https://static.getbutton.io/widget/bundle.js?id=${id}`;
-  script.defer = true;
-  document.body.appendChild(script);
-};
-
 watch(
   () => route.path,
-  () => {
-    if (route.path.startsWith("/model/")) {
+  (path) => {
+    // يظهر فقط داخل business-instructor
+    if (path.startsWith("/model/")) {
       loadChat();
     } else {
       removeChat();

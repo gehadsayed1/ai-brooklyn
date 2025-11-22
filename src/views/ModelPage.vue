@@ -5,7 +5,7 @@ import { modules } from "../data/modules";
 import { useI18n } from "vue-i18n";
 import { useRouter, useRoute } from "vue-router";
 import { ArrowLeft } from "lucide-vue-next";
-import { computed } from "vue";
+import { computed, onMounted } from "vue";
 
 const router = useRouter();
 const route = useRoute();
@@ -15,14 +15,24 @@ const handleBack = () => {
   removeChat();
   router.push("/models");
 };
+onMounted(() => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const forceReload = urlParams.get("reload");
+
+  if (!forceReload) {
+    // أول مرة بس
+    const newUrl = window.location.pathname + "?reload=1";
+    window.location.replace(newUrl);
+  }
+});
 
 
-// const currentModule = computed(() =>
-//   modules.find((m) => m.slug === route.params.slug)
-// );
+const currentModule = computed(() =>
+  modules.find((m) => m.slug === route.params.slug)
+);
 
 
-// const widgetId = computed(() => currentModule.value?.widgetId);
+const widgetId = computed(() => currentModule.value?.widgetId);
 </script>
 
 <template>
@@ -36,8 +46,8 @@ const handleBack = () => {
         <span>{{ $t("models.useModule") }}</span>
       </button>
     </div>
-<h1>model page</h1>
-    <!-- <div class="flex-grow gap-6 mt-8 flex flex-col text-center py-8">
+
+    <div class="flex-grow gap-6 mt-8 flex flex-col text-center py-8">
 
       <h2 class="text-xl md:text-4xl font-bold text-[#002d62] mb-4">
         <p>slug: {{ route.params.slug }}</p>
@@ -52,7 +62,7 @@ const handleBack = () => {
         {{ t(currentModule.value.descriptionKey) }}
       </p>
 
-      <p v-else class="text-red-600">❌ هذا الموديل غير موجود — slug غير مطابق</p>
-    </div> -->
+      <p v-else class="text-red-600"> هذا الموديل غير موجود في النظام الخاص بك</p>
+    </div>
   </div>
 </template>
