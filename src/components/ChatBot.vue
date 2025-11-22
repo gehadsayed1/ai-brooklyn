@@ -36,60 +36,84 @@ const loadChat = () => {
   }, 300);
 };
 
-const removeChat = () => {
-  console.log("Removing chat widget...");
+export const removeChat = () => {
+  console.log("🔥 Removing chat widget...");
 
-  const s = document.getElementById("chat-widget");
-  if (s && s.parentNode) {
-    s.parentNode.removeChild(s);
-  }
+  // 1 — Remove main script
+  const script = document.getElementById("chat-widget");
+  if (script) script.remove();
 
-  const widgets = document.querySelectorAll(
-    "[class*='gb-'], [id*='gb-'], .gb-widget, .gb-widget-launcher, .gb-widget-content, [class*='getbutton'], [data-testid*='gb-']"
-  );
-  widgets.forEach((el) => {
-    if (el && el.parentNode) {
-      el.parentNode.removeChild(el);
-    }
+  // 2 — Remove all widget DOM elements completely
+  const widgetSelectors = [
+    ".gb-widget",
+    ".gb-widget-launcher",
+    ".gb-widget-content",
+    "[class*='gb-']",
+    "[id*='gb-']",
+    "[data-testid*='gb-']",
+    "[class*='getbutton']",
+    "iframe[src*='getbutton']",
+    "iframe.gb-frame"
+  ];
+
+  document.querySelectorAll(widgetSelectors.join(",")).forEach(el => {
+    el.remove();
   });
 
-  const styles = document.querySelectorAll(
-    "style[data-emotion], link[href*='getbutton'], style[id*='gb-']"
-  );
-  styles.forEach((el) => {
-    if (el && el.parentNode) {
-      el.parentNode.removeChild(el);
-    }
+  // 3 — Remove all styles injected by GetButton
+  const styleSelectors = [
+    "style[data-emotion]",
+    "style[id*='gb-']",
+    "link[href*='getbutton']"
+  ];
+
+  document.querySelectorAll(styleSelectors.join(",")).forEach(el => {
+    el.remove();
   });
 
+  // 4 — Try to destroy existing instance
   if (window.getbutton) {
     try {
       window.getbutton.destroy();
     } catch (e) {
-      console.log("getbutton destroy failed:", e);
+      console.warn("⚠ getbutton.destroy failed:", e);
     }
   }
 
-  if (window.getbutton) {
-    delete window.getbutton;
-  }
+  // 5 — Remove all global references
+  try { delete window.getbutton; } catch {}
+  try { window.getbutton = undefined; } catch {}
+  try { window.gbHashId = undefined; } catch {}
+
+  // 6 — Deep cleanup: remove anything smells like getbutton
+  Object.keys(window).forEach((key) => {
+    if (key.toLowerCase().includes("getbutton")) {
+      try { delete window[key]; } catch {}
+    }
+  });
+
+  console.log("🧹 Chat widget fully removed.");
 };
 
-watch(
-  route,
-  (newRoute) => {
-    if (newRoute.path.startsWith("/model/")) {
-      visible.value = true;
 
-      removeChat();
-      setTimeout(loadChat, 300);
-    } else {
-      visible.value = false;
-      removeChat();
+watch(
+  () => route.path,
+  (newPath, oldPath) => {
+    console.log("Route changed from", oldPath, "to", newPath);
+
+    // لازم نشيل الشات الأول
+    removeChat();
+
+    if (newPath.startsWith("/model/")) {
+      // نديله وقت بسيط 200-300ms عشان الـ DOM يستقر
+      setTimeout(() => {
+        loadChat();
+      }, 250);
     }
   },
-  { immediate: true, deep: true }
+  { immediate: true }
 );
+
 
 
 
