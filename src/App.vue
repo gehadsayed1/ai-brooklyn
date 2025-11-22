@@ -47,6 +47,11 @@ import NaveBar from "./components/NaveBar.vue";
 import ChatBot from "./components/ChatBot.vue";
 import ExpiryWarningPopup from "./components/ExpiryWarningPopup.vue";
 import NoAccessNotification from "./components/NoAccessNotification.vue";
+import { watch } from "vue";
+import { useRoute } from "vue-router";
+
+const route = useRoute();
+
 
 const route = useRoute();
 const isAppLoading = ref(true);
@@ -61,4 +66,26 @@ onMounted(() => {
     isAppLoading.value = false;
   }, 1500); // 1.5 ثانية عشان الموقع يتحمل بالكامل
 });
+
+
+watch(
+  () => route.path,
+  (newPath) => {
+    const blockBack = newPath.startsWith("/models") || newPath.startsWith("/model");
+
+    if (blockBack) {
+      // منع الرجوع
+      window.history.pushState(null, "", window.location.href);
+
+      window.onpopstate = function () {
+        window.history.pushState(null, "", window.location.href);
+      };
+    } else {
+      // رجّع الباك لطبيعته
+      window.onpopstate = null;
+    }
+  },
+  { immediate: true }
+);
+
 </script>
