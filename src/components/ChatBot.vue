@@ -80,7 +80,7 @@ watch(
   (newPath, oldPath) => {
     console.log("Route changed from", oldPath, "to", newPath);
 
-    if (newPath === "/business-instructor") {
+    if (newPath === "/model/" + route.params.slug) {
       visible.value = true;
 
       removeChat();
