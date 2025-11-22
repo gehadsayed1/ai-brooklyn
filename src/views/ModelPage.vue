@@ -22,6 +22,10 @@ const handleBack = () => {
 const currentModule = computed(() =>
   modules.find((m) => m.slug === route.params.slug)
 );
+console.log(currentModule.value);
+console.log(route.params);
+
+
 
 const widgetId = computed(() => currentModule.value?.widgetId);
 </script>
@@ -38,7 +42,7 @@ const widgetId = computed(() => currentModule.value?.widgetId);
       </button>
     </div>
 
-    <div class="flex-grow gap-6 mt-8 flex flex-col text-center py-8">
+    <!-- <div class="flex-grow gap-6 mt-8 flex flex-col text-center py-8">
 
     
       <h2 v-if="currentModule" class="text-xl md:text-4xl font-bold text-[#002d62] mb-4">
@@ -54,6 +58,6 @@ const widgetId = computed(() => currentModule.value?.widgetId);
          هذا الموديل غير موجود في النظام الخاص بك
       </p>
 
-    </div>
+    </div> -->
   </div>
 </template>
