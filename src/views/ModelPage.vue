@@ -1,42 +1,46 @@
 
-
 <script setup>
-import { onMounted, ref } from 'vue';
+
+
+import { onMounted, onUnmounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { ArrowLeft } from 'lucide-vue-next';
-import { loadChat } from '../components/ChatBot.vue';
+import { ArrowLeft } from 'lucide-vue-next';  // <-- مهم
+import { removeChat } from '../components/ChatBot.vue';
 
 const router = useRouter();
 const route = useRoute();
 const isLoading = ref(false);
 
-const name = route.params.slug
+const name = route.params.slug;
 
 const goBackToModels = () => {
+  removeChat();      
   router.push('/models');
 };
 
-
 onMounted(() => {
-
   const urlParams = new URLSearchParams(window.location.search);
   const fromModels = urlParams.get('from') === 'models';
-  
+
   if (fromModels) {
-   
     const newUrl = window.location.pathname;
     window.history.replaceState({}, '', newUrl);
-    
-    // إظهار loading spinner
+
     isLoading.value = true;
-    
- 
+
     setTimeout(() => {
       window.location.reload();
     }, 100);
   }
 });
+
+
+onUnmounted(() => {
+  console.log("💨 Leaving ModelPage → removing chat");
+  removeChat();
+});
 </script>
+
 
 <template>
   <div class="w-full h-[80vh] flex flex-col relative">
