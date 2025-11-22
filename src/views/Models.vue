@@ -67,8 +67,17 @@ const filteredModules = computed(() =>
 
 function goToModule(mod) {
   moduleStore.setWidgetId(mod.widgetId);
-  router.push(mod.route);
+
+  router.push({
+    path: `/model/${mod.slug}`,
+    query: {
+      chat: mod.widgetId,          
+      name: mod.nameKey,           
+      desc: mod.descriptionKey   
+    }
+  });
 }
+
 </script>
 
 <style>

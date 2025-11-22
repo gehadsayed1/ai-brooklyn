@@ -1,116 +1,62 @@
 <template>
-  <div v-if="visible"></div>
+  <div></div>
 </template>
 <script setup>
-
+import { useRoute } from 'vue-router';
 import { ref, watch, onMounted, onUnmounted } from "vue";
-import { useRoute } from "vue-router";
-import { useModuleStore } from "../stores/modules";
 
 const route = useRoute();
-const moduleStore = useModuleStore();
-
-const visible = ref(false);
 let script;
 
-const loadChat = () => {
-  removeChat();
-
-  setTimeout(() => {
-    const existingScript = document.getElementById("chat-widget");
-    if (existingScript) {
-      existingScript.remove();
-    }
-
-    script = document.createElement("script");
-
-
-    const widgetId = moduleStore.currentWidgetId;
-    script.src = `https://static.getbutton.io/widget/bundle.js?id=${widgetId}`;
-
-    script.defer = true;
-    script.id = "chat-widget";
-    script.onload = () => {
-      console.log("Chat widget loaded successfully");
-    };
-    document.body.appendChild(script);
-  }, 300);
-};
-
+/* إزالة أي ودجت قديم */
 const removeChat = () => {
-  console.log("Removing chat widget...");
-
   const s = document.getElementById("chat-widget");
-  if (s && s.parentNode) {
-    s.parentNode.removeChild(s);
-  }
+  if (s) s.remove();
 
   const widgets = document.querySelectorAll(
-    "[class*='gb-'], [id*='gb-'], .gb-widget, .gb-widget-launcher, .gb-widget-content, [class*='getbutton'], [data-testid*='gb-']"
+    "[class*='gb-'], .gb-widget, .gb-widget-launcher, .gb-widget-content"
   );
-  widgets.forEach((el) => {
-    if (el && el.parentNode) {
-      el.parentNode.removeChild(el);
-    }
-  });
-
-  const styles = document.querySelectorAll(
-    "style[data-emotion], link[href*='getbutton'], style[id*='gb-']"
-  );
-  styles.forEach((el) => {
-    if (el && el.parentNode) {
-      el.parentNode.removeChild(el);
-    }
-  });
+  widgets.forEach((el) => el.remove());
 
   if (window.getbutton) {
     try {
       window.getbutton.destroy();
-    } catch (e) {
-      console.log("getbutton destroy failed:", e);
-    }
-  }
-
-  if (window.getbutton) {
+    } catch (e) {}
     delete window.getbutton;
   }
 };
 
-watch(
-  () => route.path,
-  (newPath, oldPath) => {
-    console.log("Route changed from", oldPath, "to", newPath);
+/* تحميل الودجت الجديد */
+const loadChat = () => {
+  removeChat();
 
-    if (newPath === "/business-instructor") {
-      visible.value = true;
+  const widgetId = route.query.chat;
+  if (!widgetId) return;
 
-      removeChat();
+  script = document.createElement("script");
+  script.id = "chat-widget";
+  script.src = `https://static.getbutton.io/widget/bundle.js?id=${widgetId}`;
+  script.defer = true;
 
-      setTimeout(() => {
-        loadChat();
-      }, 500);
-    } else {
-      visible.value = false;
-      removeChat();
-    }
-  },
-  { immediate: true }
-);
+  document.body.appendChild(script);
+};
 
+/* شغّال أول ما الصفحة تفتح */
 onMounted(() => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const fromModels = urlParams.get("from") === "models";
-
-  if (fromModels) {
-    const newUrl = window.location.pathname;
-    window.history.replaceState({}, "", newUrl);
-
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
-  }
+  loadChat();
 });
 
+/* لو المستخدم اختار موديل جديد → اعمل reload للودجت */
+watch(
+  () => route.query.chat,
+  (newVal, oldVal) => {
+    if (newVal !== oldVal) {
+      loadChat();
+    }
+  }
+);
+
+/* نظافة */
 onUnmounted(() => {
   removeChat();
 });

@@ -23,155 +23,152 @@ import {
   Lightbulb,
 } from "lucide-vue-next";
 
-
-
 export const modules = [
   {
+    slug: "business-instructor",
     nameKey: "models.modules.businessInstructor.name",
     descriptionKey: "models.modules.businessInstructor.description",
-    icon: Lightbulb, // مدرب أعمال
-    route: "/business-instructor",
+    icon: Lightbulb,
     widgetId: "hiUvw",
   },
   {
+    slug: "video-script",
     nameKey: "models.modules.videoScript.name",
     descriptionKey: "models.modules.videoScript.description",
-    icon: Video, // سكريبت فيديو
-    route: "/business-instructor",
+    icon: Video,
     widgetId: "CoSoS",
   },
   {
+    slug: "marketing-guru",
     nameKey: "models.modules.marketingGuru.name",
     descriptionKey: "models.modules.marketingGuru.description",
-    icon: Megaphone, // خبير تسويق
-    route: "/business-instructor",
+    icon: Megaphone,
     widgetId: "CoSoS",
   },
   {
+    slug: "business-plan",
     nameKey: "models.modules.businessPlan.name",
     descriptionKey: "models.modules.businessPlan.description",
-    icon: ClipboardList, // خطة عمل
-    route: "/business-instructor",
+    icon: ClipboardList,
     widgetId: "G9IGn",
   },
   {
+    slug: "human-resources",
     nameKey: "models.modules.HR.name",
     descriptionKey: "models.modules.HR.description",
-    icon: Users, // الموارد البشرية
-    route: "/business-instructor",
+    icon: Users,
     widgetId: "lnMAA",
   },
   {
+    slug: "storyboard",
     nameKey: "models.modules.Storyboard.name",
     descriptionKey: "models.modules.Storyboard.description",
-    icon: Presentation, // ستوري بورد
-    route: "/business-instructor",
+    icon: Presentation,
     widgetId: "CoSoS",
   },
   {
+    slug: "swot-analysis",
     nameKey: "models.modules.SWOT.name",
     descriptionKey: "models.modules.SWOT.description",
-    icon: Target, // تحليل SWOT
-    route: "/business-instructor",
+    icon: Target,
     widgetId: "G9IGn",
   },
   {
+    slug: "kpis",
     nameKey: "models.modules.KPIS.name",
     descriptionKey: "models.modules.KPIS.description",
-    icon: BarChart3, // KPI
-    route: "/business-instructor",
+    icon: BarChart3,
     widgetId: "lnMAA",
   },
   {
+    slug: "business-analyst",
     nameKey: "models.modules.businessAnalyst.name",
     descriptionKey: "models.modules.businessAnalyst.description",
-    icon: LineChart, // محلل أعمال
-    route: "/business-instructor",
+    icon: LineChart,
     widgetId: "G9IGn",
   },
   {
+    slug: "job-helper",
     nameKey: "models.modules.Job.name",
     descriptionKey: "models.modules.Job.description",
-    icon: UserCheck, // الوظائف / التوظيف
-    route: "/business-instructor",
+    icon: UserCheck,
     widgetId: "lnMAA",
   },
   {
+    slug: "ceo",
     nameKey: "models.modules.CEO.name",
     descriptionKey: "models.modules.CEO.description",
-    icon: Briefcase, // مدير عام
-    route: "/business-instructor",
+    icon: Briefcase,
     widgetId: "G9IGn",
   },
   {
+    slug: "project-manager",
     nameKey: "models.modules.ProjectManager.name",
     descriptionKey: "models.modules.ProjectManager.description",
-    icon: FileSignature, // مدير مشروع
-    route: "/business-instructor",
+    icon: FileSignature,
     widgetId: "G9IGn",
   },
   {
+    slug: "tqm",
     nameKey: "models.modules.TotalQualityManagement.name",
     descriptionKey: "models.modules.TotalQualityManagement.description",
-    icon: Scale, // الجودة
-    route: "/business-instructor",
+    icon: Scale,
     widgetId: "G9IGn",
   },
   {
+    slug: "legal-advisor",
     nameKey: "models.modules.LegalAdvisor.name",
     descriptionKey: "models.modules.LegalAdvisor.description",
-    icon: ChartPie, // مستشار قانوني (علاقات/تحليل)
-    route: "/business-instructor",
+    icon: ChartPie,
     widgetId: "G9IGn",
   },
   {
+    slug: "cfo-assistant",
     nameKey: "models.modules.CFOAssistant.name",
     descriptionKey: "models.modules.CFOAssistant.description",
-    icon: HandCoins, // مساعد المدير المالي
-    route: "/business-instructor",
+    icon: HandCoins,
     widgetId: "G9IGn",
   },
   {
+    slug: "marketing-plan",
     nameKey: "models.modules.MarketingPlan.name",
     descriptionKey: "models.modules.MarketingPlan.description",
-    icon: ClipboardCheck, // خطة تسويق
-    route: "/business-instructor",
+    icon: ClipboardCheck,
     widgetId: "CoSoS",
   },
   {
+    slug: "picture-storyboard",
     nameKey: "models.modules.PicStoryboard.name",
     descriptionKey: "models.modules.PicStoryboard.description",
-    icon: Image, // ستوري بورد صور
-    route: "/business-instructor",
+    icon: Image,
     widgetId: "CoSoS",
   },
   {
+    slug: "keyword-research",
     nameKey: "models.modules.KeywordResearch.name",
     descriptionKey: "models.modules.KeywordResearch.description",
-    icon: Search, // كلمات مفتاحية
-    route: "/business-instructor",
+    icon: Search,
     widgetId: "CoSoS",
   },
   {
+    slug: "seo-optimization",
     nameKey: "models.modules.SEOOptimization.name",
     descriptionKey: "models.modules.SEOOptimization.description",
-    icon: Rocket, // SEO
-    route: "/business-instructor",
+    icon: Rocket,
     widgetId: "CoSoS",
   },
   {
+    slug: "usp",
     nameKey: "models.modules.UniqueSellingPoint.name",
     descriptionKey: "models.modules.UniqueSellingPoint.description",
-    icon: Star, // USP
-    route: "/business-instructor",
+    icon: Star,
     widgetId: "CoSoS",
   },
   {
+    slug: "research-assistant",
     nameKey: "models.modules.ResearchAssistant.name",
     descriptionKey: "models.modules.ResearchAssistant.description",
-    icon: BookOpen, // باحث
-    route: "/business-instructor",
+    icon: BookOpen,
     widgetId: "G9IGn",
   },
 ];
-
