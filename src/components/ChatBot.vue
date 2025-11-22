@@ -76,25 +76,22 @@ const removeChat = () => {
 };
 
 watch(
-  () => route.path,
-  (newPath, oldPath) => {
-    console.log("Route changed from", oldPath, "to", newPath);
-
-    if (newPath === "/model/" + route.params.slug) {
+  route,
+  (newRoute) => {
+    if (newRoute.path.startsWith("/model/")) {
       visible.value = true;
 
       removeChat();
-
-      setTimeout(() => {
-        loadChat();
-      }, 500);
+      setTimeout(loadChat, 300);
     } else {
       visible.value = false;
       removeChat();
     }
   },
-  { immediate: true }
+  { immediate: true, deep: true }
 );
+
+
 
 onMounted(() => {
   const urlParams = new URLSearchParams(window.location.search);
