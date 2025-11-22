@@ -15,11 +15,11 @@ const routes = [
   },
 
  
-  {
+  
+   {
     path: "/model/:slug",
     name: "ModelPage",
     component: () => import("../views/ModelPage.vue"),
-    meta: { requiresAuth: false },
   },
 
   {
