@@ -1,6 +1,5 @@
 
 <script setup>
-import { removeChat } from '../utils/removeChat';
 import { useModuleStore } from '../stores/modules';
 import { watch, onMounted, onUnmounted } from "vue";
 import { useRoute } from "vue-router";
