@@ -8,6 +8,16 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
   const error = ref(null);
   const user = ref(null);
 
+  // Load user from localStorage immediately on store creation
+  const savedUser = localStorage.getItem("user_data");
+  if (savedUser) {
+    try {
+      user.value = JSON.parse(savedUser);
+    } catch (err) {
+      console.error("Failed to parse user_data:", err);
+    }
+  }
+
   const setCookie = (name, value, days) => {
     let expires = "";
     if (days) {
@@ -36,13 +46,13 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
   const loginWithGoogle = () => {
     loading.value = true;
     error.value = null;
-    
+
     try {
       setTimeout(() => {
         window.location.href = `${BASE_URL}${LOGIN_WITH_GOOGLE}`;
       }, 1000);
     } catch (err) {
-      console.error('❌ Login error:', err);
+      console.error("❌ Login error:", err);
       error.value = err;
       loading.value = false;
     }
@@ -54,26 +64,20 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
 
     if (token) {
       try {
-        // حفظ الـ token أولاً
         setCookie("auth_token", token, 7);
-        
-        // جلب بيانات المستخدم من الـ API
+
         const userData = await fetchUserData();
-        
-        // حذف كل الـ parameters من الـ URL
+
         const cleanUrl = window.location.origin + window.location.pathname;
         window.history.replaceState({}, document.title, cleanUrl);
-        
-        // إذا كان لديه access، توجيهه لصفحة Models
+
         if (userData && userData.has_bot_access === 1) {
-          // استخدام router إذا كان متاح، وإلا استخدام window.location
           if (router) {
-            router.push('/models');
+            router.push("/models");
           } else {
-            window.location.href = '/models';
+            window.location.href = "/models";
           }
         }
-        
       } catch (err) {
         console.error("Error loading user:", err);
         error.value = err;
@@ -85,63 +89,52 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
     loading.value = true;
     try {
       const response = await axiosInstance.get(GET_USER);
-      
+
       if (response.data && response.data.data) {
         const userData = response.data.data;
-        console.log("userData", userData);
-        console.log("userData.has_bot_access", userData.has_bot_access);
-        
-        
-        // التحقق من الـ access قبل حفظ البيانات
+
         if (userData.has_bot_access === 0) {
-          // لو معندوش access، نعمل logout ونرمي رسالة مخصصة
           eraseCookie("auth_token");
-          localStorage.removeItem('user_data');
+          localStorage.removeItem("user_data");
           user.value = null;
-          
-          // حفظ NO_ACCESS في sessionStorage علشان يفضل بعد reload
-          sessionStorage.setItem('show_no_access', 'true');
-          error.value = 'NO_ACCESS'; // رسالة مخصصة
-          
+
+          sessionStorage.setItem("show_no_access", "true");
+          error.value = "NO_ACCESS";
+
           loading.value = false;
           return null;
         }
-        
+
         user.value = userData;
-        
-        // حفظ بيانات المستخدم في localStorage
-        localStorage.setItem('user_data', JSON.stringify(userData));
-        
-        // التحقق من تاريخ انتهاء الاشتراك
+
+        localStorage.setItem("user_data", JSON.stringify(userData));
+
         if (userData.access_expiry) {
           const expiryDate = new Date(userData.access_expiry);
           const today = new Date();
           const isExpired = expiryDate < today;
-          
-          // إذا كان الاشتراك منتهي، عمل logout تلقائي
+
           if (isExpired) {
-            console.log('Subscription expired, logging out...');
             await logout();
-            throw new Error('Subscription expired');
+            throw new Error("Subscription expired");
           }
         }
-        
+
         return userData;
       }
     } catch (err) {
       console.error("Error fetching user data:", err);
       error.value = err;
-      
-      error.value = 'NO_ACCESS';
-      sessionStorage.setItem('show_no_access', 'true');
-      // فقط نحذف الـ token إذا كان الخطأ 401 (Unauthorized)
+
+      error.value = "NO_ACCESS";
+      sessionStorage.setItem("show_no_access", "true");
+
       if (err.response && err.response.status === 401) {
-        console.log('Unauthorized, clearing auth data...');
         eraseCookie("auth_token");
-        localStorage.removeItem('user_data');
+        localStorage.removeItem("user_data");
         user.value = null;
       }
-      
+
       throw err;
     } finally {
       loading.value = false;
@@ -151,7 +144,7 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
   const checkAuth = async () => {
     const token = getCookie("auth_token");
     if (token) {
-      const savedUser = localStorage.getItem('user_data');
+      const savedUser = localStorage.getItem("user_data");
       if (savedUser) {
         try {
           user.value = JSON.parse(savedUser);
@@ -159,14 +152,13 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
           console.error("Error loading user from localStorage:", err);
         }
       }
-      
-      // جلب بيانات المستخدم المحدثة من الـ API
+
       try {
         await fetchUserData();
       } catch (err) {
         console.error("Failed to fetch updated user data:", err);
       }
-      
+
       return true;
     }
     return false;
@@ -179,44 +171,40 @@ export const useLoginWithGoogleStore = defineStore("loginWithGoogle", () => {
 
   const checkAccessExpiry = (autoLogout = false) => {
     if (!user.value || !user.value.access_expiry) return null;
-    
+
     const expiryDate = new Date(user.value.access_expiry);
     const today = new Date();
     const diffTime = expiryDate - today;
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    
+
     const isExpired = diffDays < 0;
-    
-    // إذا كان الاشتراك منتهي وطُلب logout تلقائي
+
     if (isExpired && autoLogout) {
       logout();
     }
-    
+
     return {
       expiryDate: user.value.access_expiry,
       daysRemaining: diffDays,
       isExpired: isExpired,
-      isExpiringSoon: diffDays > 0 && diffDays <= 7, // أقل من 7 أيام
+      isExpiringSoon: diffDays > 0 && diffDays <= 7,
     };
   };
 
   const logout = async () => {
     loading.value = true;
-    
-    // حذف البيانات المحلية أولاً
+
     user.value = null;
     eraseCookie("auth_token");
-    localStorage.removeItem('user_data');
-    
+    localStorage.removeItem("user_data");
+
     try {
-      // إرسال request للـ logout API (في الخلفية)
       await axiosInstance.post(LOGOUT);
     } catch (err) {
       console.error("Logout API failed:", err);
       error.value = err;
     } finally {
       loading.value = false;
-      // التوجيه للـ home page
       window.location.href = "/";
     }
   };

@@ -1,4 +1,5 @@
 <script setup>
+import { useGoogleAnalytics } from "../composables/useGoogleAnalytics";
 import { ref, onMounted, computed } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import LangSwitcher from "./LangSwitcher.vue";
@@ -6,21 +7,20 @@ import { useI18n } from "vue-i18n";
 import { LogIn, LogOut } from "lucide-vue-next";
 import { useLoginWithGoogleStore } from "../stores/LoginWithGoogle";
 import GoogleLoginModal from "./GoogleLoginModal.vue";
-import { useGoogleAnalytics } from "../composables/useGoogleAnalytics";
 
 const { t } = useI18n();
 const router = useRouter();
-const route = useRoute(); 
-const isLoginPopupOpen = ref(false);
+const route = useRoute();
 
 const isMenuOpen = ref(false);
 const currentSection = ref("#home");
-
-const loginStore = useLoginWithGoogleStore();
+const isLoginPopupOpen = ref(false);
 const isLoggingOut = ref(false);
 
-// Google Analytics
-const { trackButtonClick, trackEvent } = useGoogleAnalytics();
+const loginStore = useLoginWithGoogleStore();
+
+// Analytics
+const { trackEvent } = useGoogleAnalytics();
 
 const toggleMenu = () => {
   isMenuOpen.value = !isMenuOpen.value;
@@ -36,10 +36,11 @@ const scrollTo = (id) => {
 
 const handleLogout = async () => {
   isLoggingOut.value = true;
-  // تتبع عملية تسجيل الخروج
-  trackEvent('user_logout', {
-    user_id: loginStore.user?.id || 'unknown'
+
+  trackEvent("user_logout", {
+    user_id: loginStore.user?.id || "unknown",
   });
+
   try {
     await loginStore.logout();
   } finally {
@@ -48,18 +49,12 @@ const handleLogout = async () => {
 };
 
 const handleLogoClick = () => {
-  // إذا كان المستخدم مسجل دخول، لا يفعل شيء
-  if (loginStore.user) {
-    return;
+  if (!loginStore.user) {
+    router.push("/");
   }
-  // إذا لم يكن مسجل دخول، يذهب للصفحة الرئيسية
-  router.push('/');
 };
 
-const isHomePage = computed(() => {
- 
-  if (route.path === "/") return true;
-});
+const isHomePage = computed(() => route.path === "/");
 
 onMounted(() => {
   const sections = document.querySelectorAll("section[id]");
@@ -75,6 +70,7 @@ onMounted(() => {
     if (current) currentSection.value = current;
   });
 
+  // Load user if token in URL (for Google login return)
   loginStore.loadUserFromUrl(router);
 });
 </script>
@@ -84,7 +80,10 @@ onMounted(() => {
     class="sticky top-0 z-50 bg-white flex px-2 py-2 md:px-10 border-b border-blue-200 md:shadow-lg shadow-2xl items-center justify-between"
   >
     <!-- Logo -->
-    <div class="text-lg font-bold" :class="loginStore.user ? 'cursor-default' : 'cursor-pointer'">
+    <div
+      class="text-lg font-bold"
+      :class="loginStore.user ? 'cursor-default' : 'cursor-pointer'"
+    >
       <img
         class="w-35"
         @click="handleLogoClick"
@@ -95,7 +94,7 @@ onMounted(() => {
 
     <!-- Burger Icon -->
     <div class="md:hidden text-gray-400 cursor-pointer" @click="toggleMenu">
-      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" viewBox="0 0 24 24">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6">
         <path
           d="M4 6h16M4 12h16M4 18h16"
           stroke="currentColor"
@@ -108,7 +107,7 @@ onMounted(() => {
     <!-- Menu Items -->
     <ul
       v-if="isHomePage"
-      :class="[ 
+      :class="[
         'md:flex md:space-x-2 md:static absolute top-full left-0 w-full md:w-auto text-primary md:bg-transparent transition-all duration-300 ease-in-out',
         isMenuOpen ? 'block bg-white' : 'hidden',
       ]"
@@ -121,9 +120,10 @@ onMounted(() => {
             currentSection === '#home' ? 'active text-primary font-bold' : '',
           ]"
         >
-          {{ t('nav.home') }}
+          {{ t("nav.home") }}
         </button>
       </li>
+
       <li>
         <button
           @click="scrollTo('about')"
@@ -132,49 +132,54 @@ onMounted(() => {
             currentSection === '#about' ? 'active text-primary font-bold' : '',
           ]"
         >
-          {{ t('nav.about') }}
+          {{ t("nav.about") }}
         </button>
       </li>
+
       <li>
         <button
           @click="scrollTo('solutions')"
           :class="[
             'nav-link block md:inline-block p-3 hover:text-primary',
-            currentSection === '#solutions' ? 'active text-primary font-bold' : '',
+            currentSection === '#solutions'
+              ? 'active text-primary font-bold'
+              : '',
           ]"
         >
-          {{ t('nav.solutions') }}
+          {{ t("nav.solutions") }}
         </button>
       </li>
+
       <li>
         <button
           @click="scrollTo('contact')"
           :class="[
             'nav-link block md:inline-block p-3 hover:text-primary',
-            currentSection === '#contact' ? 'active text-primary font-bold' : '',
+            currentSection === '#contact'
+              ? 'active text-primary font-bold'
+              : '',
           ]"
         >
-          {{ t('nav.contact') }}
+          {{ t("nav.contact") }}
         </button>
       </li>
     </ul>
 
     <!-- Right side -->
     <div class="flex items-center gap-5 relative">
-      
-      <div >
-        <LangSwitcher class="ml-4" />
-      </div>
+      <LangSwitcher class="ml-4" />
 
-     <button
+      <!-- Login button -->
+      <button
         v-if="!loginStore.user"
         @click="isLoginPopupOpen = true"
         class="focus:outline-none bg-primary flex items-center gap-1 text-white font-semibold py-1 px-4 rounded hover:bg-blue-900 cursor-pointer transition transform hover:scale-105"
       >
-        <span>{{ t('nav.login') }}</span>
+        <span>{{ t("nav.login") }}</span>
         <LogIn size="18" />
       </button>
 
+      <!-- User dropdown -->
       <div v-else class="relative group">
         <button class="flex items-center gap-2 cursor-pointer">
           <img
@@ -183,12 +188,8 @@ onMounted(() => {
             class="w-8 h-8 rounded-full border"
           />
           <span class="font-semibold">{{ loginStore.user.name }}</span>
-          <svg
-            class="w-4 h-4 text-gray-500"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
+
+          <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor">
             <path
               stroke-linecap="round"
               stroke-linejoin="round"
@@ -206,18 +207,27 @@ onMounted(() => {
             @click="handleLogout"
             class="flex items-center gap-2 w-full text-left text-red-500 px-4 py-2 hover:bg-gray-100 hover:underline cursor-pointer"
           >
-            <span>{{ t('nav.logout') }}</span>
+            <span>{{ t("nav.logout") }}</span>
+
             <div
               v-if="isLoggingOut"
               class="w-4 h-4 border-2 border-red-500 border-t-transparent rounded-full animate-spin"
             ></div>
+
             <LogOut v-else class="w-4 h-4" />
           </button>
         </div>
       </div>
     </div>
   </nav>
-  <div v-if="isLoginPopupOpen" class="fixed inset-0  bg-[rgba(0,0,0,0.5)] flex justify-center items-center z-50">
-    <GoogleLoginModal :isOpen="isLoginPopupOpen" @close="isLoginPopupOpen = false" />
+
+  <div
+    v-if="isLoginPopupOpen"
+    class="fixed inset-0 bg-[rgba(0,0,0,0.5)] flex justify-center items-center z-50"
+  >
+    <GoogleLoginModal
+      :isOpen="isLoginPopupOpen"
+      @close="isLoginPopupOpen = false"
+    />
   </div>
 </template>
