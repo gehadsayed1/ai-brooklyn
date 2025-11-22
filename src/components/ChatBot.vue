@@ -1,63 +1,61 @@
-<template>
-  <div></div>
-</template>
 <script setup>
-import { useRoute } from 'vue-router';
-import { ref, watch, onMounted, onUnmounted } from "vue";
+import { useRoute } from "vue-router";
+import { modules } from "../data/modules";
+import { watch, onMounted, onUnmounted, computed } from "vue";
 
 const route = useRoute();
 let script;
 
-/* إزالة أي ودجت قديم */
-const removeChat = () => {
-  const s = document.getElementById("chat-widget");
-  if (s) s.remove();
 
-  const widgets = document.querySelectorAll(
-    "[class*='gb-'], .gb-widget, .gb-widget-launcher, .gb-widget-content"
-  );
-  widgets.forEach((el) => el.remove());
+const currentModule = computed(() =>
+  modules.find((m) => m.slug === route.params.slug)
+);
+
+
+const widgetId = computed(() => currentModule.value?.widgetId);
+
+
+const removeChat = () => {
+  const el = document.getElementById("chat-widget");
+  if (el) el.remove();
 
   if (window.getbutton) {
     try {
       window.getbutton.destroy();
-    } catch (e) {}
+    } catch {}
     delete window.getbutton;
   }
 };
 
-/* تحميل الودجت الجديد */
+
 const loadChat = () => {
   removeChat();
-
-  const widgetId = route.query.chat;
-  if (!widgetId) return;
+  const id = widgetId.value;
+  if (!id) return;
 
   script = document.createElement("script");
   script.id = "chat-widget";
-  script.src = `https://static.getbutton.io/widget/bundle.js?id=${widgetId}`;
+  script.src = `https://static.getbutton.io/widget/bundle.js?id=${id}`;
   script.defer = true;
-
   document.body.appendChild(script);
 };
 
-/* شغّال أول ما الصفحة تفتح */
-onMounted(() => {
-  loadChat();
-});
-
-/* لو المستخدم اختار موديل جديد → اعمل reload للودجت */
+// تشغيل في الصفحة الصحيحة فقط
 watch(
-  () => route.query.chat,
-  (newVal, oldVal) => {
-    if (newVal !== oldVal) {
+  () => route.path,
+  () => {
+    if (route.path.startsWith("/model/")) {
       loadChat();
+    } else {
+      removeChat();
     }
-  }
+  },
+  { immediate: true }
 );
 
-/* نظافة */
-onUnmounted(() => {
-  removeChat();
-});
+onUnmounted(removeChat);
 </script>
+
+<template>
+  <div></div>
+</template>

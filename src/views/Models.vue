@@ -69,12 +69,7 @@ function goToModule(mod) {
   moduleStore.setWidgetId(mod.widgetId);
 
   router.push({
-    path: `/model/${mod.slug}`,
-    query: {
-      chat: mod.widgetId,          
-      name: mod.nameKey,           
-      desc: mod.descriptionKey   
-    }
+    path: `/model/${mod.slug}`
   });
 }
 
