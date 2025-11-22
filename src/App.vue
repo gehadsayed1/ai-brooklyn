@@ -49,7 +49,7 @@ import NoAccessNotification from "./components/NoAccessNotification.vue";
 import { watch } from "vue";
 
 
-const route = useRoute();
+
 
 
 const route = useRoute();
@@ -60,10 +60,10 @@ const showFooter = computed(() => {
 });
 
 onMounted(() => {
-  // إخفاء الـ loading بعد تحميل الموقع بالكامل
+
   setTimeout(() => {
     isAppLoading.value = false;
-  }, 1500); // 1.5 ثانية عشان الموقع يتحمل بالكامل
+  }, 1500);
 });
 
 
