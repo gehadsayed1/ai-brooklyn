@@ -19,21 +19,19 @@ const goBackToModels = () => {
 };
 
 onMounted(() => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const fromModels = urlParams.get('from') === 'models';
-
-  if (fromModels) {
-    const newUrl = window.location.pathname;
-    window.history.replaceState({}, '', newUrl);
+  if (!sessionStorage.getItem("forceReload")) {
+    sessionStorage.setItem("forceReload", "true");
 
     isLoading.value = true;
 
     setTimeout(() => {
       window.location.reload();
-    }, 100);
+    }, 120);
+  } else {
+    
+    sessionStorage.removeItem("forceReload");
   }
 });
-
 
 onUnmounted(() => {
   console.log("💨 Leaving ModelPage → removing chat");
