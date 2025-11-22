@@ -68,9 +68,8 @@ const filteredModules = computed(() =>
 function goToModule(mod) {
   moduleStore.setWidgetId(mod.widgetId);
 
-  router.push({
-    path: `/model/${mod.slug}`
-  });
+router.push(`/model/${mod.slug}`)
+
 }
 
 </script>

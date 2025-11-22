@@ -1,32 +1,31 @@
+
 <script setup>
-import { useRoute } from "vue-router";
-import { modules } from "../data/modules";
+
+import { useRoute } from 'vue-router';
+import { modules } from '../data/modules';
 import { watch, onMounted, onUnmounted, computed } from "vue";
 
 const route = useRoute();
 let script;
 
-
 const currentModule = computed(() =>
   modules.find((m) => m.slug === route.params.slug)
 );
 
-
 const widgetId = computed(() => currentModule.value?.widgetId);
-
 
 const removeChat = () => {
   const el = document.getElementById("chat-widget");
   if (el) el.remove();
 
+  const btn = document.querySelector(".gb-widget-launcher");
+  if (btn) btn.remove();
+
   if (window.getbutton) {
-    try {
-      window.getbutton.destroy();
-    } catch {}
+    try { window.getbutton.destroy(); } catch {}
     delete window.getbutton;
   }
 };
-
 
 const loadChat = () => {
   removeChat();
@@ -40,7 +39,6 @@ const loadChat = () => {
   document.body.appendChild(script);
 };
 
-// تشغيل في الصفحة الصحيحة فقط
 watch(
   () => route.path,
   () => {
