@@ -30,10 +30,9 @@
       <Footer v-if="showFooter" />
       <ChatBot />
       
-      <!-- Expiry Warning Popup -->
+    
       <ExpiryWarningPopup />
-      
-      <!-- No Access Notification -->
+    
       <NoAccessNotification />
     </div>
   </div>
@@ -74,14 +73,14 @@ watch(
     const blockBack = newPath.startsWith("/models") || newPath.startsWith("/model");
 
     if (blockBack) {
-      // منع الرجوع
+      
       window.history.pushState(null, "", window.location.href);
 
       window.onpopstate = function () {
         window.history.pushState(null, "", window.location.href);
       };
     } else {
-      // رجّع الباك لطبيعته
+   
       window.onpopstate = null;
     }
   },

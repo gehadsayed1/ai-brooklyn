@@ -52,14 +52,14 @@ const widgetId = computed(() => currentModule.value?.widgetId);
 
     <div class="flex-grow gap-6 mt-8 flex flex-col text-center py-8">
       <h2 class="text-xl md:text-4xl font-bold text-[#002d62] mb-4">
-        {{ t(currentModule.value.nameKey) }}
+        <!-- {{ t(currentModule.value.nameKey) }} -->
         <p>slug: {{ route.params.slug }}</p>
 <p>found: {{ currentModule }}</p>
 
       </h2>
 
       <p class="text-sm md:text-xl text-gray-700">
-        {{ t(currentModule.value.descriptionKey) }}
+        <!-- {{ t(currentModule.value.descriptionKey) }} -->
       </p>
     </div>
   </div>
