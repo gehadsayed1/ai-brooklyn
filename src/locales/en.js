@@ -11,8 +11,8 @@ export default {
   login: {
     noAccess: {
       title: "Sorry, You Don't Have Access",
-      message: "To get access, please contact us via WhatsApp:"
-    }
+      message: "To get access, please contact us via WhatsApp:",
+    },
   },
   hero: {
     title: "Empowering Tomorrow with AI",
@@ -104,7 +104,8 @@ export default {
     address: "Dubai, Deira, Mina Saeed, Golden Business Center, Office 206",
     sendFail: "Failed to send. Please try again later.",
     successTitle: "Success!",
-    successText: "Your message has been sent successfully. We'll get back to you soon.",
+    successText:
+      "Your message has been sent successfully. We'll get back to you soon.",
     successButton: "Great!",
     errorTitle: "Error!",
     errorText: "Failed to send message. Please try again.",
@@ -227,9 +228,9 @@ export default {
     startTrial: "Start Trial",
     secureNote: "Your payment is encrypted and secured with SSL technology.",
     success: "Payment successful! Thank you for your subscription.",
-      emailNote: "We recommend using a Gmail address for smoother experience.",
-  invalidEmail: "Email must be a Gmail address only.",
-  trialNote: "No charges will be made until after the 1-month free trial."
+    emailNote: "We recommend using a Gmail address for smoother experience.",
+    invalidEmail: "Email must be a Gmail address only.",
+    trialNote: "No charges will be made until after the 1-month free trial.",
   },
 
   models: {
@@ -240,106 +241,109 @@ export default {
     modules: {
       businessInstructor: {
         name: "Business Instructor",
-        description: "Manage business instructor records and personal"
+        description: "Manage business instructor records and personal",
       },
       students: {
         name: "Students Module",
-        description: "Manage student records and personal information"
+        description: "Manage student records and personal information",
       },
       videoScript: {
         name: "Video Script Module",
-        description: "AI-powered video script generation for content creation and storytelling"
+        description:
+          "AI-powered video script generation for content creation and storytelling",
       },
       businessPlan: {
         name: "Business Plan Module",
-        description: "Create professional business plans with AI assistance"
+        description: "Create professional business plans with AI assistance",
       },
       marketingGuru: {
         name: "Marketing Module",
-        description: "Comprehensive marketing strategy and planning tools powered by AI"
+        description:
+          "Comprehensive marketing strategy and planning tools powered by AI",
       },
       HR: {
         name: "HR Tools",
-        description: "Human resources solutions for team management and development"
+        description:
+          "Human resources solutions for team management and development",
       },
-      Storyboard:{
+      Storyboard: {
         name: "Storyboard by Brooklyn",
-        description: "Advanced multimodal AI for creative storyboarding and visualization"
+        description:
+          "Advanced multimodal AI for creative storyboarding and visualization",
       },
-      KPIS:{
+      KPIS: {
         name: "KPIS",
-        description: "Track and analyze key performance indicators effectively"
+        description: "Track and analyze key performance indicators effectively",
       },
-      Job:{
+      Job: {
         name: "Job Description",
-        description: "Generate compelling job descriptions for recruitment"
+        description: "Generate compelling job descriptions for recruitment",
       },
-      businessAnalyst:{
+      businessAnalyst: {
         name: "Business Analyst",
-        description: "Deep business analysis and insights powered by AI"
+        description: "Deep business analysis and insights powered by AI",
       },
-      CEO:{
+      CEO: {
         name: "CEO Assistant",
-        description: "Executive decision support and strategic planning"
+        description: "Executive decision support and strategic planning",
       },
-      SWOT:{
+      SWOT: {
         name: "SWOT Analysis",
-        description: "Analyze strengths, weaknesses, opportunities, and threats"
+        description:
+          "Analyze strengths, weaknesses, opportunities, and threats",
       },
-      ProjectManager:{
+      ProjectManager: {
         name: "Project Manager",
-        description: "AI-assisted project planning and management"
+        description: "AI-assisted project planning and management",
       },
-      TotalQualityManagement:{
+      TotalQualityManagement: {
         name: "Total Quality Management",
-        description: "IOptimize quality management processes with AI"
+        description: "IOptimize quality management processes with AI",
       },
-      LegalAdvisor:{
+      LegalAdvisor: {
         name: "Legal Advisor",
-        description: "AI-powered legal guidance for business compliance"
+        description: "AI-powered legal guidance for business compliance",
       },
-      CFOAssistant:{
+      CFOAssistant: {
         name: "CFO Assistant",
-        description: "Financial management and strategic planning support"
+        description: "Financial management and strategic planning support",
       },
-      MarketingPlan:{
+      MarketingPlan: {
         name: "Marketing Plan",
-        description: "Strategic marketing planning and execution"
-      }, PicStoryboard: {
-    name: "Pic Storyboard",
-    description: "Visual storyboarding with image generation"
-  },
+        description: "Strategic marketing planning and execution",
+      },
+      PicStoryboard: {
+        name: "Pic Storyboard",
+        description: "Visual storyboarding with image generation",
+      },
 
-  KeywordResearch: {
-    name: "Keyword Research",
-    description: "Identify high-impact keywords for SEO success"
-  },
+      KeywordResearch: {
+        name: "Keyword Research",
+        description: "Identify high-impact keywords for SEO success",
+      },
 
-  SEOOptimization: {
-    name: "SEO Optimization",
-    description: "Search engine optimization strategies and tools"
-  },
+      SEOOptimization: {
+        name: "SEO Optimization",
+        description: "Search engine optimization strategies and tools",
+      },
 
-  UniqueSellingPoint: {
-    name: "Unique Selling Point",
-    description: "Define and communicate your competitive advantage"
-  },
+      UniqueSellingPoint: {
+        name: "Unique Selling Point",
+        description: "Define and communicate your competitive advantage",
+      },
 
-  ResearchAssistant: {
-    name: "Research Assistant",
-    description: "Comprehensive research and data analysis"
-  }
-
-
-
-    
-    }
+      ResearchAssistant: {
+        name: "Research Assistant",
+        description: "Comprehensive research and data analysis",
+      },
+    },
   },
 
   businessInstructor: {
-    title: "Welcome to the Future of Business Education",
-    subtitle: "Have a question? Our new AI instructor is here to help you 24/7.",
-    instruction: "Click the chat icon in the corner to get started!"
+    title: "Your Gateway to Smart Business Assistants",
+    subtitle:
+      "Have a question? Our new AI instructor is here to help you 24/7.",
+    instruction: "Click the chat icon in the corner to get started!",
   },
 
   expiryWarning: {
@@ -348,9 +352,10 @@ export default {
     day: "day",
     days: "days",
     expiryDate: "Expiry Date:",
-    pleaseRenew: "Please renew your subscription to continue accessing all features",
+    pleaseRenew:
+      "Please renew your subscription to continue accessing all features",
     renewButton: "Renew Subscription",
     laterButton: "Later",
-    dontShowAgain: "Don't show this warning again"
-  }
+    dontShowAgain: "Don't show this warning again",
+  },
 };

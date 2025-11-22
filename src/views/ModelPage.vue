@@ -73,7 +73,7 @@ onUnmounted(() => {
         {{ $t('businessInstructor.title') }}
       </h2>
 
-      <h3 class="text-lg md:text-3xl font-semibold text-[#002d62] mb-4">
+      <h3 class="text-lg md:text-3xl font-bold text-[#002d62] mb-4">
         {{ name.toUpperCase() }}
       </h3>
 
