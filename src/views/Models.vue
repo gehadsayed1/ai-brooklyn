@@ -66,6 +66,8 @@ const filteredModules = computed(() =>
 );
 
 function goToModule(mod) {
+  console.log(mod);
+  
   moduleStore.setWidgetId(mod.widgetId);
 
 router.push(`/model/${mod.slug}`)

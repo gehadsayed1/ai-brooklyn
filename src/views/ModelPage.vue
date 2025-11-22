@@ -16,12 +16,12 @@ const handleBack = () => {
   router.push("/models");
 };
 
-// الموديل الحالي
+
 const currentModule = computed(() =>
   modules.find((m) => m.slug === route.params.slug)
 );
 
-// widget id
+
 const widgetId = computed(() => currentModule.value?.widgetId);
 </script>
 
@@ -37,7 +37,7 @@ const widgetId = computed(() => currentModule.value?.widgetId);
       </button>
     </div>
 
-    <div class="flex-grow gap-6 mt-8 flex flex-col text-center py-8">
+    <!-- <div class="flex-grow gap-6 mt-8 flex flex-col text-center py-8">
 
       <h2 class="text-xl md:text-4xl font-bold text-[#002d62] mb-4">
         <p>slug: {{ route.params.slug }}</p>
@@ -53,6 +53,6 @@ const widgetId = computed(() => currentModule.value?.widgetId);
       </p>
 
       <p v-else class="text-red-600">❌ هذا الموديل غير موجود — slug غير مطابق</p>
-    </div>
+    </div> -->
   </div>
 </template>
