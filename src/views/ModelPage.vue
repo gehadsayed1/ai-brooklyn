@@ -1,52 +1,27 @@
-<script setup>
 
+<script setup>
+ 
 import { removeChat } from '../utils/removeChat';
 import { modules } from "../data/modules";
 import { useI18n } from "vue-i18n";
 import { useRouter, useRoute } from "vue-router";
-import { ArrowLeft } from "lucide-vue-next";import { computed, onMounted } from 'vue';;
+import { ArrowLeft } from "lucide-vue-next";
+import { computed } from "vue";
 
 const router = useRouter();
 const route = useRoute();
 const { t } = useI18n();
 
+
 const handleBack = () => {
   removeChat();
   router.push("/models");
 };
-onMounted(() => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const forceReload = urlParams.get("reload");
 
-  if (!forceReload) {
-    // أول مرة بس
-    const newUrl = window.location.pathname + "?reload=1";
-    window.location.replace(newUrl);
-  }
-});
-
-
-// onMounted(() => {
-//   // بنضيف نقطة ثابتة جديدة في الهستوري
-//   window.history.pushState(null, "", window.location.href);
-
-//   // لو حاول يرجع → نرجّعه تاني لنفس الصفحة
-//   window.onpopstate = function () {
-//     window.history.pushState(null, "", window.location.href);
-//   };
-// });
-
-// onUnmounted(() => {
-//   // نرجع الباك لطبيعته لو خرج من الصفحة
-//   window.onpopstate = null;
-// });
 
 const currentModule = computed(() =>
   modules.find((m) => m.slug === route.params.slug)
 );
-
-console.log(route.params);
-
 
 const widgetId = computed(() => currentModule.value?.widgetId);
 </script>
@@ -65,20 +40,20 @@ const widgetId = computed(() => currentModule.value?.widgetId);
 
     <div class="flex-grow gap-6 mt-8 flex flex-col text-center py-8">
 
-      <h2 class="text-xl md:text-4xl font-bold text-[#002d62] mb-4">
-        <p>slug: {{ route.params.slug }}</p>
-        <p>found: {{ currentModule }}</p>
-
-        <div v-if="currentModule">
-          <!-- {{ t(currentModule.value.nameKey) }} -->
-        </div>
+    
+      <h2 v-if="currentModule" class="text-xl md:text-4xl font-bold text-[#002d62] mb-4">
+        {{ t(currentModule.value.nameKey) }}
       </h2>
 
-      <p class="text-sm md:text-xl text-gray-700" v-if="currentModule">
-        <!-- {{ t(currentModule.value.descriptionKey) }} -->
+     
+      <p v-if="currentModule" class="text-sm md:text-xl text-gray-700">
+        {{ t(currentModule.value.descriptionKey) }}
       </p>
 
-      <p v-else class="text-red-600"> هذا الموديل غير موجود في النظام الخاص بك</p>
+      <p v-else class="text-red-600">
+         هذا الموديل غير موجود في النظام الخاص بك
+      </p>
+
     </div>
   </div>
 </template>
