@@ -45,6 +45,8 @@ const currentModule = computed(() =>
   modules.find((m) => m.slug === route.params.slug)
 );
 
+console.log(route.params);
+
 
 const widgetId = computed(() => currentModule.value?.widgetId);
 </script>
@@ -68,12 +70,12 @@ const widgetId = computed(() => currentModule.value?.widgetId);
         <p>found: {{ currentModule }}</p>
 
         <div v-if="currentModule">
-          {{ t(currentModule.value.nameKey) }}
+          <!-- {{ t(currentModule.value.nameKey) }} -->
         </div>
       </h2>
 
       <p class="text-sm md:text-xl text-gray-700" v-if="currentModule">
-        {{ t(currentModule.value.descriptionKey) }}
+        <!-- {{ t(currentModule.value.descriptionKey) }} -->
       </p>
 
       <p v-else class="text-red-600"> هذا الموديل غير موجود في النظام الخاص بك</p>
