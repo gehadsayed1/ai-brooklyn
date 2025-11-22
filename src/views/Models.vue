@@ -65,29 +65,22 @@ const filteredModules = computed(() =>
 );
 
 onMounted(() => {
-  // بنضيف نقطة ثابتة جديدة في الهستوري
   window.history.pushState(null, "", window.location.href);
-
-  // لو حاول يرجع → نرجّعه تاني لنفس الصفحة
-  window.onpopstate = function () {
+  window.onpopstate = () => {
     window.history.pushState(null, "", window.location.href);
   };
 });
 
 onUnmounted(() => {
-  // نرجع الباك لطبيعته لو خرج من الصفحة
   window.onpopstate = null;
 });
 
 
 function goToModule(mod) {
-  console.log(mod);
-  
   moduleStore.setWidgetId(mod.widgetId);
-
-router.push(`/model/${mod.slug}`)
-
+  router.push(`/model/${mod.slug}`);
 }
+
 
 </script>
 

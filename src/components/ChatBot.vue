@@ -1,17 +1,38 @@
 
+
 <script setup>
+
+
+import { useRoute } from 'vue-router';
 import { useModuleStore } from '../stores/modules';
-import { watch, onMounted, onUnmounted } from "vue";
-import { useRoute } from "vue-router";
+import { watch, onUnmounted } from "vue";
 
 const route = useRoute();
 const moduleStore = useModuleStore();
 
 let script = null;
 
+// كامل وصحيح 100%
+const removeChat = () => {
+  const el = document.getElementById("chat-widget");
+  if (el) el.remove();
+
+
+
+  const btn = document.querySelector(".gb-widget-launcher");
+  if (btn) btn.remove();
+
+  const frame = document.querySelector("iframe[src*='getbutton']");
+  if (frame) frame.remove();
+
+  if (window.getbutton) {
+    try { window.getbutton.destroy(); } catch {}
+    delete window.getbutton;
+  }
+};
+
 const loadChat = () => {
   removeChat();
-
   const widgetId = moduleStore.currentWidgetId;
   if (!widgetId) return;
 
@@ -22,20 +43,9 @@ const loadChat = () => {
   document.body.appendChild(script);
 };
 
-const removeChat = () => {
-  const el = document.getElementById("chat-widget");
-  if (el) el.remove();
-
-  if (window.getbutton) {
-    try { window.getbutton.destroy(); } catch {}
-    delete window.getbutton;
-  }
-};
-
 watch(
   () => route.path,
   (path) => {
-    // يظهر فقط داخل business-instructor
     if (path.startsWith("/model/")) {
       loadChat();
     } else {
