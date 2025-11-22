@@ -17,12 +17,12 @@ const handleBack = () => {
 };
 
 
-const currentModule = computed(() =>
-  modules.find((m) => m.slug === route.params.slug)
-);
+// const currentModule = computed(() =>
+//   modules.find((m) => m.slug === route.params.slug)
+// );
 
 
-const widgetId = computed(() => currentModule.value?.widgetId);
+// const widgetId = computed(() => currentModule.value?.widgetId);
 </script>
 
 <template>
@@ -36,7 +36,7 @@ const widgetId = computed(() => currentModule.value?.widgetId);
         <span>{{ $t("models.useModule") }}</span>
       </button>
     </div>
-
+<h1>model page</h1>
     <!-- <div class="flex-grow gap-6 mt-8 flex flex-col text-center py-8">
 
       <h2 class="text-xl md:text-4xl font-bold text-[#002d62] mb-4">
