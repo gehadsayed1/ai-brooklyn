@@ -15,9 +15,10 @@ const routes = [
     component: () => import("../views/ServiceDetails.vue"),
   },
   {
-    path: "/model/:slug",
-    name: "ModelPage",
+    path: "/business-instructor",
+    name: "BusinessInstructor",
     component: () => import("../views/ModelPage.vue"),
+    meta: { requiresAuth: true },
   },
   {
     path: "/models",

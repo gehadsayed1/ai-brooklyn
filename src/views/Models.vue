@@ -46,11 +46,13 @@
 
   </div>
 </template>
-<script setup>import { computed, onMounted, onUnmounted, ref } from 'vue';;
+
+<script setup>
+import { useModuleStore } from '../stores/modules';
+import { ref, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
-import { modules } from "../data/modules";
-import { useModuleStore } from "../stores/modules";
+import { modules } from "../data/modules";;
 
 const router = useRouter();
 const { t } = useI18n();
@@ -64,24 +66,10 @@ const filteredModules = computed(() =>
   )
 );
 
-onMounted(() => {
-  window.history.pushState(null, "", window.location.href);
-  window.onpopstate = () => {
-    window.history.pushState(null, "", window.location.href);
-  };
-});
-
-onUnmounted(() => {
-  window.onpopstate = null;
-});
-
-
 function goToModule(mod) {
   moduleStore.setWidgetId(mod.widgetId);
-  router.push(`/model/${mod.slug}`);
+  router.push(mod.route);
 }
-
-
 </script>
 
 <style>
