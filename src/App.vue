@@ -47,7 +47,7 @@ import ChatBot from "./components/ChatBot.vue";
 import ExpiryWarningPopup from "./components/ExpiryWarningPopup.vue";
 import NoAccessNotification from "./components/NoAccessNotification.vue";
 import { watch } from "vue";
-import { useRoute } from "vue-router";
+
 
 const route = useRoute();
 
