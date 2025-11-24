@@ -11,7 +11,6 @@ export function useAccessControl() {
 
   const redirectBasedOnAccess = () => {
     if (!hasAccess.value) {
-      // إذا لم يكن لديه access، يرجع للـ home
       router.push('/');
       return false;
     }

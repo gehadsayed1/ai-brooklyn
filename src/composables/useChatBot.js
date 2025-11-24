@@ -6,7 +6,7 @@ export function useChatBot() {
   const removeChat = () => {
     console.log("🔥 Removing chat widget...");
 
-    // 1 — Try to destroy existing instance first
+
     if (window.getbutton) {
       try {
         window.getbutton.destroy();
@@ -15,7 +15,7 @@ export function useChatBot() {
       }
     }
 
-    // 2 — Remove all global references BEFORE removing DOM
+
     try {
       delete window.getbutton;
     } catch {}
@@ -26,7 +26,7 @@ export function useChatBot() {
       window.gbHashId = undefined;
     } catch {}
 
-    // Remove all getbutton-related globals
+
     Object.keys(window).forEach((key) => {
       if (
         key.toLowerCase().includes("getbutton") ||
@@ -38,7 +38,7 @@ export function useChatBot() {
       }
     });
 
-    // 3 — Remove main script
+
     const script = document.getElementById("chat-widget");
     if (script) {
       script.onload = null;
@@ -46,7 +46,7 @@ export function useChatBot() {
       script.remove();
     }
 
-    // 4 — Remove all widget DOM elements completely
+
     const widgetSelectors = [
       ".gb-widget",
       ".gb-widget-launcher",
@@ -63,7 +63,6 @@ export function useChatBot() {
     widgetSelectors.forEach((selector) => {
       try {
         document.querySelectorAll(selector).forEach((el) => {
-          // Remove event listeners by cloning
           const newEl = el.cloneNode(false);
           el.parentNode?.replaceChild(newEl, el);
           newEl.remove();
@@ -73,7 +72,7 @@ export function useChatBot() {
       }
     });
 
-    // 5 — Remove all styles injected by GetButton
+
     const styleSelectors = [
       "style[data-emotion]",
       "style[id*='gb-']",
@@ -89,7 +88,6 @@ export function useChatBot() {
       }
     });
 
-    // 6 — Remove all scripts related to getbutton
     document.querySelectorAll("script").forEach((script) => {
       if (script.src && script.src.includes("getbutton")) {
         script.remove();
@@ -100,10 +98,8 @@ export function useChatBot() {
   };
 
   const loadChat = () => {
-    // Clean up first
     removeChat();
 
-    // Wait longer to ensure complete cleanup
     setTimeout(() => {
       const existingScript = document.getElementById("chat-widget");
       if (existingScript) {
@@ -121,7 +117,6 @@ export function useChatBot() {
 
       console.log(`📦 Loading chat widget with ID: ${widgetId}`);
 
-      // Create new script element
       const script = document.createElement("script");
       script.src = `https://static.getbutton.io/widget/bundle.js?id=${widgetId}`;
       script.defer = true;
@@ -130,7 +125,6 @@ export function useChatBot() {
 
       script.onload = () => {
         console.log("✅ Chat widget loaded successfully");
-        // Give it a moment to initialize
         setTimeout(() => {
           if (window.getbutton) {
             console.log("✅ GetButton instance is ready");
@@ -145,7 +139,7 @@ export function useChatBot() {
       };
 
       document.body.appendChild(script);
-    }, 800); // Increased timeout for better cleanup
+    }, 800);
   };
 
   return {

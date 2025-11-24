@@ -17,11 +17,9 @@ watch(
   (newPath, oldPath) => {
     console.log("Route changed from", oldPath, "to", newPath);
 
-    // لازم نشيل الشات الأول
     removeChat();
 
     if (newPath.startsWith("/model/")) {
-      // نديله وقت أطول (800ms) عشان الـ cleanup يكتمل بشكل كامل
       setTimeout(() => {
         loadChat();
       }, 800);
@@ -34,7 +32,6 @@ watch(
 
 
 onMounted(() => {
-  // الـ chatbot هيتحمل تلقائياً من خلال الـ watch
 });
 
 onUnmounted(() => {
