@@ -2,7 +2,6 @@ import { createRouter, createWebHistory } from "vue-router";
 import { useLoginWithGoogleStore } from "../stores/LoginWithGoogle";
 import { useGoogleAnalytics } from "../composables/useGoogleAnalytics";
 
-
 const routes = [
   {
     path: "/",
@@ -38,25 +37,19 @@ const router = createRouter({
   routes,
 });
 
-
 router.beforeEach(async (to, from, next) => {
-   next();
-  return;
   const store = useLoginWithGoogleStore();
   const isLoggedIn = await store.checkAuth();
-
 
   if (to.path === "/" && isLoggedIn && store.checkBotAccess()) {
     next("/models");
     return;
   }
 
- 
   if (to.path === "/" || to.path === "/service-details") {
     next();
     return;
   }
-
 
   if (to.path === "/models" || to.path.startsWith("/model/")) {
     if (isLoggedIn && store.checkBotAccess()) {
@@ -67,10 +60,8 @@ router.beforeEach(async (to, from, next) => {
     return;
   }
 
-
   next("/");
 });
-
 
 router.afterEach((to) => {
   // next(); return;
