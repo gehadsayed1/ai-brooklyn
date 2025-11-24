@@ -1,51 +1,42 @@
-
-
 <script setup>
-import { removeChat } from '../components/ChatBot.vue';
 import { onMounted, onUnmounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { ArrowLeft } from 'lucide-vue-next';
+import { useChatBot } from '../composables/useChatBot';
 
 const router = useRouter();
 const route = useRoute();
+const { removeChat } = useChatBot();
 const isLoading = ref(false);
 
 const name = route.params.slug;
 
 const goBackToModels = () => {
-  removeChat();      
+  removeChat();
   router.push('/models');
 };
 
 onMounted(() => {
-  // لو مفيش flag في sessionStorage، يبقى أول مرة ندخل الصفحة
-
-    
-    // نعمل reload فوراً
-    window.location.reload();
-
+  // الصفحة هتتحمل تلقائياً بدون reload
+  // الـ chatbot هيتحمل تلقائياً من خلال الـ watch في ChatBot.vue
 });
 
 onUnmounted(() => {
   console.log("💨 Leaving ModelPage → removing chat");
   removeChat();
-  // نتأكد إننا شلنا الـ flag لو المستخدم مشي من الصفحة
-
 });
 </script>
 
 <template>
   <div class="w-full h-[80vh] flex flex-col relative">
     <div class="p-4">
-      <button 
-        @click="goBackToModels"
-        class="flex cursor-pointer items-center gap-2 text-primary hover:text-blue-700 transition-colors"
-      >
+      <button @click="goBackToModels"
+        class="flex cursor-pointer items-center gap-2 text-primary hover:text-blue-700 transition-colors">
         <ArrowLeft class="w-5 h-5" />
         <span>{{ $t('models.useModule') }}</span>
       </button>
     </div>
-    
+
     <div class="flex-grow gap-6 mt-8 flex flex-col text-center py-8">
       <h2 class="text-xl md:text-4xl font-bold text-[#002d62] mb-4">
         {{ $t('businessInstructor.title') }}
