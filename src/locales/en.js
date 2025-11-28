@@ -15,7 +15,7 @@ export default {
     },
   },
   hero: {
-    title: "Empowering Tomorrow with AI",
+    title: "Powering Your Business forward",
     description:
       "At AI Brooklyn, we specialize in cutting-edge artificial intelligence solutions that drive innovation, automation, and smarter digital experiences. From intelligent systems to AI-powered apps, we turn your vision into reality with the power of technology.",
     button: "Discover AI Solutions",
