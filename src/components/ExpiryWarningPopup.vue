@@ -96,17 +96,14 @@ const formattedExpiryDate = computed(() => {
 });
 
 const checkAndShowWarning = () => {
-  // التحقق من عدم إظهار التنبيه مرة أخرى
   const hideWarning = localStorage.getItem('hideExpiryWarning');
   if (hideWarning === 'true') {
     return;
   }
 
-  // التحقق من آخر مرة تم إظهار التنبيه فيها
   const lastShown = localStorage.getItem('lastExpiryWarningShown');
   const now = new Date().getTime();
   
-  // إظهار التنبيه مرة واحدة كل 24 ساعة
   if (lastShown && (now - parseInt(lastShown)) < 24 * 60 * 60 * 1000) {
     return;
   }
@@ -126,10 +123,7 @@ const closePopup = () => {
 };
 
 const renewSubscription = () => {
-  // يمكنك توجيه المستخدم لصفحة التجديد أو فتح رابط خارجي
   closePopup();
-  // مثال: router.push('/subscription');
-  // أو فتح رابط خارجي
   window.open('https://your-subscription-page.com', '_blank');
 };
 
