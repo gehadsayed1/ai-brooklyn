@@ -358,4 +358,9 @@ export default {
     laterButton: "Later",
     dontShowAgain: "Don't show this warning again",
   },
+  videoSection: {
+    howItWorks: "How It Works",
+    benefits: "Benefits",
+    clickToWatch: "Click to watch",
+  },
 };

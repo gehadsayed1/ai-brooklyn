@@ -350,4 +350,9 @@ export default {
     laterButton: "لاحقاً",
     dontShowAgain: "لا تظهر هذا التنبيه مرة أخرى",
   },
+  clickToWatch: "اضغط للمشاهدة",
+  videoSection: {
+    howItWorks: "كيف يعمل النظام؟",
+    benefits: "ماذا ستستفيد؟",
+  }
 };

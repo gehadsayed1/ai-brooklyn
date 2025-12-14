@@ -4,11 +4,12 @@ import ContactUssection from "../components/ContactUssection.vue";
 // import Footer from "../components/Footer.vue";
 import HeroSection from "../components/HeroSection.vue";
 import SolutionsSection from "../components/SolutionsSection.vue";
-import VedioPlayer from "../components/vedioPlayer.vue";
+import VideoPlayer from "../components/VideoPlayer.vue";
 import WhyChooseUsSection from "../components/WhyChooseUsSection.vue";
 // import ProjectsSection from "../components/ProjectsSection.vue";
 // import Navbar from "../components/NaveBar.vue";
-
+import { useI18n } from 'vue-i18n';
+const { t } = useI18n();
 //  
 </script>
 
@@ -22,8 +23,20 @@ import WhyChooseUsSection from "../components/WhyChooseUsSection.vue";
     <!-- Hero Section -->
     <HeroSection id="home"/>
 
-    <div class="flex itme-center justify-center py-3">
-      <VedioPlayer videoId="Q3ggqDxSlmo"/>
+    <div class="w-full max-w-7xl mx-auto px-4 py-16">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
+        <!-- How it Works Video -->
+        <VideoPlayer 
+          videoSrc="https://ik.imagekit.io/ts7pphpbz3/Ai%20Tool%20(2).mp4"
+          :title="t('videoSection.howItWorks')"
+        />
+        
+        <!-- Benefits Video -->
+        <VideoPlayer 
+          videoSrc="https://ik.imagekit.io/lwfhzb5ur/full%20video..mp4"
+          :title="t('videoSection.benefits')"
+        />
+      </div>
     </div>
     <!-- About Us Section -->
     <AboutUsSection />
